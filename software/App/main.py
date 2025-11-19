@@ -1,7 +1,9 @@
 from PySide6.QtWidgets import QApplication, QMainWindow
 from ui_PCUI import Ui_MainWindow
 from teams import Team
-
+import meshtastic
+import meshtastic.serial_interface
+from pubsub import pub
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -17,6 +19,7 @@ class MainWindow(QMainWindow):
 
         # CONNECT YOUR TEAM LOADING BUTTON HERE
         self.ui.pushButton_2.clicked.connect(self.collect_team_data)
+        # self.ui.pushButton.clicked.connect()
 
     # -------------------------
     # Page switching functions
@@ -36,7 +39,7 @@ class MainWindow(QMainWindow):
     def collect_team_data(self):
         self.teams = []  # list to hold Team objects
 
-        for i in range(1, 17):
+        for i in range(0, 17):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
             pid_widget = getattr(self.ui, f"PID{i}", None)
 
@@ -62,6 +65,15 @@ class MainWindow(QMainWindow):
 
             # Create and add Team object
             self.teams.append(Team(team_name, pid))
+
+            # After loading all valid teams
+            self.ui.comboBox.clear()
+            self.ui.comboBox_2.clear()
+
+            for team in self.teams:
+                # Add team name (or format it nicely)
+                self.ui.comboBox.addItem(team.name)
+                self.ui.comboBox_2.addItem(team.name)
 
         print("Valid teams loaded:")
         for t in self.teams:
