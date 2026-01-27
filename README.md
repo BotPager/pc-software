@@ -1,6 +1,7 @@
 
 # Readme
 Python pc software for team 22 low cost pager
+develop
 
 ## setup instructions
 - This project currently uses python 3.12.10.
