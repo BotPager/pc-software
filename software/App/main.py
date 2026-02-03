@@ -79,11 +79,10 @@ class MainWindow(QMainWindow):
         for t in self.teams:
             print(t)
 
-
+#meshtastic code
 
 # Run application
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
-    window.show()
     app.exec()

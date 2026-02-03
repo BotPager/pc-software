@@ -51,7 +51,7 @@ border-radius: 0px;
          <rect>
           <x>370</x>
           <y>30</y>
-          <width>81</width>
+          <width>131</width>
           <height>16</height>
          </rect>
         </property>
@@ -207,7 +207,7 @@ border-radius: 0px;
               <rect>
                <x>310</x>
                <y>60</y>
-               <width>71</width>
+               <width>91</width>
                <height>16</height>
               </rect>
              </property>
@@ -220,8 +220,8 @@ border-radius: 0px;
               <rect>
                <x>190</x>
                <y>90</y>
-               <width>295</width>
-               <height>240</height>
+               <width>391</width>
+               <height>283</height>
               </rect>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -412,9 +412,9 @@ border-radius: 0px;
             <widget class="QPushButton" name="pushButton_2">
              <property name="geometry">
               <rect>
-               <x>300</x>
-               <y>340</y>
-               <width>79</width>
+               <x>340</x>
+               <y>380</y>
+               <width>121</width>
                <height>24</height>
               </rect>
              </property>
@@ -429,7 +429,7 @@ border-radius: 0px;
               <rect>
                <x>230</x>
                <y>170</y>
-               <width>206</width>
+               <width>210</width>
                <height>122</height>
               </rect>
              </property>
