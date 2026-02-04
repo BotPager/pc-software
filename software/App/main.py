@@ -173,6 +173,9 @@ class MainWindow(QMainWindow):
 # loading teams from file into pc ui
     #loads into the teams object for use on manual mode only
     def load_teams_from_file(self):
+        if not os.path.exists("teams.txt"):
+            print("error teams.txt file missing\n either set teams or download a teams.txt and rerun software\n")
+            return
         # get data from file
         # read line by line
         with open("teams.txt") as f:
@@ -194,7 +197,6 @@ class MainWindow(QMainWindow):
                 # 1. Prevent breakage if you have more teams than UI slots (0-16)
                 if i > 16:
                     break
-
                 #Assign widget
                 team_widget = getattr(self.ui, f"TeamN{i}", None)
                 pid_widget = getattr(self.ui, f"PID{i}", None)
