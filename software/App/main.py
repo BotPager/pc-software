@@ -13,12 +13,14 @@ from PySide6.QtCore import (
          Slot
     )
 import time
-import numpy
+import numpy as np
 from ui_PCUI import Ui_MainWindow
 from teams import Team
 import meshtastic
 import meshtastic.serial_interface
 from pubsub import pub
+import os
+os.environ["QT_QUICK_CONTROLS_STYLE"] = "Universal"
 
 class Worker(QRunnable):
     """Worker thread.
@@ -51,22 +53,24 @@ class MainWindow(QMainWindow):
         #init threadding
         self.threadpool = QThreadPool()
         #debug things i think
-        thread_count = self.threadpool.maxThreadCount()
-        print(f"Multithreading with maximum {thread_count} threads")
+        # thread_count = self.threadpool.maxThreadCount()
+        # print(f"Multithreading with maximum {thread_count} threads")
         pub.subscribe(self.onDisconnect, "meshtastic.connection.lost")
         pub.subscribe(self.onConnection, "meshtastic.connection.established")
-        self.setup_mesh()
-        self.teams = []  # list to hold Team objects
 
-
-
-        
-        
         # Load UI
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         #always load to inputting pagers
         self.ui.stackedWidget.setCurrentIndex(0)
+
+        self.teams = []  # list to hold Team objects
+        self.load_teams_from_file()
+        self.setup_mesh()
+
+
+       
+
 
         # Connect page switches
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
@@ -107,35 +111,106 @@ class MainWindow(QMainWindow):
             team_name = team_widget.text().strip()
             pid = pid_widget.text().strip()
 
-            # Skip empty rows
-            if team_name == "" or pid == "":
-                continue
+            self.check_valid(team_name,pid)
+        self.set_teams()
 
-            # Validate team number
-            if not (team_name.isdigit() and 1 <= int(team_name) <= 9999):
-                print(f"Invalid TeamN{i}: {team_name}")
-                continue
+    # After loading all valid teams
+    def set_teams(self):
+        self.ui.TeamA_box.clear()
+        self.ui.TeamB_box.clear()
 
-            # Validate PID (4 hex characters)
-            if not (len(pid) == 4 and all(c in "0123456789abcdefABCDEF" for c in pid)):
-                print(f"Invalid PID{i}: {pid}")
-                continue
+        for team in self.teams:
+            # Add team name (or format it nicely)
+            self.ui.TeamA_box.addItem(team.name,team)
+            self.ui.TeamB_box.addItem(team.name,team)
 
-            # Create and add Team object
-            self.teams.append(Team(team_name, pid))
+        self.print_teams()
 
-            # After loading all valid teams
-            self.ui.TeamA_box.clear()
-            self.ui.TeamB_box.clear()
 
-            for team in self.teams:
-                # Add team name (or format it nicely)
-                self.ui.TeamA_box.addItem(team.name,team)
-                self.ui.TeamB_box.addItem(team.name,team)
+#debug info probably for what teams are validly loaded
+    def print_teams(self):
+        if len(self.teams) != 0:
+            print("Valid teams loaded:")
+            for t in self.teams:
+                print(t)
+                self.save_teams()
+        else:
+            print("no valid teams")
+#code used when loading teams to verify no duplicated and to skip empty lines
+    def check_valid(self,team_name,pid):
+        # Skip empty rows
+        if team_name == "" or pid == "":
+            return
 
-        print("Valid teams loaded:")
-        for t in self.teams:
-            print(t)
+        # Validate team number
+        if not (team_name.isdigit() and 1 <= int(team_name) <= 9999):
+            print(f"Invalid TeamN: {team_name}")
+            return
+
+        # Validate PID (4 hex characters)
+        if not (len(pid) == 4 and all(c in "0123456789abcdefABCDEF" for c in pid)):
+            print(f"Invalid PID: {pid}")
+            return
+        #check duplicate team number or duplicate pid
+        new_team = Team(team_name,pid)
+
+        if any(t.name == new_team.name for t in self.teams):
+            print(f"skipping duplicate team '{new_team.name}'")
+            return
+        if any(t.pid == new_team.pid for t in self.teams):
+            print(f"skipping duplicate team 'new_team.pid'")
+            return
+
+        # Create and add Team object
+        self.teams.append(new_team)
+#save teams when we click load teams
+    def save_teams(self):
+        #get data to list
+        # convert to numpy array
+        team_data = [[t.name, t.pid] for t in self.teams]
+        converted_array = np.array(team_data)
+        np.savetxt("teams.txt",converted_array,delimiter=",",fmt='%s') 
+# loading teams from file into pc ui
+    #loads into the teams object for use on manual mode only
+    def load_teams_from_file(self):
+        # get data from file
+        # read line by line
+        with open("teams.txt") as f:
+            for x in f:
+               #strip
+               x = x.strip('\n')
+               # index 0 = teamnumber
+               # index 1 = pid
+               a = x.split(",",2)
+               #validation
+               self.check_valid(a[0],a[1])
+        f.close()
+        self.set_teams()
+    #load teams into the boxes for set teams page
+    # i think we accomplish load by doing the inverse of this
+    # def collect_team_data(self):
+    #     #remove teams to makesure they dont duplicate
+    #     self.teams.clear()
+    #     for i in range(0, 17):
+    #         team_widget = getattr(self.ui, f"TeamN{i}", None)
+    #         pid_widget = getattr(self.ui, f"PID{i}", None)
+
+    #         if not team_widget or not pid_widget:
+    #             continue
+
+    #         team_name = team_widget.text().strip()
+    #         pid = pid_widget.text().strip()
+
+    #         self.check_valid(team_name,pid)
+    #     self.set_teams()
+
+    def display_loaded(self):
+        for i in range(0,17):
+
+
+
+                     
+
 
 
     #meshtastic code
@@ -161,8 +236,8 @@ class MainWindow(QMainWindow):
                         self.interface.close()
                 except Exception as e:
                     print("Error device not connected\n")
-                    print(f"trying again in 1 seconds {e}")
-                    time.sleep(1)
+                    print(f"trying again in 3 seconds {e}")
+                    time.sleep(3)
 
         worker = Worker(connection_task)
         self.threadpool.start(worker)
@@ -215,7 +290,7 @@ class MainWindow(QMainWindow):
         time.sleep(5)
         self.interface.sendText(messageTeamB)
 
-        
+
 # Run application
 if __name__ == "__main__":
     app = QApplication([])
