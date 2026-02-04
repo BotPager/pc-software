@@ -55,26 +55,34 @@ class MainWindow(QMainWindow):
         pub.subscribe(self.onDisconnect, "meshtastic.connection.lost")
         pub.subscribe(self.onConnection, "meshtastic.connection.established")
         self.setup_mesh()
+        self.teams = []  # list to hold Team objects
+
 
 
         
         
         # Load UI
+
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        #always load to inputting pagers
+        self.ui.stackedWidget.setCurrentIndex(0)
 
         # Connect page switches
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
         self.ui.SwitchPager.clicked.connect(self.show_set_pagers_page)
         self.ui.SwitchAuto.clicked.connect(self.show_automatic_page)
 
-        # CONNECT YOUR TEAM LOADING BUTTON HERE
+        # connect to team loading button
         self.ui.pushButton_2.clicked.connect(self.collect_team_data)
 
+        #connect to send message butotn
+        self.ui.MessageTeam.clicked.connect(self.send_message_manual)
+
           
-    # -------------------------
+
     # Page switching functions
-    # -------------------------
+
     def show_manual_page(self):
         self.ui.stackedWidget.setCurrentIndex(1)
 
@@ -84,11 +92,10 @@ class MainWindow(QMainWindow):
     def show_automatic_page(self):
         self.ui.stackedWidget.setCurrentIndex(2)
 
-    # -------------------------
-    # TEAM DATA COLLECTION
-    # -------------------------
+    # Team data collection
+
     def collect_team_data(self):
-        self.teams = []  # list to hold Team objects
+
 
         for i in range(0, 17):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
@@ -118,13 +125,13 @@ class MainWindow(QMainWindow):
             self.teams.append(Team(team_name, pid))
 
             # After loading all valid teams
-            self.ui.comboBox.clear()
-            self.ui.comboBox_2.clear()
+            self.ui.TeamA_box.clear()
+            self.ui.TeamB_box.clear()
 
             for team in self.teams:
                 # Add team name (or format it nicely)
-                self.ui.comboBox.addItem(team.name)
-                self.ui.comboBox_2.addItem(team.name)
+                self.ui.TeamA_box.addItem(team.name,team)
+                self.ui.TeamB_box.addItem(team.name,team)
 
         print("Valid teams loaded:")
         for t in self.teams:
@@ -134,11 +141,7 @@ class MainWindow(QMainWindow):
     #meshtastic code
     #start the connection to the meshtastic gateway
     #now rewritten to not pause the ui
-
-
-
-
-
+    #handles disconnects as well
 
     def setup_mesh(self):
         if self.is_connecting:
@@ -146,21 +149,19 @@ class MainWindow(QMainWindow):
         else:
             self.is_connecting = True
         def connection_task():
-            #set interface
+            #try to connect to device if this doesnt work (it uses the tty interface instead retry)
             while self.is_connecting:
                 try:
                     print("connecting")
                     self.interface = meshtastic.serial_interface.SerialInterface()
                     print(self.interface)
                     if self.interface.devPath:
-                        connected = True
                         break
                     else:
                         self.interface.close()
-                        connected = False
                 except Exception as e:
                     print("Error device not connected\n")
-                    print(f"trying again in 1 seconds ({e})")
+                    print(f"trying again in 1 seconds {e}")
                     time.sleep(1)
 
         worker = Worker(connection_task)
@@ -182,6 +183,37 @@ class MainWindow(QMainWindow):
             self.interface = None
 
         self.setup_mesh()
+    #message sending manual mode
+    #get the object from the currently selected team number (read index of current selection)
+        #team a right
+        #team b left
+    #automatic may just use result from api matched against the array teams?
+    def send_message_manual(self):
+        #get data from currently selected teams
+        TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamB_box.currentIndex()))
+        TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamA_box.currentIndex()))
+
+        TeamBName = TeamBObject.name
+        TeamAName = TeamAObject.name
+
+        #need to add check to make sure names arent duplicates
+        #if teama.name  == teamb.name  error and show message
+        worker = Worker(self.send_message, TeamAObject.pid,TeamAObject.pid)
+        self.threadpool.start(worker)
+        # self.send_message(TeamAPID,TeamBPID)
+
+    #should be reusable for automatic mode
+    #maybe needs to be changed slightly? but the message format makes sense.
+    #just combine strings and then send result over meshtastic api call
+    def send_message(self, TeamAPID, TeamBPID):
+        message = "|go to pit"
+        messageTeamA = TeamAPID + message;
+        messageTeamB = TeamBPID + message;
+
+        self.interface.sendText(messageTeamA)
+        #arbitrary needs to be tested to see how long is actually needed
+        time.sleep(5)
+        self.interface.sendText(messageTeamB)
         
 # Run application
 if __name__ == "__main__":
