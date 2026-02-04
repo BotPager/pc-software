@@ -12,6 +12,7 @@ from PySide6.QtCore import (
          QTimer,
          Slot
     )
+import time
 from ui_PCUI import Ui_MainWindow
 from teams import Team
 import meshtastic
@@ -50,6 +51,7 @@ class MainWindow(QMainWindow):
         #debug things i think
         thread_count = self.threadpool.maxThreadCount()
         print(f"Multithreading with maximum {thread_count} threads")
+        self.setup_mesh()
 
         
         
@@ -127,12 +129,25 @@ class MainWindow(QMainWindow):
 
 
     #meshtastic code
-    interface = meshtastic.serial_interface.SerialInterface()
+    #start the connection to the meshtastic gateway
     def setup_mesh(self):
-        pub.subscribe(self.onConnection, "meshtastic.connection.established")
+        #subscribe to event
         def connection_task():
-            self.interface = meshtastic.serail_interface.SerialInterface()          
-        worker = Worker(connect_task)
+            #set interface
+            connected = False
+
+            while not connected:
+                try:
+                    pub.subscribe(self.onConnection, "meshtastic.connection.established")
+                    #set interface but dont fall back to tcp connection
+                    self.interface = meshtastic.serial_interface.SerialInterface(noProto=True)
+                    connected = True
+                except Exception as e:
+                    print("Error device not connected\n")
+                    print("trying again in 5 seconds ({e})")
+                    time.sleep(5)
+
+        worker = Worker(connection_task)
         self.threadpool.start(worker)
     def onConnection(self, interface, topic=pub.AUTO_TOPIC):
         print("connected")
