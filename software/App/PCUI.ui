@@ -199,7 +199,7 @@ border-radius: 0px;
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="SetTeams">
             <widget class="QLabel" name="TeamTitleLable">
@@ -207,12 +207,12 @@ border-radius: 0px;
               <rect>
                <x>310</x>
                <y>60</y>
-               <width>91</width>
+               <width>131</width>
                <height>16</height>
               </rect>
              </property>
              <property name="text">
-              <string>testing</string>
+              <string>Enter Team Info</string>
              </property>
             </widget>
             <widget class="QWidget" name="horizontalLayoutWidget_3">
