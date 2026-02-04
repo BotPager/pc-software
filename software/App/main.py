@@ -289,12 +289,25 @@ class MainWindow(QMainWindow):
     def send_message(self, TeamAPID, TeamBPID):
         print("sending")
         message = "|go to pit"
-
         messageTeamA = TeamAPID + message;
         messageTeamB = TeamBPID + message;
-        print(messageTeamB)
-        print(messageTeamA)
-        self.interface.sendText(messageTeamA)
+        #error handling for pager disconnection during send
+        sent = False
+        while not sent:
+            while self.interface is None or self.is_connecting:
+                print("sending sent waiting for connection to device")
+                time.sleep(2)
+            try:
+                self.interface.sendText(messageTeamA)
+                time.sleep(4)
+                self.interface.sendText(messageTeamB)
+                sent = True
+            except Exception as e:
+                print(" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
+                sent = False
+                time.sleep(2)
+
+
         #arbitrary needs to be tested to see how long is actually needed
         time.sleep(5)
         self.interface.sendText(messageTeamB)
