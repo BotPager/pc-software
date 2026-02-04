@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PCUIBknWFP.ui'
+## Form generated from reading UI file 'PCUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.10.0
+## Created by: Qt User Interface Compiler version 6.10.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -43,7 +43,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShadow(QFrame.Shadow.Plain)
         self.label = QLabel(self.frame)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(370, 30, 81, 16))
+        self.label.setGeometry(QRect(370, 30, 131, 16))
 
         self.TopBar.addWidget(self.frame)
 
@@ -119,10 +119,10 @@ class Ui_MainWindow(object):
         self.SetTeams.setObjectName(u"SetTeams")
         self.TeamTitleLable = QLabel(self.SetTeams)
         self.TeamTitleLable.setObjectName(u"TeamTitleLable")
-        self.TeamTitleLable.setGeometry(QRect(310, 60, 71, 16))
+        self.TeamTitleLable.setGeometry(QRect(310, 60, 131, 16))
         self.horizontalLayoutWidget_3 = QWidget(self.SetTeams)
         self.horizontalLayoutWidget_3.setObjectName(u"horizontalLayoutWidget_3")
-        self.horizontalLayoutWidget_3.setGeometry(QRect(190, 90, 295, 240))
+        self.horizontalLayoutWidget_3.setGeometry(QRect(190, 90, 391, 283))
         self.horizontalLayout_3 = QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -362,13 +362,13 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QRect(90, 360, 49, 16))
         self.pushButton_2 = QPushButton(self.SetTeams)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setGeometry(QRect(300, 340, 79, 24))
+        self.pushButton_2.setGeometry(QRect(340, 380, 121, 24))
         self.stackedWidget.addWidget(self.SetTeams)
         self.Manual = QWidget()
         self.Manual.setObjectName(u"Manual")
         self.horizontalLayoutWidget = QWidget(self.Manual)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
-        self.horizontalLayoutWidget.setGeometry(QRect(230, 170, 206, 122))
+        self.horizontalLayoutWidget.setGeometry(QRect(230, 170, 210, 122))
         self.horizontalLayout_2 = QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -461,7 +461,7 @@ class Ui_MainWindow(object):
         self.SwitchPager.setText(QCoreApplication.translate("MainWindow", u"Set Pagers", None))
         self.SwitchManual.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.SwitchAuto.setText(QCoreApplication.translate("MainWindow", u"Automatic", None))
-        self.TeamTitleLable.setText(QCoreApplication.translate("MainWindow", u"Set Teams", None))
+        self.TeamTitleLable.setText(QCoreApplication.translate("MainWindow", u"Enter Team Info", None))
         self.PagerID1.setText(QCoreApplication.translate("MainWindow", u"Team Number", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
         self.PagerID1_2.setText(QCoreApplication.translate("MainWindow", u"Team Number", None))
