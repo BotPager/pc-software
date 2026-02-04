@@ -45,13 +45,17 @@ class Worker(QRunnable):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        self.interface = None
+        self.is_connecting = False  # The gatekeeper flag
         #init threadding
         self.threadpool = QThreadPool()
         #debug things i think
         thread_count = self.threadpool.maxThreadCount()
         print(f"Multithreading with maximum {thread_count} threads")
+        pub.subscribe(self.onDisconnect, "meshtastic.connection.lost")
+        pub.subscribe(self.onConnection, "meshtastic.connection.established")
         self.setup_mesh()
+
 
         
         
@@ -66,8 +70,7 @@ class MainWindow(QMainWindow):
 
         # CONNECT YOUR TEAM LOADING BUTTON HERE
         self.ui.pushButton_2.clicked.connect(self.collect_team_data)
-        # self.ui.pushButton.clicked.connect()
-        #
+
           
     # -------------------------
     # Page switching functions
@@ -130,27 +133,55 @@ class MainWindow(QMainWindow):
 
     #meshtastic code
     #start the connection to the meshtastic gateway
+    #now rewritten to not pause the ui
+
+
+
+
+
+
     def setup_mesh(self):
-        #subscribe to event
+        if self.is_connecting:
+            return
+        else:
+            self.is_connecting = True
         def connection_task():
             #set interface
-            connected = False
-
-            while not connected:
+            while self.is_connecting:
                 try:
-                    pub.subscribe(self.onConnection, "meshtastic.connection.established")
-                    #set interface but dont fall back to tcp connection
-                    self.interface = meshtastic.serial_interface.SerialInterface(noProto=True)
-                    connected = True
+                    print("connecting")
+                    self.interface = meshtastic.serial_interface.SerialInterface()
+                    print(self.interface)
+                    if self.interface.devPath:
+                        connected = True
+                        break
+                    else:
+                        self.interface.close()
+                        connected = False
                 except Exception as e:
                     print("Error device not connected\n")
-                    print("trying again in 5 seconds ({e})")
-                    time.sleep(5)
+                    print(f"trying again in 1 seconds ({e})")
+                    time.sleep(1)
 
         worker = Worker(connection_task)
         self.threadpool.start(worker)
+
+
     def onConnection(self, interface, topic=pub.AUTO_TOPIC):
         print("connected")
+        self.is_connecting = False
+
+    def onDisconnect(self, interface, topic=pub.AUTO_TOPIC):
+        print("disconnection occurred please recconnect")
+        self.is_connecting = False
+        if self.interface:
+            try:
+                self.interface.close()
+            except:
+                pass
+            self.interface = None
+
+        self.setup_mesh()
         
 # Run application
 if __name__ == "__main__":
