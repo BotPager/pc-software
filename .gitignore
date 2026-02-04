@@ -1,1 +1,5 @@
 software/design/*
+.devenv
+software/App_test
+software/App/.qtcreator
+software/App/__pycache__
