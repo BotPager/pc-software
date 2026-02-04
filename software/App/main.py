@@ -95,8 +95,8 @@ class MainWindow(QMainWindow):
     # Team data collection
 
     def collect_team_data(self):
-
-
+        #remove teams to makesure they dont duplicate
+        self.teams.clear()
         for i in range(0, 17):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
             pid_widget = getattr(self.ui, f"PID{i}", None)
@@ -214,6 +214,7 @@ class MainWindow(QMainWindow):
         #arbitrary needs to be tested to see how long is actually needed
         time.sleep(5)
         self.interface.sendText(messageTeamB)
+
         
 # Run application
 if __name__ == "__main__":
