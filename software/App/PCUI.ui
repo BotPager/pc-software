@@ -255,52 +255,52 @@ border-radius: 0px;
                 <item>
                  <layout class="QGridLayout" name="TeamBlock1">
                   <item row="0" column="1">
-                   <widget class="QLineEdit" name="PID1"/>
+                   <widget class="QLineEdit" name="PID0"/>
                   </item>
                   <item row="3" column="0">
-                   <widget class="QLineEdit" name="TeamN4"/>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="PID3"/>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QLineEdit" name="PID2"/>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLineEdit" name="TeamN7"/>
-                  </item>
-                  <item row="2" column="0">
                    <widget class="QLineEdit" name="TeamN3"/>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QLineEdit" name="PID4"/>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="PID2"/>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="TeamN1"/>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="PID1"/>
                   </item>
-                  <item row="5" column="1">
-                   <widget class="QLineEdit" name="PID6"/>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLineEdit" name="TeamN5"/>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLineEdit" name="PID5"/>
-                  </item>
-                  <item row="5" column="0">
+                  <item row="6" column="0">
                    <widget class="QLineEdit" name="TeamN6"/>
                   </item>
-                  <item row="1" column="0">
+                  <item row="2" column="0">
                    <widget class="QLineEdit" name="TeamN2"/>
                   </item>
+                  <item row="3" column="1">
+                   <widget class="QLineEdit" name="PID3"/>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLineEdit" name="TeamN0"/>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLineEdit" name="PID5"/>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLineEdit" name="TeamN4"/>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLineEdit" name="PID4"/>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLineEdit" name="TeamN5"/>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLineEdit" name="TeamN1"/>
+                  </item>
                   <item row="7" column="0">
-                   <widget class="QLineEdit" name="TeamN8"/>
+                   <widget class="QLineEdit" name="TeamN7"/>
                   </item>
                   <item row="6" column="1">
-                   <widget class="QLineEdit" name="PID7"/>
+                   <widget class="QLineEdit" name="PID6"/>
                   </item>
                   <item row="7" column="1">
-                   <widget class="QLineEdit" name="PID8"/>
+                   <widget class="QLineEdit" name="PID7"/>
                   </item>
                  </layout>
                 </item>
@@ -343,52 +343,52 @@ border-radius: 0px;
                 <item>
                  <layout class="QGridLayout" name="TeamBlock2">
                   <item row="0" column="1">
-                   <widget class="QLineEdit" name="PID9"/>
+                   <widget class="QLineEdit" name="PID8"/>
                   </item>
                   <item row="3" column="0">
-                   <widget class="QLineEdit" name="TeamN12"/>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="PID11"/>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QLineEdit" name="PID10"/>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLineEdit" name="TeamN15"/>
-                  </item>
-                  <item row="2" column="0">
                    <widget class="QLineEdit" name="TeamN11"/>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QLineEdit" name="PID12"/>
+                  <item row="2" column="1">
+                   <widget class="QLineEdit" name="PID10"/>
                   </item>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="TeamN9"/>
+                  <item row="1" column="1">
+                   <widget class="QLineEdit" name="PID9"/>
                   </item>
-                  <item row="5" column="1">
-                   <widget class="QLineEdit" name="PID14"/>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLineEdit" name="TeamN13"/>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLineEdit" name="PID13"/>
-                  </item>
-                  <item row="5" column="0">
+                  <item row="6" column="0">
                    <widget class="QLineEdit" name="TeamN14"/>
                   </item>
-                  <item row="1" column="0">
+                  <item row="2" column="0">
                    <widget class="QLineEdit" name="TeamN10"/>
                   </item>
+                  <item row="3" column="1">
+                   <widget class="QLineEdit" name="PID11"/>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLineEdit" name="TeamN8"/>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLineEdit" name="PID13"/>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLineEdit" name="TeamN12"/>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLineEdit" name="PID12"/>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLineEdit" name="TeamN13"/>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLineEdit" name="TeamN9"/>
+                  </item>
                   <item row="7" column="0">
-                   <widget class="QLineEdit" name="TeamN16"/>
+                   <widget class="QLineEdit" name="TeamN15"/>
                   </item>
                   <item row="6" column="1">
-                   <widget class="QLineEdit" name="PID15"/>
+                   <widget class="QLineEdit" name="PID14"/>
                   </item>
                   <item row="7" column="1">
-                   <widget class="QLineEdit" name="PID16"/>
+                   <widget class="QLineEdit" name="PID15"/>
                   </item>
                  </layout>
                 </item>

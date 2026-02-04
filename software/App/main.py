@@ -186,26 +186,30 @@ class MainWindow(QMainWindow):
                self.check_valid(a[0],a[1])
         f.close()
         self.set_teams()
-    #load teams into the boxes for set teams page
-    # i think we accomplish load by doing the inverse of this
-    # def collect_team_data(self):
-    #     #remove teams to makesure they dont duplicate
-    #     self.teams.clear()
-    #     for i in range(0, 17):
-    #         team_widget = getattr(self.ui, f"TeamN{i}", None)
-    #         pid_widget = getattr(self.ui, f"PID{i}", None)
-
-    #         if not team_widget or not pid_widget:
-    #             continue
-
-    #         team_name = team_widget.text().strip()
-    #         pid = pid_widget.text().strip()
-
-    #         self.check_valid(team_name,pid)
-    #     self.set_teams()
-
+        self.display_loaded()
+    #show loaded teams on the editable textbox
     def display_loaded(self):
-        for i in range(0,17):
+            # Use enumerate to get the index (i) and the object (team) at the same time
+            for i, team in enumerate(self.teams):
+                # 1. Prevent breakage if you have more teams than UI slots (0-16)
+                if i > 16:
+                    break
+
+                # 2. ASSIGN the widgets first
+                team_widget = getattr(self.ui, f"TeamN{i}", None)
+                pid_widget = getattr(self.ui, f"PID{i}", None)
+
+                # 3. CHECK if they exist, then SET the text
+                if team_widget:
+                    team_widget.setText(str(team.name))
+
+                if pid_widget:
+                    pid_widget.setText(str(team.pid))
+
+
+
+
+
 
 
 
