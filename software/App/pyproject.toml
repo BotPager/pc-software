@@ -1,0 +1,5 @@
+[project]
+name = "Senior Design Team 22 meshtastic software"
+
+[tool.pyside6-project]
+files = ["main.py", "PCUI.ui", "ui_PCUI.py"]
