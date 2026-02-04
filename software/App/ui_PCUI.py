@@ -393,10 +393,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.TeamA, 0, 0, 1, 1)
 
-        self.comboBox_2 = QComboBox(self.ManualIcons)
-        self.comboBox_2.setObjectName(u"comboBox_2")
+        self.TeamB_box = QComboBox(self.ManualIcons)
+        self.TeamB_box.setObjectName(u"TeamB_box")
 
-        self.gridLayout.addWidget(self.comboBox_2, 1, 1, 1, 1)
+        self.gridLayout.addWidget(self.TeamB_box, 1, 1, 1, 1)
 
         self.TeamB = QLabel(self.ManualIcons)
         self.TeamB.setObjectName(u"TeamB")
@@ -404,20 +404,20 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.TeamB, 0, 1, 1, 1)
 
-        self.comboBox = QComboBox(self.ManualIcons)
-        self.comboBox.setObjectName(u"comboBox")
+        self.TeamA_box = QComboBox(self.ManualIcons)
+        self.TeamA_box.setObjectName(u"TeamA_box")
 
-        self.gridLayout.addWidget(self.comboBox, 1, 0, 1, 1)
+        self.gridLayout.addWidget(self.TeamA_box, 1, 0, 1, 1)
 
 
         self.verticalLayout_6.addLayout(self.gridLayout)
 
         self.verticalLayout_4 = QVBoxLayout()
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.pushButton = QPushButton(self.ManualIcons)
-        self.pushButton.setObjectName(u"pushButton")
+        self.MessageTeam = QPushButton(self.ManualIcons)
+        self.MessageTeam.setObjectName(u"MessageTeam")
 
-        self.verticalLayout_4.addWidget(self.pushButton)
+        self.verticalLayout_4.addWidget(self.MessageTeam)
 
 
         self.verticalLayout_6.addLayout(self.verticalLayout_4)
@@ -471,6 +471,6 @@ class Ui_MainWindow(object):
         self.Title.setText(QCoreApplication.translate("MainWindow", u"            MANUAL QUEUE", None))
         self.TeamA.setText(QCoreApplication.translate("MainWindow", u"Select Team A", None))
         self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Select Team B", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
+        self.MessageTeam.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
     # retranslateUi
 
