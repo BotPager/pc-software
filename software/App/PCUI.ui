@@ -199,7 +199,7 @@ border-radius: 0px;
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="SetTeams">
             <widget class="QLabel" name="TeamTitleLable">
@@ -473,7 +473,7 @@ border-radius: 0px;
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="QComboBox" name="comboBox_2"/>
+                    <widget class="QComboBox" name="TeamB_box"/>
                    </item>
                    <item row="0" column="1">
                     <widget class="QLabel" name="TeamB">
@@ -489,14 +489,14 @@ border-radius: 0px;
                     </widget>
                    </item>
                    <item row="1" column="0">
-                    <widget class="QComboBox" name="comboBox"/>
+                    <widget class="QComboBox" name="TeamA_box"/>
                    </item>
                   </layout>
                  </item>
                  <item>
                   <layout class="QVBoxLayout" name="verticalLayout_4">
                    <item>
-                    <widget class="QPushButton" name="pushButton">
+                    <widget class="QPushButton" name="MessageTeam">
                      <property name="text">
                       <string>Message Team</string>
                      </property>
