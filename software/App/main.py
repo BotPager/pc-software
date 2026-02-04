@@ -13,6 +13,7 @@ from PySide6.QtCore import (
          Slot
     )
 import time
+import numpy
 from ui_PCUI import Ui_MainWindow
 from teams import Team
 import meshtastic
@@ -62,7 +63,6 @@ class MainWindow(QMainWindow):
         
         
         # Load UI
-
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         #always load to inputting pagers
