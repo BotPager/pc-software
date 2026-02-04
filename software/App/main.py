@@ -195,11 +195,11 @@ class MainWindow(QMainWindow):
                 if i > 16:
                     break
 
-                # 2. ASSIGN the widgets first
+                #Assign widget
                 team_widget = getattr(self.ui, f"TeamN{i}", None)
                 pid_widget = getattr(self.ui, f"PID{i}", None)
 
-                # 3. CHECK if they exist, then SET the text
+                #i think this does if this exist set the text with the string from team.name
                 if team_widget:
                     team_widget.setText(str(team.name))
 
@@ -277,7 +277,7 @@ class MainWindow(QMainWindow):
 
         #need to add check to make sure names arent duplicates
         #if teama.name  == teamb.name  error and show message
-        worker = Worker(self.send_message, TeamAObject.pid,TeamAObject.pid)
+        worker = Worker(self.send_message, TeamAObject.pid,TeamBObject.pid)
         self.threadpool.start(worker)
         # self.send_message(TeamAPID,TeamBPID)
 
@@ -285,10 +285,13 @@ class MainWindow(QMainWindow):
     #maybe needs to be changed slightly? but the message format makes sense.
     #just combine strings and then send result over meshtastic api call
     def send_message(self, TeamAPID, TeamBPID):
+        print("sending")
         message = "|go to pit"
+
         messageTeamA = TeamAPID + message;
         messageTeamB = TeamBPID + message;
-
+        print(messageTeamB)
+        print(messageTeamA)
         self.interface.sendText(messageTeamA)
         #arbitrary needs to be tested to see how long is actually needed
         time.sleep(5)
