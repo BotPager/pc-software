@@ -1,12 +1,57 @@
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import (
+    QApplication,
+    QLabel,
+    QMainWindow,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
+)
+from PySide6.QtCore import (
+         QRunnable,
+         QThreadPool,
+         QTimer,
+         Slot
+    )
 from ui_PCUI import Ui_MainWindow
 from teams import Team
 import meshtastic
 import meshtastic.serial_interface
 from pubsub import pub
+
+class Worker(QRunnable):
+    """Worker thread.
+
+    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+
+    :param callback: The function callback to run on this worker thread.
+                     Supplied args and kwargs will be passed through to the runner.
+    :type callback: function
+    :param args: Arguments to pass to the callback function
+    :param kwargs: Keywords to pass to the callback function
+    """
+
+    def __init__(self, fn, *args, **kwargs):
+        super().__init__()
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+
+    @Slot()
+    def run(self):
+        """Initialise the runner function with passed args, kwargs."""
+        self.fn(*self.args, **self.kwargs)
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        #init threadding
+        self.threadpool = QThreadPool()
+        #debug things i think
+        thread_count = self.threadpool.maxThreadCount()
+        print(f"Multithreading with maximum {thread_count} threads")
+
+        
         
         # Load UI
         self.ui = Ui_MainWindow()
@@ -20,7 +65,8 @@ class MainWindow(QMainWindow):
         # CONNECT YOUR TEAM LOADING BUTTON HERE
         self.ui.pushButton_2.clicked.connect(self.collect_team_data)
         # self.ui.pushButton.clicked.connect()
-
+        #
+          
     # -------------------------
     # Page switching functions
     # -------------------------
@@ -79,10 +125,21 @@ class MainWindow(QMainWindow):
         for t in self.teams:
             print(t)
 
-#meshtastic code
 
+    #meshtastic code
+    interface = meshtastic.serial_interface.SerialInterface()
+    def setup_mesh(self):
+        pub.subscribe(self.onConnection, "meshtastic.connection.established")
+        def connection_task():
+            self.interface = meshtastic.serail_interface.SerialInterface()          
+        worker = Worker(connect_task)
+        self.threadpool.start(worker)
+    def onConnection(self, interface, topic=pub.AUTO_TOPIC):
+        print("connected")
+        
 # Run application
 if __name__ == "__main__":
     app = QApplication([])
     window = MainWindow()
+    window.show()
     app.exec()

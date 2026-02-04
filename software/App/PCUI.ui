@@ -212,7 +212,7 @@ border-radius: 0px;
               </rect>
              </property>
              <property name="text">
-              <string>Set Teams</string>
+              <string>testing</string>
              </property>
             </widget>
             <widget class="QWidget" name="horizontalLayoutWidget_3">
