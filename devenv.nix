@@ -14,13 +14,21 @@
   };
 
   # https://devenv.sh/packages/
-  packages = [
+  packages = with pkgs; [
     # Mehtastic CLI and library
-    pkgs.meshtastic
-    # PySide6 requirements
-    pkgs.python3Packages.pyside6
+    meshtastic
+    # is currently broken in nixpkgs and also unmaintained
+    # meaning running the script will work and qt creator will load and .ui can be changed
+    # however regenerating PCUI.py will not work as uic-pyside6
+    # refrence 
+    # author reccomends setting up at distrobox
+    python3Packages.pyside6
     # System dependencies often needed for Qt/PySide applications
-    pkgs.qt6.qtbase
+    qt6.qtbase
+    #qt design app
+    qtcreator
+    #numpy for creating csv
+    python3Packages.numpy
   ];
 
   # See full reference at https://devenv.sh/reference/options/
