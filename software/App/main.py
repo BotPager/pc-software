@@ -143,7 +143,7 @@ class MainWindow(QMainWindow):
             return
 
         # Validate team number
-        if not (team_name.isdigit() and 1 <= int(team_name) <= 9999):
+        if not (team_name.isdigit() and 1 <= int(team_name) <= 99999):
             print(f"Invalid TeamN: {team_name}")
             return
 
