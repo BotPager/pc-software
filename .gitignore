@@ -2,4 +2,6 @@ software/design/*
 .devenv
 software/App_test
 software/App/.qtcreator
-software/App/__pycache__
+software/App/__pycache__/*
+App/__pycache__.*
+App/.qtcreator/pyproject.toml.user
