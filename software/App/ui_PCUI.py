@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
-    QHBoxLayout, QLabel, QLayout, QLineEdit,
+from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
+    QGridLayout, QHBoxLayout, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
     QStackedWidget, QStatusBar, QVBoxLayout, QWidget)
 
@@ -25,28 +25,9 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(1038, 841)
+        MainWindow.setAutoFillBackground(True)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.horizontalFrame = QFrame(self.centralwidget)
-        self.horizontalFrame.setObjectName(u"horizontalFrame")
-        self.horizontalFrame.setGeometry(QRect(10, 10, 781, 80))
-        self.horizontalFrame.setMaximumSize(QSize(1920, 200))
-        self.TopBar = QHBoxLayout(self.horizontalFrame)
-        self.TopBar.setObjectName(u"TopBar")
-        self.frame = QFrame(self.horizontalFrame)
-        self.frame.setObjectName(u"frame")
-        self.frame.setAutoFillBackground(False)
-        self.frame.setStyleSheet(u"#frame{\n"
-"border-radius: 0px;\n"
-"}")
-        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Shadow.Plain)
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
-        self.label.setGeometry(QRect(370, 30, 131, 16))
-
-        self.TopBar.addWidget(self.frame)
-
         self.Content = QFrame(self.centralwidget)
         self.Content.setObjectName(u"Content")
         self.Content.setGeometry(QRect(9, 89, 781, 461))
@@ -56,22 +37,19 @@ class Ui_MainWindow(object):
         self.horizontalFrame_2 = QFrame(self.Content)
         self.horizontalFrame_2.setObjectName(u"horizontalFrame_2")
         self.horizontalFrame_2.setGeometry(QRect(0, 0, 781, 461))
-        self.horizontalFrame_2.setAutoFillBackground(False)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.horizontalFrame_2.sizePolicy().hasHeightForWidth())
+        self.horizontalFrame_2.setSizePolicy(sizePolicy)
+        self.horizontalFrame_2.setAutoFillBackground(True)
         self.horizontalFrame_2.setStyleSheet(u"#horizontalFrame_2{\n"
 "	border-radius: 0px;\n"
 "}")
         self.horizontalFrame_2.setFrameShape(QFrame.Shape.StyledPanel)
         self.horizontalLayout = QHBoxLayout(self.horizontalFrame_2)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.Menu_selectors = QFrame(self.horizontalFrame_2)
-        self.Menu_selectors.setObjectName(u"Menu_selectors")
-        self.Menu_selectors.setMaximumSize(QSize(100, 16777215))
-        self.Menu_selectors.setFrameShape(QFrame.Shape.WinPanel)
-        self.verticalLayout_2 = QVBoxLayout(self.Menu_selectors)
-        self.verticalLayout_2.setSpacing(0)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setSizeConstraint(QLayout.SizeConstraint.SetMinAndMaxSize)
-        self.verticalFrame_2 = QFrame(self.Menu_selectors)
+        self.verticalFrame_2 = QFrame(self.horizontalFrame_2)
         self.verticalFrame_2.setObjectName(u"verticalFrame_2")
         self.verticalFrame_2.setMaximumSize(QSize(16777215, 100))
         self.verticalLayout_5 = QVBoxLayout(self.verticalFrame_2)
@@ -92,22 +70,18 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addWidget(self.SwitchAuto)
 
 
-        self.verticalLayout_2.addWidget(self.verticalFrame_2)
-
-        self.frame_2 = QFrame(self.Menu_selectors)
-        self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setAutoFillBackground(False)
-        self.frame_2.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame_2.setFrameShadow(QFrame.Shadow.Raised)
-
-        self.verticalLayout_2.addWidget(self.frame_2)
-
-
-        self.horizontalLayout.addWidget(self.Menu_selectors)
+        self.horizontalLayout.addWidget(self.verticalFrame_2)
 
         self.Main_Menus = QFrame(self.horizontalFrame_2)
         self.Main_Menus.setObjectName(u"Main_Menus")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.Main_Menus.sizePolicy().hasHeightForWidth())
+        self.Main_Menus.setSizePolicy(sizePolicy1)
+        self.Main_Menus.setMaximumSize(QSize(661, 453))
         self.Main_Menus.setFrameShape(QFrame.Shape.StyledPanel)
+        self.Main_Menus.setLineWidth(0)
         self.verticalLayout = QVBoxLayout(self.Main_Menus)
         self.verticalLayout.setSpacing(7)
         self.verticalLayout.setObjectName(u"verticalLayout")
@@ -122,7 +96,7 @@ class Ui_MainWindow(object):
         self.TeamTitleLable.setGeometry(QRect(310, 60, 131, 16))
         self.horizontalLayoutWidget_3 = QWidget(self.SetTeams)
         self.horizontalLayoutWidget_3.setObjectName(u"horizontalLayoutWidget_3")
-        self.horizontalLayoutWidget_3.setGeometry(QRect(190, 90, 391, 283))
+        self.horizontalLayoutWidget_3.setGeometry(QRect(190, 90, 413, 287))
         self.horizontalLayout_3 = QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -132,6 +106,7 @@ class Ui_MainWindow(object):
         self.Textlabels_1.setObjectName(u"Textlabels_1")
         self.PagerID1 = QLabel(self.horizontalLayoutWidget_3)
         self.PagerID1.setObjectName(u"PagerID1")
+        self.PagerID1.setMargin(2)
 
         self.Textlabels_1.addWidget(self.PagerID1)
 
@@ -144,6 +119,8 @@ class Ui_MainWindow(object):
 
         self.label_4 = QLabel(self.horizontalLayoutWidget_3)
         self.label_4.setObjectName(u"label_4")
+        self.label_4.setMinimumSize(QSize(60, 0))
+        self.label_4.setMargin(2)
 
         self.Textlabels_1.addWidget(self.label_4)
 
@@ -251,6 +228,7 @@ class Ui_MainWindow(object):
         self.Textlabels_2.setObjectName(u"Textlabels_2")
         self.PagerID1_2 = QLabel(self.horizontalLayoutWidget_3)
         self.PagerID1_2.setObjectName(u"PagerID1_2")
+        self.PagerID1_2.setMargin(2)
 
         self.Textlabels_2.addWidget(self.PagerID1_2)
 
@@ -263,6 +241,8 @@ class Ui_MainWindow(object):
 
         self.label_5 = QLabel(self.horizontalLayoutWidget_3)
         self.label_5.setObjectName(u"label_5")
+        self.label_5.setMinimumSize(QSize(60, 0))
+        self.label_5.setMargin(2)
 
         self.Textlabels_2.addWidget(self.label_5)
 
@@ -368,7 +348,7 @@ class Ui_MainWindow(object):
         self.Manual.setObjectName(u"Manual")
         self.horizontalLayoutWidget = QWidget(self.Manual)
         self.horizontalLayoutWidget.setObjectName(u"horizontalLayoutWidget")
-        self.horizontalLayoutWidget.setGeometry(QRect(230, 170, 210, 122))
+        self.horizontalLayoutWidget.setGeometry(QRect(230, 170, 268, 122))
         self.horizontalLayout_2 = QHBoxLayout(self.horizontalLayoutWidget)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -389,7 +369,7 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.TeamA = QLabel(self.ManualIcons)
         self.TeamA.setObjectName(u"TeamA")
-        self.TeamA.setMinimumSize(QSize(81, 16))
+        self.TeamA.setMinimumSize(QSize(125, 16))
 
         self.gridLayout.addWidget(self.TeamA, 0, 0, 1, 1)
 
@@ -400,7 +380,7 @@ class Ui_MainWindow(object):
 
         self.TeamB = QLabel(self.ManualIcons)
         self.TeamB.setObjectName(u"TeamB")
-        self.TeamB.setMinimumSize(QSize(81, 16))
+        self.TeamB.setMinimumSize(QSize(125, 16))
 
         self.gridLayout.addWidget(self.TeamB, 0, 1, 1, 1)
 
@@ -435,6 +415,22 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.Manual)
         self.Automatic = QWidget()
         self.Automatic.setObjectName(u"Automatic")
+        self.formLayoutWidget = QWidget(self.Automatic)
+        self.formLayoutWidget.setObjectName(u"formLayoutWidget")
+        self.formLayoutWidget.setGeometry(QRect(230, 140, 233, 80))
+        self.formLayout = QFormLayout(self.formLayoutWidget)
+        self.formLayout.setObjectName(u"formLayout")
+        self.formLayout.setContentsMargins(0, 0, 0, 0)
+        self.pushButton = QPushButton(self.formLayoutWidget)
+        self.pushButton.setObjectName(u"pushButton")
+
+        self.formLayout.setWidget(1, QFormLayout.ItemRole.LabelRole, self.pushButton)
+
+        self.label_3 = QLabel(self.formLayoutWidget)
+        self.label_3.setObjectName(u"label_3")
+
+        self.formLayout.setWidget(0, QFormLayout.ItemRole.LabelRole, self.label_3)
+
         self.stackedWidget.addWidget(self.Automatic)
 
         self.verticalLayout.addWidget(self.stackedWidget)
@@ -442,6 +438,28 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.Main_Menus)
 
+        self.frame = QFrame(self.centralwidget)
+        self.frame.setObjectName(u"frame")
+        self.frame.setGeometry(QRect(0, 10, 781, 72))
+        self.frame.setAutoFillBackground(True)
+        self.frame.setStyleSheet(u"#frame{\n"
+"border-radius: 0px;\n"
+"}")
+        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Shadow.Plain)
+        self.horizontalFrame_21 = QFrame(self.frame)
+        self.horizontalFrame_21.setObjectName(u"horizontalFrame_21")
+        self.horizontalFrame_21.setGeometry(QRect(300, 0, 231, 80))
+        self.horizontalLayout_4 = QHBoxLayout(self.horizontalFrame_21)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.label = QLabel(self.horizontalFrame_21)
+        self.label.setObjectName(u"label")
+
+        self.horizontalLayout_4.addWidget(self.label)
+
+        self.pushButton_3 = QPushButton(self.frame)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setGeometry(QRect(630, 25, 102, 30))
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -449,7 +467,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -457,7 +475,6 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Pager Software", None))
         self.SwitchPager.setText(QCoreApplication.translate("MainWindow", u"Set Pagers", None))
         self.SwitchManual.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.SwitchAuto.setText(QCoreApplication.translate("MainWindow", u"Automatic", None))
@@ -472,5 +489,9 @@ class Ui_MainWindow(object):
         self.TeamA.setText(QCoreApplication.translate("MainWindow", u"Select Team A", None))
         self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Select Team B", None))
         self.MessageTeam.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Start/Stop Automatic Mode", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Status of Automatic mode", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Pager Software", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
     # retranslateUi
 
