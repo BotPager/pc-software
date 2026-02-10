@@ -101,7 +101,7 @@ class MainWindow(QMainWindow):
     def collect_team_data(self):
         #remove teams to makesure they dont duplicate
         self.teams.clear()
-        for i in range(0, 17):
+        for i in range(0, 16):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
             pid_widget = getattr(self.ui, f"PID{i}", None)
 
