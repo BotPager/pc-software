@@ -1,6 +1,7 @@
 
 # Readme
-Python pc software for team 22 low cost pager m
+Python pc software for team 22 low cost pager
+develop
 
 main branch
 ## setup instructions
