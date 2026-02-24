@@ -29,6 +29,7 @@
     qtcreator
     #numpy for creating csv
     python3Packages.numpy
+    python3Packages.pyinstaller
   ];
 
   # See full reference at https://devenv.sh/reference/options/
