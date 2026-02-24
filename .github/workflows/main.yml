@@ -23,5 +23,32 @@ jobs:
           spec: 'App/build.spec'
           requirements: 'requirements.txt'
           upload_exe_with_name: Pager-software${{ matrix.os }}
+
+
+
+  release:
+      needs: pyinstaller-build
+      runs-on: ubuntu-latest
+  
+      steps:
+        - name: Wait to avoid rate limits
+          run: sleep 15
+        - name: Download artifacts
+          uses: actions/download-artifact@v4
+          with:
+            path: artifacts
+        
+        - name: Create Release
+          id: create_release
+          uses: softprops/action-gh-release@v2
+          with:
+            files: artifacts/**/*
+            tag_name: ${{ github.ref_name }}
+            name: Release ${{ github.ref_name }}
+            draft: false
+            prerelease: false
+            generate_release_notes: true
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
           
