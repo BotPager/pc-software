@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Pager-${{ matrix.os }}
-          path: **/dist/Pager-software*
+          path: "**/dist/Pager-software*"
 
           
   release:
