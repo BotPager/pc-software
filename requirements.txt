@@ -1,2 +1,3 @@
 meshtastic
 PySide6
+numpy

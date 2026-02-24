@@ -1,0 +1,9 @@
+main.py
+pyproject.toml
+teams.py
+ui_PCUI.py
+Senior_Design_Team_22_meshtastic_software.egg-info/PKG-INFO
+Senior_Design_Team_22_meshtastic_software.egg-info/SOURCES.txt
+Senior_Design_Team_22_meshtastic_software.egg-info/dependency_links.txt
+Senior_Design_Team_22_meshtastic_software.egg-info/requires.txt
+Senior_Design_Team_22_meshtastic_software.egg-info/top_level.txt
