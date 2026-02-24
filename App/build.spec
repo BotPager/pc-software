@@ -1,12 +1,19 @@
 # -*- mode: python ; coding: utf-8 -*-
-
+from PyInstaller.utils.hooks import collect_data_files
+datas = []
+datas += collect_data_files('PySide6')
 
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
     datas=[],
-    hiddenimports=[],
+    hiddenimports=[
+        'numpy',
+        'PySide6.QtCore',
+        'PySide6.QtGui',
+        'PySide6.QtWidgets',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
