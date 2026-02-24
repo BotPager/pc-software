@@ -33,14 +33,20 @@ class MeshGateway:
         while self.is_connecting:
             try:
                 print("connecting")
+                if not self.is_connecting:
+                    break
+                
                 self.interface = meshtastic.serial_interface.SerialInterface()
                 print(self.interface)
                 if self.interface.devPath:
                     break
                 else:
                     self.interface.close()
+                    self.interface = None
             except Exception as e:
                 print("Error device not connected\n")
+                if not self.is_connecting:
+                    break
                 print(f"trying again in 3 seconds {e}")
                 time.sleep(3)
 
@@ -88,3 +94,15 @@ class MeshGateway:
                 print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
                 sent = False
                 time.sleep(2)
+    def exit(self):
+        #close connection between the device and also shutdown the threadpool
+        self.is_connecting = False
+        if self.interface:
+            try:
+                 self.interface.close()
+            except:
+                pass
+            
+        print(f"Gateway connection terminated ready to shutdown")
+        self.threadpool.clear()
+      
