@@ -1,12 +1,28 @@
 # -*- mode: python ; coding: utf-8 -*-
+import platform
+from PyInstaller.utils.hooks import collect_data_files
 
+#im stubborn i fear
+#also name is due to the github action 
+os_name = platform.system()
+if os_name == 'Windows':
+    app_name = 'Pager-software-windows-latest'
+elif os_name == 'Darwin':  
+    app_name = 'Pager-software-macos-latest'
+else:
+    app_name = 'Pager-software-ubuntu-latest'
 
 a = Analysis(
     ['main.py'],
     pathex=[],
     binaries=[],
     datas=[],
-    hiddenimports=[],
+    hiddenimports=[
+        'numpy',
+        'PySide6.QtCore',
+        'PySide6.QtGui',
+        'PySide6.QtWidgets',
+    ],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -19,9 +35,10 @@ pyz = PYZ(a.pure)
 exe = EXE(
     pyz,
     a.scripts,
+    a.binaries,
+    a.datas,
     [],
-    exclude_binaries=True,
-    name='main',
+    name=app_name,
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -33,12 +50,4 @@ exe = EXE(
     codesign_identity=None,
     entitlements_file=None,
 )
-coll = COLLECT(
-    exe,
-    a.binaries,
-    a.datas,
-    strip=False,
-    upx=True,
-    upx_exclude=[],
-    name='main',
-)
+
