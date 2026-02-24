@@ -12,6 +12,7 @@ from PySide6.QtCore import (
          QTimer,
          Slot
     )
+from worker import Worker
 import time
 import numpy as np
 from ui_PCUI import Ui_MainWindow
