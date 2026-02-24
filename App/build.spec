@@ -21,7 +21,7 @@ exe = EXE(
     a.scripts,
     [],
     exclude_binaries=True,
-    name='pc-software',
+    name='pager-pc-software',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
