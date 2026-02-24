@@ -26,9 +26,9 @@ jobs:
       - name: Upload binary
         uses: actions/upload-artifact@v4
         with:
-          name: Pager-${{ matrix.os }}
-          path: "dist/Pager-software*"
-
+          name: Pager-Software${{ matrix.os }}
+          path: "dist/*"
+          if-no-files-found: error
           
   release:
     needs: pyinstaller-build
