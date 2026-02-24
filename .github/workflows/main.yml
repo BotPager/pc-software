@@ -13,5 +13,5 @@ jobs:
           python_ver: '3.13'
           spec: 'App/build.spec'
           requirements: 'requirements.txt'
-          upload_exe_with_name: 'Pager software'
-          options: --onefile, --name "Pager software", --windowed, 
+          upload_exe_with_name: Pager-software-${{ matrix.os }}
+          options: --onefile --name "Pager software" --windowed
