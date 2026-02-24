@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Pager-software${{ matrix.os }}
-          path: ${{ github.workspace }}/dist/
+          path: ${{ github.workspace }}/dist/*
           if-no-files-found: error
           
   release:
