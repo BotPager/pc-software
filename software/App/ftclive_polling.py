@@ -20,7 +20,7 @@ def get_teams():
 
 teams = get_teams()
 file_path = 'team_numbers.txt'
-with open(file_path, 'woa') as f_output:
+with open(file_path, 'w') as f_output:
     if teams:
         for team in teams["teamNumbers"]:
             print(team, file=f_output)
