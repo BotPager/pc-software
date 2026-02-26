@@ -68,7 +68,7 @@ class MeshGateway:
         # Trigger reconnection thread
         self.connect()
 #if this fails we know whyyyyyyyyyyy
-    def send_message(self, TeamAPID, TeamBPid):
+    def send_message(self, TeamAPID, TeamBPID):
         #call message task and start thread
         worker = Worker(self.send_message_task, TeamAPID, TeamBPID)
         self.threadpool.start(worker)
