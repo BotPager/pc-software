@@ -40,7 +40,7 @@ def check_valid(team_name,pid, current_teams):
 
     
 #save teams when we click load teams
-def save_teams(self):
+def save_teams_to_file(teams_list):
     #get data to list
     # convert to numpy array
     team_data = [[t.name, t.pid] for t in teams_list]
@@ -64,7 +64,8 @@ def load_teams_from_file(filename="teams.txt"):
            # index 1 = pid
            text = line.split(",",2)
            #validation
-           team = check_valid(text[0],text[1])
+           team = check_valid(text[0],text[1,loaded_teams])
            if team:
                 loaded_teams.append(team)
     f.close()
+    return loaded_teams
