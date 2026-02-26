@@ -48,16 +48,16 @@ class MeshGateway:
                 if not self.is_connecting:
                     break
                 print(f"trying again in 3 seconds {e}")
-                time.sleep(3)
+                time.sleep(2)
 
     #pub sub connection event
     def onConnection(self, interface, topic=pub.AUTO_TOPIC):
-        print("connected")
+        print("good")
         self.is_connecting = False
     #pubsub discconnect event 
     def onDisconnect(self, interface, topic=pub.AUTO_TOPIC):
         print("disconnection occurred please recconnect")
-        self.is_connecting = False
+        self.is_connecting = False        
         if self.interface:
             try:
                 self.interface.close()
@@ -106,3 +106,39 @@ class MeshGateway:
         print(f"Gateway connection terminated ready to shutdown")
         self.threadpool.clear()
       
+def get_pid():
+    temp_interface = None
+    try:
+        temp_interface = meshtastic.serial_interface.SerialInterface()
+        if temp_interface.devPath:
+            pid = temp_interface.getShortName()
+            print(pid)
+            return(print("{pid}"))
+        else:
+            print ("no pid")
+            return None
+    except Exception as e:
+        print(f"pid check failed: {e}")
+        return None
+    finally:
+        if temp_interface:
+            try:
+                temp_interface.close()
+            except:
+                pass
+
+# def set_settings():
+#     temp_interface = None
+#     try:
+#         temp_interface = meshtastic.serial_interfaace.SerialInterface()
+#         if temp_interface.devPath:
+#         else
+#     except Exception as e:
+#         print(f"error: {e}")
+#         return None
+#     finally
+#         if temp_interface:
+#             try:
+#                 temp_interface.close()
+#             except:
+#                 pass
