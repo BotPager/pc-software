@@ -87,10 +87,10 @@ class MainWindow(QMainWindow):
 
             team_name = team_widget.text().strip()
             pid = pid_widget.text().strip()
-            new_team = teams.check_valid(team_name, pid, self.teams_list)
+            new_team = teams.check_valid(team_name, pid, self.teams)
             if new_team:
                 self.teams.append(new_team)
-        teams.save_teams_to_file(self.teams_list)
+        teams.save_teams_to_file(self.teams)
         self.set_teams()
    
     # After loading all valid teams
