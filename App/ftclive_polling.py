@@ -1,7 +1,7 @@
 import requests
 import time
 
-BASE_URL = "http://10.137.232.250"
+BASE_URL = "http://10.137.227.209"
 EVENT_CODE = "4828"
 
 url = f"{BASE_URL}/api/v1/events/{EVENT_CODE}/teams/"
