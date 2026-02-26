@@ -1,10 +1,10 @@
 import requests
 import time
 
-BASE_URL = "http://10.137.227.209"
+BASE_URL = input("Enter the base URL of the FTC Live API (e.g., ftclive.com): ")
 EVENT_CODE = "4828"
 
-url = f"{BASE_URL}/api/v1/events/{EVENT_CODE}/teams/"
+url = f"http://{BASE_URL}/api/v1/events/{EVENT_CODE}/teams/"
 
 def get_teams():
     response = requests.get(url, timeout=5)
@@ -20,6 +20,7 @@ def get_teams():
 
 teams = get_teams()
 file_path = 'team_numbers.txt'
+number_of_teams = len(teams["teamNumbers"])
 with open(file_path, 'w') as f_output:
     if teams:
         for team in teams["teamNumbers"]:
