@@ -11,7 +11,7 @@ class Team:
 
 #checking if a set of teams is legal as in not blank and within range
 # Pid is the meshtastic shortname
-def check_valid(self,team_name,pid, current_teams):
+def check_valid(team_name,pid, current_teams):
     # Skip empty rows
     if team_name == "" or pid == "":
         return None
