@@ -64,7 +64,7 @@ def load_teams_from_file(filename="teams.txt"):
            # index 1 = pid
            text = line.split(",",2)
            #validation
-           team = check_valid(text[0],text[1,loaded_teams])
+           team = check_valid(text[0],text[1],loaded_teams)
            if team:
                 loaded_teams.append(team)
     f.close()
