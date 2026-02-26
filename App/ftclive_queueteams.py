@@ -1,6 +1,17 @@
 import requests
+import socket
 
-BASE_URL = input("Enter the base URL of the FTC Live API (e.g., ftclive.com): ")
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # Doesn't actually connect, just forces IP resolution
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip
+
+BASE_URL = get_local_ip()
 EVENT_CODE = input("Enter the event code: ")
 number_of_teams = int(input("Enter the number of teams: "))
 
@@ -60,3 +71,6 @@ if queue_match_details:
         print(red_team2, file=f_output)
         print(blue_team1, file=f_output)
         print(blue_team2, file=f_output)
+
+
+
