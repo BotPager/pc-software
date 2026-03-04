@@ -9,8 +9,43 @@ class Team:
     def __repr__(self):
         return f"Team(name={self.name}, pid={self.pid})"
 
+
+def load(filename="pid.txt"):
+                loaded_pagers = []
+                if not os.path.exists(filename):
+                        print(f"Warning: {filename} not found ")
+                        return loaded_pagers
+            # get data from file
+            # read line by line
+                with open(filename) as f:
+                        for line in f:
+                   #strip
+                                line = line.strip('\n')
+                   # index 0 = teamnumber
+                   # index 1 = pid
+                   #validation
+                                pid = line
+                                if pid:
+                                        loaded_pagers.append(pid)
+                f.close()
+                return loaded_pagers
+
+def create_teams(size=16):
+        team_set = []
+        for i in range (0,size):
+                team_set.append(Team())
+        pid = load("pid.txt")
+        if pid:
+                print(len(pid))
+                for a in range(0,len(pid)):
+                        team_set[a].pid  = pid[a]
+        return team_set
+
 #checking if a set of teams is legal as in not blank and within range
 # Pid is the meshtastic shortname
+
+
+
 def check_valid(team_name,pid, current_teams):
     # Skip empty rows
     if team_name == "" or pid == "":
