@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 class Team:
-    def __init__(self, name: str, pid: str):
+    def __init__(self, name = "-", pid = "-"):
         self.name = name            # team number (string or int)
         self.pid = pid              # hex pager ID (as string)
 
