@@ -40,6 +40,19 @@ def create_teams(size=16):
                 for a in range(0,len(pid)):
                         team_set[a].pid  = pid[a]
         return team_set
+def save_pid(team_list):
+    filename = "pid.txt"
+    pid_list = []
+    for i in range(0,16):
+        if team_list[i].pid == '-':
+            continue
+        else:
+            pid_list.append(team_list[i].pid)  
+    print(pid_list)
+    converted = np.array(pid_list)
+    np.savetxt(filename,converted,delimiter=",",fmt='%s')
+
+
 
 #checking if a set of teams is legal as in not blank and within range
 # Pid is the meshtastic shortname
