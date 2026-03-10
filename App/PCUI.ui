@@ -54,7 +54,7 @@
       </sizepolicy>
      </property>
      <property name="autoFillBackground">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="styleSheet">
       <string notr="true">#horizontalFrame_2{
@@ -140,227 +140,9 @@
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="SetTeams">
-            <widget class="QLabel" name="TeamTitleLable">
-             <property name="geometry">
-              <rect>
-               <x>310</x>
-               <y>60</y>
-               <width>131</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>Enter Team Info</string>
-             </property>
-            </widget>
-            <widget class="QWidget" name="horizontalLayoutWidget_3">
-             <property name="geometry">
-              <rect>
-               <x>190</x>
-               <y>90</y>
-               <width>413</width>
-               <height>287</height>
-              </rect>
-             </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item>
-               <layout class="QVBoxLayout" name="BlockForTeamSet1">
-                <item>
-                 <layout class="QHBoxLayout" name="Textlabels_1">
-                  <item>
-                   <widget class="QLabel" name="PagerID1">
-                    <property name="text">
-                     <string>Team Number</string>
-                    </property>
-                    <property name="margin">
-                     <number>2</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="Line" name="line">
-                    <property name="orientation">
-                     <enum>Qt::Orientation::Vertical</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_4">
-                    <property name="minimumSize">
-                     <size>
-                      <width>60</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Pager ID</string>
-                    </property>
-                    <property name="margin">
-                     <number>2</number>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QGridLayout" name="TeamBlock1">
-                  <item row="0" column="1">
-                   <widget class="QLineEdit" name="PID0"/>
-                  </item>
-                  <item row="3" column="0">
-                   <widget class="QLineEdit" name="TeamN3"/>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="PID2"/>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QLineEdit" name="PID1"/>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLineEdit" name="TeamN6"/>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLineEdit" name="TeamN2"/>
-                  </item>
-                  <item row="3" column="1">
-                   <widget class="QLineEdit" name="PID3"/>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="TeamN0"/>
-                  </item>
-                  <item row="5" column="1">
-                   <widget class="QLineEdit" name="PID5"/>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLineEdit" name="TeamN4"/>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLineEdit" name="PID4"/>
-                  </item>
-                  <item row="5" column="0">
-                   <widget class="QLineEdit" name="TeamN5"/>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLineEdit" name="TeamN1"/>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QLineEdit" name="TeamN7"/>
-                  </item>
-                  <item row="6" column="1">
-                   <widget class="QLineEdit" name="PID6"/>
-                  </item>
-                  <item row="7" column="1">
-                   <widget class="QLineEdit" name="PID7"/>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="Line" name="line_3">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Vertical</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <layout class="QVBoxLayout" name="BlockForTeamSet2">
-                <item>
-                 <layout class="QHBoxLayout" name="Textlabels_2">
-                  <item>
-                   <widget class="QLabel" name="PagerID1_2">
-                    <property name="text">
-                     <string>Team Number</string>
-                    </property>
-                    <property name="margin">
-                     <number>2</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="Line" name="line_2">
-                    <property name="orientation">
-                     <enum>Qt::Orientation::Vertical</enum>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QLabel" name="label_5">
-                    <property name="minimumSize">
-                     <size>
-                      <width>60</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="text">
-                     <string>Pager ID</string>
-                    </property>
-                    <property name="margin">
-                     <number>2</number>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QGridLayout" name="TeamBlock2">
-                  <item row="0" column="1">
-                   <widget class="QLineEdit" name="PID8"/>
-                  </item>
-                  <item row="3" column="0">
-                   <widget class="QLineEdit" name="TeamN11"/>
-                  </item>
-                  <item row="2" column="1">
-                   <widget class="QLineEdit" name="PID10"/>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="QLineEdit" name="PID9"/>
-                  </item>
-                  <item row="6" column="0">
-                   <widget class="QLineEdit" name="TeamN14"/>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QLineEdit" name="TeamN10"/>
-                  </item>
-                  <item row="3" column="1">
-                   <widget class="QLineEdit" name="PID11"/>
-                  </item>
-                  <item row="0" column="0">
-                   <widget class="QLineEdit" name="TeamN8"/>
-                  </item>
-                  <item row="5" column="1">
-                   <widget class="QLineEdit" name="PID13"/>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLineEdit" name="TeamN12"/>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLineEdit" name="PID12"/>
-                  </item>
-                  <item row="5" column="0">
-                   <widget class="QLineEdit" name="TeamN13"/>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLineEdit" name="TeamN9"/>
-                  </item>
-                  <item row="7" column="0">
-                   <widget class="QLineEdit" name="TeamN15"/>
-                  </item>
-                  <item row="6" column="1">
-                   <widget class="QLineEdit" name="PID14"/>
-                  </item>
-                  <item row="7" column="1">
-                   <widget class="QLineEdit" name="PID15"/>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </item>
-             </layout>
-            </widget>
             <widget class="QLabel" name="label_2">
              <property name="geometry">
               <rect>
@@ -374,116 +156,480 @@
               <string/>
              </property>
             </widget>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QFrame" name="verticalFrame">
              <property name="geometry">
               <rect>
-               <x>340</x>
-               <y>380</y>
-               <width>121</width>
-               <height>24</height>
+               <x>0</x>
+               <y>0</y>
+               <width>637</width>
+               <height>429</height>
               </rect>
              </property>
-             <property name="text">
-              <string>Set teams</string>
-             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <spacer name="horizontalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QLabel" name="TeamTitleLable">
+                  <property name="text">
+                   <string>Enter Team Info</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_3">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <item>
+                 <layout class="QVBoxLayout" name="BlockForTeamSet1">
+                  <item>
+                   <layout class="QHBoxLayout" name="Textlabels_1">
+                    <item>
+                     <widget class="QLabel" name="PagerID1">
+                      <property name="text">
+                       <string>Team Number</string>
+                      </property>
+                      <property name="margin">
+                       <number>2</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="Line" name="line">
+                      <property name="orientation">
+                       <enum>Qt::Orientation::Vertical</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_4">
+                      <property name="minimumSize">
+                       <size>
+                        <width>60</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Pager ID</string>
+                      </property>
+                      <property name="margin">
+                       <number>2</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QGridLayout" name="TeamBlock1">
+                    <item row="0" column="1">
+                     <widget class="QLineEdit" name="PID0"/>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLineEdit" name="TeamN3"/>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QLineEdit" name="PID2"/>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLineEdit" name="PID1"/>
+                    </item>
+                    <item row="6" column="0">
+                     <widget class="QLineEdit" name="TeamN6"/>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLineEdit" name="TeamN2"/>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QLineEdit" name="PID3"/>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLineEdit" name="TeamN0"/>
+                    </item>
+                    <item row="5" column="1">
+                     <widget class="QLineEdit" name="PID5"/>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLineEdit" name="TeamN4"/>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QLineEdit" name="PID4"/>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QLineEdit" name="TeamN5"/>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLineEdit" name="TeamN1"/>
+                    </item>
+                    <item row="7" column="0">
+                     <widget class="QLineEdit" name="TeamN7"/>
+                    </item>
+                    <item row="6" column="1">
+                     <widget class="QLineEdit" name="PID6"/>
+                    </item>
+                    <item row="7" column="1">
+                     <widget class="QLineEdit" name="PID7"/>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="Line" name="line_3">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Vertical</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="BlockForTeamSet2">
+                  <item>
+                   <layout class="QHBoxLayout" name="Textlabels_2">
+                    <item>
+                     <widget class="QLabel" name="PagerID1_2">
+                      <property name="text">
+                       <string>Team Number</string>
+                      </property>
+                      <property name="margin">
+                       <number>2</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="Line" name="line_2">
+                      <property name="orientation">
+                       <enum>Qt::Orientation::Vertical</enum>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_5">
+                      <property name="minimumSize">
+                       <size>
+                        <width>60</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string>Pager ID</string>
+                      </property>
+                      <property name="margin">
+                       <number>2</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QGridLayout" name="TeamBlock2">
+                    <item row="0" column="1">
+                     <widget class="QLineEdit" name="PID8"/>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLineEdit" name="TeamN11"/>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QLineEdit" name="PID10"/>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLineEdit" name="PID9"/>
+                    </item>
+                    <item row="6" column="0">
+                     <widget class="QLineEdit" name="TeamN14"/>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QLineEdit" name="TeamN10"/>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QLineEdit" name="PID11"/>
+                    </item>
+                    <item row="0" column="0">
+                     <widget class="QLineEdit" name="TeamN8"/>
+                    </item>
+                    <item row="5" column="1">
+                     <widget class="QLineEdit" name="PID13"/>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QLineEdit" name="TeamN12"/>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QLineEdit" name="PID12"/>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QLineEdit" name="TeamN13"/>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLineEdit" name="TeamN9"/>
+                    </item>
+                    <item row="7" column="0">
+                     <widget class="QLineEdit" name="TeamN15"/>
+                    </item>
+                    <item row="6" column="1">
+                     <widget class="QLineEdit" name="PID14"/>
+                    </item>
+                    <item row="7" column="1">
+                     <widget class="QLineEdit" name="PID15"/>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_6">
+                <item>
+                 <widget class="QPushButton" name="select_teams">
+                  <property name="text">
+                   <string>Select file</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="load_teams">
+                  <property name="text">
+                   <string>load teams</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_2">
+                  <property name="text">
+                   <string>Set teams</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_5">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="select_pid_file">
+                  <property name="text">
+                   <string>Select file</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="load_pid">
+                  <property name="text">
+                   <string>load Pid</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
             </widget>
            </widget>
            <widget class="QWidget" name="Manual">
-            <widget class="QWidget" name="horizontalLayoutWidget">
+            <widget class="QFrame" name="gridFrame">
              <property name="geometry">
               <rect>
-               <x>230</x>
-               <y>170</y>
-               <width>268</width>
-               <height>122</height>
+               <x>0</x>
+               <y>0</y>
+               <width>637</width>
+               <height>429</height>
               </rect>
              </property>
-             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1">
-              <item>
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item>
-               <widget class="QFrame" name="ManualIcons">
-                <layout class="QVBoxLayout" name="verticalLayout_6">
-                 <item>
-                  <widget class="QLabel" name="Title">
-                   <property name="text">
-                    <string>            MANUAL QUEUE</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="TeamA">
-                     <property name="minimumSize">
-                      <size>
-                       <width>125</width>
-                       <height>16</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>Select Team A</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QComboBox" name="TeamB_box"/>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QLabel" name="TeamB">
-                     <property name="minimumSize">
-                      <size>
-                       <width>125</width>
-                       <height>16</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>Select Team B</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QComboBox" name="TeamA_box"/>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QVBoxLayout" name="verticalLayout_4">
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,1,1">
+                <item>
+                 <spacer name="horizontalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QFrame" name="ManualIcons">
+                  <layout class="QVBoxLayout" name="verticalLayout_6">
                    <item>
-                    <widget class="QPushButton" name="MessageTeam">
+                    <spacer name="verticalSpacer">
+                     <property name="orientation">
+                      <enum>Qt::Orientation::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>30</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="Title">
                      <property name="text">
-                      <string>Message Team</string>
+                      <string>            MANUAL QUEUE</string>
                      </property>
                     </widget>
                    </item>
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout">
+                     <item row="1" column="0">
+                      <widget class="QComboBox" name="TeamA_box"/>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="QComboBox" name="TeamB_box"/>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="QLabel" name="TeamB">
+                       <property name="minimumSize">
+                        <size>
+                         <width>125</width>
+                         <height>16</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Select Team B</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="TeamA">
+                       <property name="minimumSize">
+                        <size>
+                         <width>125</width>
+                         <height>16</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Select Team A</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QVBoxLayout" name="verticalLayout_4">
+                     <item>
+                      <layout class="QGridLayout" name="gridLayout_2">
+                       <item row="1" column="0">
+                        <widget class="QComboBox" name="TeamC_box"/>
+                       </item>
+                       <item row="1" column="1">
+                        <widget class="QComboBox" name="TeamD_box"/>
+                       </item>
+                       <item row="0" column="1">
+                        <widget class="QLabel" name="TeamD">
+                         <property name="minimumSize">
+                          <size>
+                           <width>125</width>
+                           <height>16</height>
+                          </size>
+                         </property>
+                         <property name="text">
+                          <string>Select Team D</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item row="0" column="0">
+                        <widget class="QLabel" name="TeamC">
+                         <property name="minimumSize">
+                          <size>
+                           <width>125</width>
+                           <height>16</height>
+                          </size>
+                         </property>
+                         <property name="text">
+                          <string>Select Team C</string>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="MessageTeam">
+                       <property name="text">
+                        <string>Message Team</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <spacer name="verticalSpacer_2">
+                     <property name="orientation">
+                      <enum>Qt::Orientation::Vertical</enum>
+                     </property>
+                     <property name="sizeHint" stdset="0">
+                      <size>
+                       <width>20</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                    </spacer>
+                   </item>
                   </layout>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
-               <spacer name="horizontalSpacer_2">
-                <property name="orientation">
-                 <enum>Qt::Orientation::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>40</width>
-                  <height>20</height>
-                 </size>
-                </property>
-               </spacer>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -499,14 +645,14 @@
               </rect>
              </property>
              <layout class="QFormLayout" name="formLayout">
-              <item row="1" column="0">
+              <item row="2" column="0">
                <widget class="QPushButton" name="pushButton">
                 <property name="text">
                  <string>Start/Stop Automatic Mode</string>
                 </property>
                </widget>
               </item>
-              <item row="0" column="0">
+              <item row="1" column="0">
                <widget class="QLabel" name="label_3">
                 <property name="text">
                  <string>Status of Automatic mode</string>
@@ -534,7 +680,7 @@
      </rect>
     </property>
     <property name="autoFillBackground">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">#frame{
