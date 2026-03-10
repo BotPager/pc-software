@@ -30,16 +30,28 @@ def load(filename="pid.txt"):
                 f.close()
                 return loaded_pagers
 
+def load(filename="team_numbers.txt"):
+    #does the same as pid but for team numbers instead
+    loaded_teams = []
+    if not os.path.exists(filename):
+        print(f"Warning: {filname} not found")
+        return loaded_teams
+    with open(filename) as f:
+        for line in f:
+            line = line.strip('\n')
+            team_number = line
+            if team_number:
+                loaded_teams.append(team_number)
+    f.close()
+    return loaded_teams
+
 def create_teams(size=16):
         team_set = []
         for i in range (0,size):
                 team_set.append(Team())
-        pid = load("pid.txt")
-        if pid:
-                print(len(pid))
-                for a in range(0,len(pid)):
-                        team_set[a].pid  = pid[a]
         return team_set
+
+    
 def save_pid(team_list):
     filename = "pid.txt"
     pid_list = []
@@ -52,8 +64,20 @@ def save_pid(team_list):
     converted = np.array(pid_list)
     np.savetxt(filename,converted,delimiter=",",fmt='%s')
 
+#now do the same as above but for team names?
+def save_team_number(team_list):
+    filename = "team_numbers.txt"
+    team_number_list = []
+    for i in range (0,16):
+        if team_list[i].name = '-':
+            continue
+        else:
+            team_number_list.append(team_list[i].name)
+    print(f"teams: {team_number_list}"")
+    converted = np.array(team_number_list)
+    np.savetxt(filename,convertedmdelimiter=",",fmt='%s')
 
-
+    
 #checking if a set of teams is legal as in not blank and within range
 # Pid is the meshtastic shortname
 
