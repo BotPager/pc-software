@@ -5,6 +5,7 @@ from PySide6.QtWidgets import (
     QPushButton,
     QVBoxLayout,
     QWidget,
+    QFileDialog,
 )
 from PySide6.QtCore import (
          QRunnable,
@@ -45,7 +46,8 @@ class MainWindow(QMainWindow):
         self.radio = MeshGateway()
         self.radio.connect()
        
-
+        self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("teams"))
+        self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
 
         # Connect page switches
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
@@ -138,6 +140,28 @@ class MainWindow(QMainWindow):
 
                 if pid_widget:
                     pid_widget.setText(str(team.pid))
+
+
+    def open_file_picker(self, file_type):
+        # Define filters based on what you're looking for
+        file_filter = "Text Files (*.txt);;All Files (*)"
+        caption = "Select Teams File" if file_type == "teams" else "Select PID File"
+
+        # Open the native dialog
+        file_path, _ = QFileDialog.getOpenFileName(self, caption, "", file_filter)
+
+        if file_path:
+            if file_type == "teams":
+                # Load the teams and refresh the UI display
+                print(f"Loading teams from: {file_path}")
+                # self.teams = teams.load_teams_from_file(file_path)
+                # self.display_loaded()
+                # self.set_teams() # Update the ComboBoxes too
+            
+            elif file_type == "pid":
+                # If you want to handle the pid file specifically
+                print(f"PID file selected: {file_path}")
+                # You could call teams.load(file_path) here if needed
 
 
     #message sending manual mode
