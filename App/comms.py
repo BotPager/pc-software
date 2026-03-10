@@ -68,17 +68,19 @@ class MeshGateway:
         # Trigger reconnection thread
         self.connect()
 #if this fails we know whyyyyyyyyyyy
-    def send_message(self, TeamAPID, TeamBPID):
+    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID):
         #call message task and start thread
-        worker = Worker(self.send_message_task, TeamAPID, TeamBPID)
+        worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID)
         self.threadpool.start(worker)
 
-    def send_message_task(self, TeamAPID, TeamBPID):
+    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID):
         #send the message to the teams should be reusable with automatic and manual modes
         print("sending")
         message = "|go to pit"
         messageTeamA = TeamAPID + message
         messageTeamB = TeamBPID + message
+        messageTeamC = TeamCPID + message
+        messageTeamD = TeamDPID + message
         
         sent = False
         while not sent:
@@ -89,6 +91,10 @@ class MeshGateway:
                 self.interface.sendText(messageTeamA)
                 time.sleep(5)
                 self.interface.sendText(messageTeamB)
+                time.sleep(5)
+                self.interface.sendText(messageTeamC)
+                time.sleep(5)
+                self.interface.sendText(messageTeamD)
                 sent = True
             except Exception as e:
                 print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")

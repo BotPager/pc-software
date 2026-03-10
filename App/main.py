@@ -97,11 +97,15 @@ class MainWindow(QMainWindow):
     def set_teams(self):
         self.ui.TeamA_box.clear()
         self.ui.TeamB_box.clear()
+        self.ui.TeamC_box.clear()
+        self.ui.TeamD_box.clear()
 
         for team in self.teams:
             # Add team name (or format it nicely)
             self.ui.TeamA_box.addItem(team.name,team)
             self.ui.TeamB_box.addItem(team.name,team)
+            self.ui.TeamC_box.addItem(team.name,team)
+            self.ui.TeamD_box.addItem(team.name,team)
     #debug info probably for what teams are validly loaded
     #currently dead code
     def print_teams(self):
@@ -138,9 +142,11 @@ class MainWindow(QMainWindow):
     #automatic may just use result from api matched against the array teams?
     def send_message_manual(self):
         #get data from currently selected teams
-        TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamB_box.currentIndex()))
-        TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamA_box.currentIndex()))
-        self.radio.send_message(TeamAObject.pid, TeamBObject.pid)
+        TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamA_box.currentIndex()))
+        TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamB_box.currentIndex()))
+        TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
+        TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
+        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid)
         
 # Run application
 if __name__ == "__main__":
