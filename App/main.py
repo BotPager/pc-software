@@ -34,8 +34,13 @@ class MainWindow(QMainWindow):
         #always load to inputting pagers
         self.ui.stackedWidget.setCurrentIndex(0)
         #load teams
-        self.teams = teams.load_teams_from_file()
+        #
+        self.teams = teams.create_teams()
+        self.teams = teams.load_teams_from_file(teams.txt,self.teams)
         self.display_loaded()
+
+
+        
         # Init Radio Communication
         self.radio = MeshGateway()
         self.radio.connect()
