@@ -50,8 +50,6 @@ def create_teams(size=16):
         for i in range (0,size):
                 team_set.append(Team())
         return team_set
-
-    
 def save_pid(team_list):
     filename = "pid.txt"
     pid_list = []
@@ -59,7 +57,7 @@ def save_pid(team_list):
         if team_list[i].pid == '-':
             continue
         else:
-            pid_list.append(team_list[i].pid)  
+             pid_list.append(team_list[i].pid)  
     print(pid_list)
     converted = np.array(pid_list)
     np.savetxt(filename,converted,delimiter=",",fmt='%s')
@@ -77,7 +75,7 @@ def save_team_number(team_list):
     converted = np.array(team_number_list)
     np.savetxt(filename,convertedmdelimiter=",",fmt='%s')
 
-    
+
 #checking if a set of teams is legal as in not blank and within range
 # Pid is the meshtastic shortname
 
@@ -121,11 +119,11 @@ def save_teams_to_file(teams_list):
 
 # loading teams from file into pc ui
 #loads into the teams object for use on manual mode only
-def load_teams_from_file(filename="teams.txt"):
+def load_teams_from_file(filename,teams_list):
     loaded_teams = []
     if not os.path.exists(filename):
         print(f"Warning: {filename} not found ")
-        return loaded_teams
+        return teams_list
     # get data from file
     # read line by line
     with open("teams.txt") as f:
@@ -140,4 +138,7 @@ def load_teams_from_file(filename="teams.txt"):
            if team:
                 loaded_teams.append(team)
     f.close()
-    return loaded_teams
+    if loaded_teams:
+        for a in range (0,len(loaded_teams)):
+            teams_list[a] = loaded_teams[a]
+    return teams_list
