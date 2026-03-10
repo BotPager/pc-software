@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
         #load teams
         #
         self.teams = teams.create_teams()
-        self.teams = teams.load_teams_from_file(teams.txt,self.teams)
+        self.teams = teams.load_teams_from_file("teams.txt",self.teams)
         self.display_loaded()
 
 

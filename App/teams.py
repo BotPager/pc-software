@@ -67,11 +67,11 @@ def save_team_number(team_list):
     filename = "team_numbers.txt"
     team_number_list = []
     for i in range (0,16):
-        if team_list[i].name = '-':
+        if team_list[i].name == '-':
             continue
         else:
             team_number_list.append(team_list[i].name)
-    print(f"teams: {team_number_list}"")
+    print(f"teams: {team_number_list}")
     converted = np.array(team_number_list)
     np.savetxt(filename,convertedmdelimiter=",",fmt='%s')
 
