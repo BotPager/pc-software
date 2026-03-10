@@ -10,8 +10,8 @@ from PySide6.QtCore import (
          QRunnable,
          QThreadPool,
          QTimer,
-         Slot
-    )
+         Slot,
+)
 from worker import Worker
 from comms import *
 import time
