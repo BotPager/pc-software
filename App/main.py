@@ -82,20 +82,20 @@ class MainWindow(QMainWindow):
 
     def collect_team_data(self):
         #remove teams to makesure they dont duplicate
-        self.teams.clear()
-        for i in range(0, 15):
+        for i in range(0, 16):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
             pid_widget = getattr(self.ui, f"PID{i}", None)
-
-            if not team_widget or not pid_widget:
+            if team_widget.text().strip() == "-" or pid_widget.text().strip() == "-":
+                print(f"{i} contains invalid")
                 continue
-
-            team_name = team_widget.text().strip()
-            pid = pid_widget.text().strip()
-            new_team = teams.check_valid(team_name, pid, self.teams)
-            if new_team:
-                self.teams.append(new_team)
+            else:
+                team_name = team_widget.text().strip()
+                pid = pid_widget.text().strip()
+                self.teams[i].name = team_name
+                self.teams[i].pid = pid
+                
         teams.save_teams_to_file(self.teams)
+        print(self.teams)
         self.set_teams()
    
     # After loading all valid teams

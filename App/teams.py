@@ -2,7 +2,7 @@ import os
 import numpy as np
 
 class Team:
-    def __init__(self, name = "-", pid = "-"):
+    def __init__(self, name = "", pid = ""):
         self.name = name            # team number (string or int)
         self.pid = pid              # hex pager ID (as string)
 
@@ -34,7 +34,7 @@ def load(filename="team_numbers.txt"):
     #does the same as pid but for team numbers instead
     loaded_teams = []
     if not os.path.exists(filename):
-        print(f"Warning: {filname} not found")
+        print(f"Warning: {filename} not found")
         return loaded_teams
     with open(filename) as f:
         for line in f:
