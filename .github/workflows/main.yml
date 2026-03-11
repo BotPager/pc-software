@@ -31,8 +31,6 @@ jobs:
       runs-on: ubuntu-latest
   
       steps:
-        - name: Wait to avoid rate limits
-          run: sleep 15
         - name: Download artifacts
           uses: actions/download-artifact@v4
           with:
