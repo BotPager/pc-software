@@ -46,6 +46,7 @@ class MainWindow(QMainWindow):
        
         self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("team_numbers"))
         self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
+        self.ui.select_teams_file.clicked.connect(lambda: self.open_file_picker("teams"))
 
         # Connect page switches
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
@@ -150,6 +151,7 @@ class MainWindow(QMainWindow):
         file_path, _ = QFileDialog.getOpenFileName(self, caption, "", file_filter)
 
         if file_path:
+            
             if file_type == "team_numbers":
                 # Load the teams and refresh the UI display
                 print(f"Loading teams from: {file_path}")
@@ -157,7 +159,6 @@ class MainWindow(QMainWindow):
                 for i in range(0,len(team_numbers)):
                     self.teams[i].name = team_numbers[i]
                 print(f"Team numbers: {team_numbers}")
-                self.display_loaded()
                 # self.teams = teams.load_teams_from_file(file_path)
                 # self.display_loaded()
                 # self.set_teams() # Update the ComboBoxes too
@@ -171,10 +172,15 @@ class MainWindow(QMainWindow):
                     self.teams[i].pid = pids[i]
                     
                 print(teams.load_pid(file_path))
-                self.display_loaded()
+            elif file_type == "teams":
+                self.teams = teams.create_teams()
+                print(f"loading team objects from: {file_path}")
+                team = teams.load_teams_from_file(file_path,self.teams)
+                print (team)
+                self.teams = team
                 
                 # You could call teams.load(file_path) here if needed
-
+            self.display_loaded()
 
     #message sending manual mode
     #get the object from the currently selected team number (read index of current selection)
