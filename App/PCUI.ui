@@ -161,8 +161,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>637</width>
-               <height>429</height>
+               <width>616</width>
+               <height>376</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -403,13 +403,6 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
-                 <widget class="QPushButton" name="select_teams">
-                  <property name="text">
-                   <string>Select file</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <widget class="QPushButton" name="load_teams">
                   <property name="text">
                    <string>load teams</string>
@@ -437,6 +430,13 @@
                  </widget>
                 </item>
                 <item>
+                 <widget class="QPushButton" name="select_teams_file">
+                  <property name="text">
+                   <string>Select file</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <spacer name="horizontalSpacer_5">
                   <property name="orientation">
                    <enum>Qt::Orientation::Horizontal</enum>
@@ -448,13 +448,6 @@
                    </size>
                   </property>
                  </spacer>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="select_pid_file">
-                  <property name="text">
-                   <string>Select file</string>
-                  </property>
-                 </widget>
                 </item>
                 <item>
                  <widget class="QPushButton" name="load_pid">
@@ -640,7 +633,7 @@
               <rect>
                <x>230</x>
                <y>140</y>
-               <width>233</width>
+               <width>239</width>
                <height>80</height>
               </rect>
              </property>
