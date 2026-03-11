@@ -89,12 +89,16 @@ class MeshGateway:
                 time.sleep(5)
             try:
                 self.interface.sendText(messageTeamA)
+                print(f"team A {messageTeamA}")
                 time.sleep(5)
                 self.interface.sendText(messageTeamB)
+                print(f"team B {messageTeamB}")
                 time.sleep(5)
                 self.interface.sendText(messageTeamC)
+                print(f"team C {messageTeamC}")
                 time.sleep(5)
                 self.interface.sendText(messageTeamD)
+                print(f"team D {messageTeamD}")
                 sent = True
             except Exception as e:
                 print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")

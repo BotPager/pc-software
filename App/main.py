@@ -23,12 +23,10 @@ import meshtastic
 import meshtastic.serial_interface
 from pubsub import pub
 import os
-os.environ["QT_QUICK_CONTROLS_STYLE"] = "Universal"
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-   
         # Load UI
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -46,8 +44,8 @@ class MainWindow(QMainWindow):
         self.radio = MeshGateway()
         self.radio.connect()
        
-        self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("teams"))
-        self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
+        self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("teams",self.teams))
+        self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid",self.teams))
 
         # Connect page switches
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
@@ -142,7 +140,8 @@ class MainWindow(QMainWindow):
                     pid_widget.setText(str(team.pid))
 
 
-    def open_file_picker(self, file_type):
+    def open_file_picker(self, file_type,team_list):
+        print("file picker")
         # Define filters based on what you're looking for
         file_filter = "Text Files (*.txt);;All Files (*)"
         caption = "Select Teams File" if file_type == "teams" else "Select PID File"
@@ -161,6 +160,13 @@ class MainWindow(QMainWindow):
             elif file_type == "pid":
                 # If you want to handle the pid file specifically
                 print(f"PID file selected: {file_path}")
+                print(f"PIDS:")
+                pids = teams.load_pid(file_path)
+                for i in range(0,len(pids)):
+                    team_list[i].pid = pids[i]
+                    
+                print(teams.load_pid(file_path))
+                
                 # You could call teams.load(file_path) here if needed
 
 

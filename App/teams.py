@@ -10,7 +10,7 @@ class Team:
         return f"Team(name={self.name}, pid={self.pid})"
 
 
-def load(filename="pid.txt"):
+def load_pid(filename="pid.txt"):
                 loaded_pagers = []
                 if not os.path.exists(filename):
                         print(f"Warning: {filename} not found ")
@@ -30,7 +30,7 @@ def load(filename="pid.txt"):
                 f.close()
                 return loaded_pagers
 
-def load(filename="team_numbers.txt"):
+def load_team_number(filename="team_numbers.txt"):
     #does the same as pid but for team numbers instead
     loaded_teams = []
     if not os.path.exists(filename):
