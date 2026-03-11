@@ -59,7 +59,16 @@ def get_queue_match_details():
         print(f"Error {response.status_code}: {response.text}")
         return None
 
+# Debug output
+print(f"Active match URL: {active_match_url}")
+active_match_details = get_active_match_details()
+print(f"Active match response: {active_match_details}")
+
+# Only call once and reuse the result
 queue_match_details = get_queue_match_details()
+print(f"Queue match details: {queue_match_details}")
+
+# Use the same variable - don't call again!
 if queue_match_details:
     file_path = 'queue_teams.txt'
     red_team1 = queue_match_details["matchBrief"]["red"]["team1"]
@@ -71,6 +80,8 @@ if queue_match_details:
         print(red_team2, file=f_output)
         print(blue_team1, file=f_output)
         print(blue_team2, file=f_output)
-
+    print("✓ File updated successfully!")
+else:
+    print("✗ Failed to get queue match details - file not updated")
 
 

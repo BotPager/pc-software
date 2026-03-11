@@ -1,6 +1,7 @@
 import time
 import meshtastic
 import meshtastic.serial_interface
+import serial.tools.list_ports
 from pubsub import pub
 from worker import Worker
 from PySide6.QtCore import (
@@ -136,6 +137,57 @@ def get_pid():
                 temp_interface.close()
             except:
                 pass
+
+def get_all_pids():
+    all_pids = []
+    
+    # Get all serial ports
+    ports = serial.tools.list_ports.comports()
+    
+    for port in ports:
+        temp_interface = None
+        try:
+            # Try to connect to this specific port
+            print(f"Checking port: {port.device}")
+            temp_interface = meshtastic.serial_interface.SerialInterface(port.device)
+            
+            if temp_interface.devPath:
+                # Wait a moment for connection to stabilize
+                time.sleep(1)
+                
+                # Get the PID (short name)
+                pid = temp_interface.getShortName()
+                
+                if pid:
+                    all_pids.append({
+                        'port': port.device,
+                        'pid': pid,
+                        'description': port.description
+                    })
+                    print(f"Found device on {port.device} with PID: {pid}")
+                else:
+                    print(f"No PID returned from {port.device}")
+        
+        except Exception as e:
+            # Not a meshtastic device or connection failed
+            print(f"Could not connect to {port.device}: {e}")
+        
+        finally:
+            # Always close the connection to this device
+            if temp_interface:
+                try:
+                    temp_interface.close()
+                except:
+                    pass
+    
+    return all_pids
+
+def get_all_pids_simple():
+    """
+    Simplified version - returns just the list of PIDs as strings.
+    """
+    devices = get_all_pids()
+    return [device['pid'] for device in devices]
 
 # def set_settings():
 #     temp_interface = None
