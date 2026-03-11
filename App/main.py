@@ -35,7 +35,7 @@ class MainWindow(QMainWindow):
         #load teams
         #
         self.teams = teams.create_teams()
-        self.teams = teams.load_teams_from_file("teams.txt",self.teams)
+        self.teams = teams.load_teams_from_file(self.teams,"teams.txt")
         self.display_loaded()
 
 
@@ -175,7 +175,7 @@ class MainWindow(QMainWindow):
             elif file_type == "teams":
                 self.teams = teams.create_teams()
                 print(f"loading team objects from: {file_path}")
-                team = teams.load_teams_from_file(file_path,self.teams)
+                team = teams.load_teams_from_file(self.teams,file_path)
                 print (team)
                 self.teams = team
                 
