@@ -5,13 +5,14 @@ from PySide6.QtWidgets import (
     QPushButton,
     QVBoxLayout,
     QWidget,
+    QFileDialog,
 )
 from PySide6.QtCore import (
          QRunnable,
          QThreadPool,
          QTimer,
-         Slot
-    )
+         Slot,
+)
 from worker import Worker
 from comms import *
 import time
@@ -22,25 +23,29 @@ import meshtastic
 import meshtastic.serial_interface
 from pubsub import pub
 import os
-os.environ["QT_QUICK_CONTROLS_STYLE"] = "Universal"
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-   
         # Load UI
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         #always load to inputting pagers
         self.ui.stackedWidget.setCurrentIndex(0)
         #load teams
-        self.teams = teams.load_teams_from_file()
+        #
+        self.teams = teams.create_teams()
+        self.teams = teams.load_teams_from_file("teams.txt",self.teams)
         self.display_loaded()
+
+
+        
         # Init Radio Communication
         self.radio = MeshGateway()
         self.radio.connect()
        
-
+        self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("team_numbers"))
+        self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
 
         # Connect page switches
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
@@ -77,31 +82,35 @@ class MainWindow(QMainWindow):
 
     def collect_team_data(self):
         #remove teams to makesure they dont duplicate
-        self.teams.clear()
         for i in range(0, 16):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
             pid_widget = getattr(self.ui, f"PID{i}", None)
-
-            if not team_widget or not pid_widget:
+            if team_widget.text().strip() == "-" or pid_widget.text().strip() == "-":
+                print(f"{i} contains invalid")
                 continue
-
-            team_name = team_widget.text().strip()
-            pid = pid_widget.text().strip()
-            new_team = teams.check_valid(team_name, pid, self.teams_list)
-            if new_team:
-                self.teams.append(new_team)
-        teams.save_teams_to_file(self.teams_list)
+            else:
+                team_name = team_widget.text().strip()
+                pid = pid_widget.text().strip()
+                self.teams[i].name = team_name
+                self.teams[i].pid = pid
+                
+        teams.save_teams_to_file(self.teams)
+        print(self.teams)
         self.set_teams()
    
     # After loading all valid teams
     def set_teams(self):
         self.ui.TeamA_box.clear()
         self.ui.TeamB_box.clear()
+        self.ui.TeamC_box.clear()
+        self.ui.TeamD_box.clear()
 
         for team in self.teams:
             # Add team name (or format it nicely)
             self.ui.TeamA_box.addItem(team.name,team)
             self.ui.TeamB_box.addItem(team.name,team)
+            self.ui.TeamC_box.addItem(team.name,team)
+            self.ui.TeamD_box.addItem(team.name,team)
     #debug info probably for what teams are validly loaded
     #currently dead code
     def print_teams(self):
@@ -131,6 +140,42 @@ class MainWindow(QMainWindow):
                     pid_widget.setText(str(team.pid))
 
 
+    def open_file_picker(self, file_type):
+        print("file picker")
+        # Define filters based on what you're looking for
+        file_filter = "Text Files (*.txt);;All Files (*)"
+        caption = "Select Teams File" if file_type == "teams" else "Select PID File"
+
+        # Open the native dialog
+        file_path, _ = QFileDialog.getOpenFileName(self, caption, "", file_filter)
+
+        if file_path:
+            if file_type == "team_numbers":
+                # Load the teams and refresh the UI display
+                print(f"Loading teams from: {file_path}")
+                team_numbers = teams.load_team_number(file_path)
+                for i in range(0,len(team_numbers)):
+                    self.teams[i].name = team_numbers[i]
+                print(f"Team numbers: {team_numbers}")
+                self.display_loaded()
+                # self.teams = teams.load_teams_from_file(file_path)
+                # self.display_loaded()
+                # self.set_teams() # Update the ComboBoxes too
+            
+            elif file_type == "pid":
+                # If you want to handle the pid file specifically
+                print(f"PID file selected: {file_path}")
+                print(f"PIDS:")
+                pids = teams.load_pid(file_path)
+                for i in range(0,len(pids)):
+                    self.teams[i].pid = pids[i]
+                    
+                print(teams.load_pid(file_path))
+                self.display_loaded()
+                
+                # You could call teams.load(file_path) here if needed
+
+
     #message sending manual mode
     #get the object from the currently selected team number (read index of current selection)
         #team a right
@@ -138,9 +183,11 @@ class MainWindow(QMainWindow):
     #automatic may just use result from api matched against the array teams?
     def send_message_manual(self):
         #get data from currently selected teams
-        TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamB_box.currentIndex()))
-        TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamA_box.currentIndex()))
-        self.radio.send_message(TeamAObject.pid, TeamBObject.pid)
+        TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamA_box.currentIndex()))
+        TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamB_box.currentIndex()))
+        TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
+        TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
+        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid)
         
 # Run application
 if __name__ == "__main__":
