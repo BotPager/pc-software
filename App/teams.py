@@ -119,14 +119,14 @@ def save_teams_to_file(teams_list):
 
 # loading teams from file into pc ui
 #loads into the teams object for use on manual mode only
-def load_teams_from_file(filename,teams_list):
+def load_teams_from_file(teams_list,filename="teams.txt"):
     loaded_teams = []
     if not os.path.exists(filename):
         print(f"Warning: {filename} not found ")
         return teams_list
     # get data from file
     # read line by line
-    with open("teams.txt") as f:
+    with open(filename) as f:
         for line in f:
            #strip
            line = line.strip('\n')
