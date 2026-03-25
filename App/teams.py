@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import random
+import comms
 
 class Team:
     def __init__(self, name = "", pid = ""):
@@ -144,73 +145,3 @@ def load_teams_from_file(filename,teams_list):
             teams_list[a] = loaded_teams[a]
     return teams_list
 
-def assign_pids_to_teams(team_numbers_file="team_numbers.txt"):
-    """
-    Load team numbers from file, get all connected pager PIDs,
-    and randomly assign each PID to a unique team.
-    Returns a list of Team objects with the assignments.
-    """
-    # Load team numbers
-    team_numbers = load_team_number(team_numbers_file)
-    
-    if not team_numbers:
-        print("No team numbers found in file")
-        return []
-    
-    # Get all connected pager PIDs
-    pids = get_all_pids_simple()
-    
-    if not pids:
-        print("No pagers found connected to the system")
-        return []
-    
-    # Determine how many assignments we can make
-    num_assignments = min(len(team_numbers), len(pids))
-    
-    print(f"Found {len(team_numbers)} teams and {len(pids)} pagers")
-    print(f"Will assign {num_assignments} team-pager pairs")
-    
-    # Shuffle both lists for random assignment
-    random.shuffle(team_numbers)
-    random.shuffle(pids)
-    
-    # Create Team objects with the assignments
-    assigned_teams = []
-    for i in range(num_assignments):
-        team = Team(name=team_numbers[i], pid=pids[i])
-        assigned_teams.append(team)
-        print(f"Assigned: Team {team_numbers[i]} -> PID {pids[i]}")
-    
-    # Warn about unassigned items
-    if len(team_numbers) > len(pids):
-        print(f"Warning: {len(team_numbers) - len(pids)} teams have no pager assigned")
-    elif len(pids) > len(team_numbers):
-        print(f"Warning: {len(pids) - len(team_numbers)} pagers are unused")
-    
-    return assigned_teams
-
-def assign_and_save_teams(team_numbers_file="team_numbers.txt"):
-    """
-    Assign PIDs to teams and save to teams.txt file.
-    Also returns a full teams list (size 16) for use in the UI.
-    """
-    # Get the assignments
-    assigned_teams = assign_pids_to_teams(team_numbers_file)
-    
-    if not assigned_teams:
-        print("No assignments made")
-        return create_teams()  # Return empty team list
-    
-    # Create a full team list of size 16 for the UI
-    teams_list = create_teams(16)
-    
-    # Fill in the assigned teams
-    for i, team in enumerate(assigned_teams):
-        if i < 16:  # Don't exceed UI capacity
-            teams_list[i] = team
-    
-    # Save to file
-    save_teams_to_file(teams_list)
-    print(f"✓ Saved {len(assigned_teams)} team assignments to teams.txt")
-    
-    return teams_list

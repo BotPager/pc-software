@@ -184,46 +184,6 @@ class MainWindow(QMainWindow):
         TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
         self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid)
-
-    def display_teams_automatic(self):
-        """Load and display teams from team_numbers.txt on the automatic page"""
-        print("Fetching latest teams from API...")
-        try:
-            result = subprocess.run(
-                ["python", "ftclive_polling.py"],  # On Windows, use "python" not "python3"
-                capture_output=True,
-                text=True,
-                timeout=10  # 10 second timeout
-            )
-            
-            if result.returncode == 0:
-                print("✓ Team data updated successfully")
-                print(result.stdout)  # Show the output from ftclive_polling.py
-            else:
-                print(f"⚠ Warning: ftclive_polling.py had errors:\n{result.stderr}")
-        
-        except subprocess.TimeoutExpired:
-            print("⚠ Warning: API request timed out")
-        except Exception as e:
-            print(f"⚠ Warning: Could not run ftclive_polling.py: {e}")
-    
-        team_numbers = teams.load_team_number("team_numbers.txt")
-        
-        if not team_numbers:
-            self.ui.label_3.setText("No teams found in team_numbers.txt")
-            print("No teams found in team_numbers.txt")
-            return
-        
-        # Format teams for display (show first 10, then indicate if more)
-        if len(team_numbers) <= 10:
-            teams_text = f"Teams ({len(team_numbers)}):\n" + ", ".join(team_numbers)
-        else:
-            teams_text = f"Teams ({len(team_numbers)}):\n"
-            teams_text += ", ".join(team_numbers[:10])
-            teams_text += f"... (+{len(team_numbers) - 10} more)"
-        
-        self.ui.label_3.setText(teams_text)
-        print(f"✓ Loaded {len(team_numbers)} teams from team_numbers.txt")
         
 # Run application
 if __name__ == "__main__":
