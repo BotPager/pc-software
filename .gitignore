@@ -1,4 +1,5 @@
 .devenv
 App/__pycache__
 App/.qtcreator/pyproject.toml.user
+App/PCUI.ui.autosave
 .venv

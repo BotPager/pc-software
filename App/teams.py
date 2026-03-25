@@ -2,6 +2,7 @@ import os
 import numpy as np
 import random
 import comms
+import ftclive_queueteams
 
 class Team:
     def __init__(self, name = "", pid = ""):
@@ -144,4 +145,16 @@ def load_teams_from_file(filename,teams_list):
         for a in range (0,len(loaded_teams)):
             teams_list[a] = loaded_teams[a]
     return teams_list
+
+def send_message_to_teams(teams_list):
+    #Get list of teams to be queued from get_queue_match_details
+    queue_match_details = ftclive_queueteams.get_queue_match_details()
+    red_team1 = queue_match_details["matchBrief"]["red"]["team1"]
+    red_team2 = queue_match_details["matchBrief"]["red"]["team2"]
+    blue_team1 = queue_match_details["matchBrief"]["blue"]["team1"]
+    blue_team2 = queue_match_details["matchBrief"]["blue"]["team2"]
+    #send message to teams in the list
+    for team in teams_list:
+        if team.name in [red_team1, red_team2, blue_team1, blue_team2]:
+            comms.send_message(team.pid)
 

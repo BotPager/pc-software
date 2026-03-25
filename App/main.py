@@ -55,7 +55,6 @@ class MainWindow(QMainWindow):
 
         # connect to team loading button
         self.ui.pushButton_2.clicked.connect(self.collect_team_data)
-        self.ui.pushButton.clicked.connect(self.display_teams_automatic)
 
         #connect to send message butotn
         self.ui.MessageTeam.clicked.connect(self.send_message_manual)
@@ -184,6 +183,8 @@ class MainWindow(QMainWindow):
         TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
         self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid)
+
+    
         
 # Run application
 if __name__ == "__main__":

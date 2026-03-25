@@ -12,8 +12,8 @@ def get_local_ip():
     return ip
 
 BASE_URL = get_local_ip()
-EVENT_CODE = input("Enter the event code: ")
-number_of_teams = int(input("Enter the number of teams: "))
+EVENT_CODE = 4828               #EDIT FOR OFFICIAL EVENT RUNS: 4828 is testing
+number_of_teams = 16            #EDIT FOR OFFICIAL EVENT RUNS: 16 is max teams at an event
 
 active_match_url = f"http://{BASE_URL}/api/v1/events/{EVENT_CODE}/matches/active/"
 
@@ -80,8 +80,8 @@ if queue_match_details:
         print(red_team2, file=f_output)
         print(blue_team1, file=f_output)
         print(blue_team2, file=f_output)
-    print("✓ File updated successfully!")
+    print("File updated successfully!")
 else:
-    print("✗ Failed to get queue match details - file not updated")
+    print("Failed to get queue match details - file not updated")
 
 
