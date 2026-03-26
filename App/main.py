@@ -62,7 +62,7 @@ class MainWindow(QMainWindow):
         self.ui.pushButton_3.clicked.connect(self.close)
 
         #start the automatic mode polling function
-        #self.ui.pushButton.clicked.connect(self.start_automatic_mode)
+        self.ui.pushButton.clicked.connect(self.start_polling_timer)
           
 
     #shutdown logic
@@ -193,9 +193,10 @@ class MainWindow(QMainWindow):
         self.poll_interval_ms = 30000  # 30 seconds
         self.last_queue_signature = None
         self.api_cooldown_until = 0
-        self.poll_timer = QTimer()
+        self.poll_timer = QTimer(self)
         self.poll_timer.timeout.connect(self.poll_for_queue_changes)
         self.poll_timer.start(self.poll_interval_ms)
+        self.poll_for_queue_changes()  # Initial call to populate immediately
 
     def poll_for_queue_changes(self):
         now = time.time()
@@ -211,8 +212,15 @@ class MainWindow(QMainWindow):
             print("Queue changed, sending messages")
             self.last_queue_signature = queue_signature
             teams_in_match = self.extract_teams_from_queue(queue_details)
+            #DEBUG
+            print ("Teams in match:", teams_in_match)
+            print ("teams_in_match types:", [type(x) for x in teams_in_match])
+            for team in self.teams:
+                print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_in_match}")
             teams_in_match_pid = [team.pid for team in self.teams if team.name in teams_in_match]
-            self.radio.send_message(self, teams_in_match_pid[0], teams_in_match_pid[1], teams_in_match_pid[2], teams_in_match_pid[3])
+            print("teams_in_match_pid:", teams_in_match_pid)
+            self.radio.send_message(teams_in_match_pid[0], teams_in_match_pid[1], teams_in_match_pid[2], teams_in_match_pid[3])
+
             
 
     def generate_queue_signature(self, queue_details):
@@ -226,10 +234,10 @@ class MainWindow(QMainWindow):
         return signature
     
     def extract_teams_from_queue(self, queue_details):
-        red_team1 = queue_details["matchBrief"]["red"]["team1"]
-        red_team2 = queue_details["matchBrief"]["red"]["team2"]
-        blue_team1 = queue_details["matchBrief"]["blue"]["team1"]
-        blue_team2 = queue_details["matchBrief"]["blue"]["team2"]
+        red_team1 = str(queue_details["matchBrief"]["red"]["team1"])
+        red_team2 = str(queue_details["matchBrief"]["red"]["team2"])
+        blue_team1 = str(queue_details["matchBrief"]["blue"]["team1"])
+        blue_team2 = str(queue_details["matchBrief"]["blue"]["team2"])
         return [red_team1, red_team2, blue_team1, blue_team2]
         
 # Run application
