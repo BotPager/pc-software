@@ -96,7 +96,7 @@ class Ui_MainWindow(object):
         self.label_2.setGeometry(QRect(90, 360, 49, 16))
         self.verticalFrame = QFrame(self.SetTeams)
         self.verticalFrame.setObjectName(u"verticalFrame")
-        self.verticalFrame.setGeometry(QRect(0, 0, 637, 429))
+        self.verticalFrame.setGeometry(QRect(0, 0, 616, 376))
         self.verticalLayout_2 = QVBoxLayout(self.verticalFrame)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.horizontalLayout_5 = QHBoxLayout()
@@ -361,11 +361,6 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.select_teams = QPushButton(self.verticalFrame)
-        self.select_teams.setObjectName(u"select_teams")
-
-        self.horizontalLayout_6.addWidget(self.select_teams)
-
         self.load_teams = QPushButton(self.verticalFrame)
         self.load_teams.setObjectName(u"load_teams")
 
@@ -380,14 +375,14 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_6.addWidget(self.pushButton_2)
 
+        self.select_teams_file = QPushButton(self.verticalFrame)
+        self.select_teams_file.setObjectName(u"select_teams_file")
+
+        self.horizontalLayout_6.addWidget(self.select_teams_file)
+
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_6.addItem(self.horizontalSpacer_5)
-
-        self.select_pid_file = QPushButton(self.verticalFrame)
-        self.select_pid_file.setObjectName(u"select_pid_file")
-
-        self.horizontalLayout_6.addWidget(self.select_pid_file)
 
         self.load_pid = QPushButton(self.verticalFrame)
         self.load_pid.setObjectName(u"load_pid")
@@ -510,7 +505,7 @@ class Ui_MainWindow(object):
         self.Automatic.setObjectName(u"Automatic")
         self.formLayoutWidget = QWidget(self.Automatic)
         self.formLayoutWidget.setObjectName(u"formLayoutWidget")
-        self.formLayoutWidget.setGeometry(QRect(230, 140, 233, 80))
+        self.formLayoutWidget.setGeometry(QRect(230, 140, 239, 80))
         self.formLayout = QFormLayout(self.formLayoutWidget)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setContentsMargins(0, 0, 0, 0)
@@ -577,10 +572,9 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
         self.PagerID1_2.setText(QCoreApplication.translate("MainWindow", u"Team Number", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
-        self.select_teams.setText(QCoreApplication.translate("MainWindow", u"Select file", None))
         self.load_teams.setText(QCoreApplication.translate("MainWindow", u"load teams", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Set teams", None))
-        self.select_pid_file.setText(QCoreApplication.translate("MainWindow", u"Select file", None))
+        self.select_teams_file.setText(QCoreApplication.translate("MainWindow", u"Select file", None))
         self.load_pid.setText(QCoreApplication.translate("MainWindow", u"load Pid", None))
         self.Title.setText(QCoreApplication.translate("MainWindow", u"            MANUAL QUEUE", None))
         self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Select Team B", None))
