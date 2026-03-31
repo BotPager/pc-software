@@ -1,5 +1,8 @@
 import os
 import numpy as np
+import random
+import comms
+import ftclive_queueteams
 
 class Team:
     def __init__(self, name = "", pid = ""):
@@ -142,3 +145,5 @@ def load_teams_from_file(teams_list,filename="teams.txt"):
         for a in range (0,len(loaded_teams)):
             teams_list[a] = loaded_teams[a]
     return teams_list
+
+
