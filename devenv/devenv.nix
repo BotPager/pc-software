@@ -10,6 +10,7 @@
     python = {
       enable = true;
       venv.enable = true;
+      package = pkgs.python314;
     };
   };
 
@@ -22,14 +23,16 @@
     # however regenerating PCUI.py will not work as uic-pyside6
     # refrence 
     # author reccomends setting up at distrobox
-    python3Packages.pyside6
+    python314Packages.pyside6
+    python314Packages.meshtastic
     # System dependencies often needed for Qt/PySide applications
     qt6.qtbase
     #qt design app
     qtcreator
+    contact
     #numpy for creating csv
-    python3Packages.numpy
-    python3Packages.pyinstaller
+    python314Packages.numpy
+    python314Packages.pyinstaller
   ];
 
   # See full reference at https://devenv.sh/reference/options/
