@@ -86,17 +86,17 @@ class MeshGateway:
         while not sent:
             while self.interface is None or self.is_connecting:
                 print("sending sent waiting for connection to device")
-                time.sleep(5)
+                time.sleep(2)
             try:
                 self.interface.sendText(messageTeamA)
                 print(f"team A {messageTeamA}")
-                time.sleep(5)
+                time.sleep(15)
                 self.interface.sendText(messageTeamB)
                 print(f"team B {messageTeamB}")
-                time.sleep(5)
+                time.sleep(15)
                 self.interface.sendText(messageTeamC)
                 print(f"team C {messageTeamC}")
-                time.sleep(5)
+                time.sleep(15)
                 self.interface.sendText(messageTeamD)
                 print(f"team D {messageTeamD}")
                 sent = True
