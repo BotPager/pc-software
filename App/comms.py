@@ -68,42 +68,65 @@ class MeshGateway:
         # Trigger reconnection thread
         self.connect()
 #if this fails we know whyyyyyyyyyyy
-    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID):
+    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency="ffffff" ):
         #call message task and start thread
         worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID)
         self.threadpool.start(worker)
 
-    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID):
-        #send the message to the teams should be reusable with automatic and manual modes
-        print("sending")
-        message = "|go to pit"
-        messageTeamA = TeamAPID + message
-        messageTeamB = TeamBPID + message
-        messageTeamC = TeamCPID + message
-        messageTeamD = TeamDPID + message
+    # def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID):
+    #     #send the message to the teams should be reusable with automatic and manual modes
+    #     print("sending")
+    #     message = "|go to pit"
+    #     messageTeamA = TeamAPID + message
+    #     messageTeamB = TeamBPID + message
+    #     messageTeamC = TeamCPID + message
+    #     messageTeamD = TeamDPID + message
         
+    #     sent = False
+    #     while not sent:
+    #         while self.interface is None or self.is_connecting:
+    #             print("sending sent waiting for connection to device")
+    #             time.sleep(2)
+    #         try:
+    #             self.interface.sendText(messageTeamA)
+    #             print(f"team A {messageTeamA}")
+    #             time.sleep(15)
+    #             self.interface.sendText(messageTeamB)
+    #             print(f"team B {messageTeamB}")
+    #             time.sleep(15)
+    #             self.interface.sendText(messageTeamC)
+    #             print(f"team C {messageTeamC}")
+    #             time.sleep(15)
+    #             self.interface.sendText(messageTeamD)
+    #             print(f"team D {messageTeamD}")
+    #             sent = True
+    #         except Exception as e:
+    #             print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
+    #             sent = False
+    #             time.sleep(2)
+
+    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency="ffffff"):
+        #send the message to the teams should be reusable with automatic and manual modes
+        
+        print("sending\n")
+        
+        message = "|ffffff|go to pit\n"
+        combined = TeamAPID + message + TeamBPID + message + TeamCPID + message + TeamDPID + message                  
+        templated =  f"{TeamAPID}||go to pit\n{TeamBPID}||"
         sent = False
         while not sent:
             while self.interface is None or self.is_connecting:
                 print("sending sent waiting for connection to device")
                 time.sleep(2)
             try:
-                self.interface.sendText(messageTeamA)
-                print(f"team A {messageTeamA}")
-                time.sleep(15)
-                self.interface.sendText(messageTeamB)
-                print(f"team B {messageTeamB}")
-                time.sleep(15)
-                self.interface.sendText(messageTeamC)
-                print(f"team C {messageTeamC}")
-                time.sleep(15)
-                self.interface.sendText(messageTeamD)
-                print(f"team D {messageTeamD}")
+                self.interface.sendText(combined)
+                print(f"sending mesages \n {combined}")
                 sent = True
             except Exception as e:
                 print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
                 sent = False
                 time.sleep(2)
+ 
     def exit(self):
         #close connection between the device and also shutdown the threadpool
         self.is_connecting = False
