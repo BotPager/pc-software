@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'PCUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.10.2
+## Created by: Qt User Interface Compiler version 6.11.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -414,34 +414,50 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addItem(self.verticalSpacer)
 
-        self.Title = QLabel(self.ManualIcons)
+        self.horizontalFrame = QFrame(self.ManualIcons)
+        self.horizontalFrame.setObjectName(u"horizontalFrame")
+        self.horizontalFrame.setMinimumSize(QSize(0, 20))
+        self.horizontalLayout_9 = QHBoxLayout(self.horizontalFrame)
+        self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
+        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_9.addItem(self.horizontalSpacer_7)
+
+        self.Title = QLabel(self.horizontalFrame)
         self.Title.setObjectName(u"Title")
 
-        self.verticalLayout_6.addWidget(self.Title)
+        self.horizontalLayout_9.addWidget(self.Title)
+
+        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_9.addItem(self.horizontalSpacer_8)
+
+
+        self.verticalLayout_6.addWidget(self.horizontalFrame)
 
         self.gridLayout = QGridLayout()
         self.gridLayout.setObjectName(u"gridLayout")
-        self.TeamA_box = QComboBox(self.ManualIcons)
-        self.TeamA_box.setObjectName(u"TeamA_box")
-
-        self.gridLayout.addWidget(self.TeamA_box, 1, 0, 1, 1)
-
-        self.TeamB_box = QComboBox(self.ManualIcons)
-        self.TeamB_box.setObjectName(u"TeamB_box")
-
-        self.gridLayout.addWidget(self.TeamB_box, 1, 1, 1, 1)
-
         self.TeamB = QLabel(self.ManualIcons)
         self.TeamB.setObjectName(u"TeamB")
         self.TeamB.setMinimumSize(QSize(125, 16))
 
         self.gridLayout.addWidget(self.TeamB, 0, 1, 1, 1)
 
+        self.TeamB_box = QComboBox(self.ManualIcons)
+        self.TeamB_box.setObjectName(u"TeamB_box")
+
+        self.gridLayout.addWidget(self.TeamB_box, 1, 1, 1, 1)
+
         self.TeamA = QLabel(self.ManualIcons)
         self.TeamA.setObjectName(u"TeamA")
         self.TeamA.setMinimumSize(QSize(125, 16))
 
         self.gridLayout.addWidget(self.TeamA, 0, 0, 1, 1)
+
+        self.TeamA_box = QComboBox(self.ManualIcons)
+        self.TeamA_box.setObjectName(u"TeamA_box")
+
+        self.gridLayout.addWidget(self.TeamA_box, 1, 0, 1, 1)
 
 
         self.verticalLayout_6.addLayout(self.gridLayout)
@@ -475,13 +491,23 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
 
+
+        self.verticalLayout_6.addLayout(self.verticalLayout_4)
+
+        self.horizontalLayout_11 = QHBoxLayout()
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.Intensity = QComboBox(self.ManualIcons)
+        self.Intensity.setObjectName(u"Intensity")
+
+        self.horizontalLayout_11.addWidget(self.Intensity)
+
         self.MessageTeam = QPushButton(self.ManualIcons)
         self.MessageTeam.setObjectName(u"MessageTeam")
 
-        self.verticalLayout_4.addWidget(self.MessageTeam)
+        self.horizontalLayout_11.addWidget(self.MessageTeam)
 
 
-        self.verticalLayout_6.addLayout(self.verticalLayout_4)
+        self.verticalLayout_6.addLayout(self.horizontalLayout_11)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -555,7 +581,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -576,7 +602,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Set teams", None))
         self.select_teams_file.setText(QCoreApplication.translate("MainWindow", u"Select file", None))
         self.load_pid.setText(QCoreApplication.translate("MainWindow", u"load Pid", None))
-        self.Title.setText(QCoreApplication.translate("MainWindow", u"            MANUAL QUEUE", None))
+        self.Title.setText(QCoreApplication.translate("MainWindow", u"MANUAL QUEUE", None))
         self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Select Team B", None))
         self.TeamA.setText(QCoreApplication.translate("MainWindow", u"Select Team A", None))
         self.TeamD.setText(QCoreApplication.translate("MainWindow", u"Select Team D", None))

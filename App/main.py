@@ -39,6 +39,8 @@ class MainWindow(QMainWindow):
         self.teams = teams.create_teams()
         self.teams = teams.load_teams_from_file(self.teams,"teams.txt")
         self.display_loaded()
+        self.set_teams()
+        self.init_intensity()
 
 
         
@@ -64,8 +66,11 @@ class MainWindow(QMainWindow):
 
         #start the automatic mode polling function
         self.ui.pushButton.clicked.connect(self.start_polling_timer)
-          
-
+    
+    def init_intensity(self):
+        self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
+        self.ui.Intensity.setPlaceholderText("Intensity")
+        self.ui.Intensity.setCurrentIndex(-1)
     #shutdown logic
     def closeEvent(self, event):
         #occurs based on window closure
@@ -91,7 +96,7 @@ class MainWindow(QMainWindow):
         for i in range(0, 16):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
             pid_widget = getattr(self.ui, f"PID{i}", None)
-            if team_widget.text().strip() == "-" or pid_widget.text().strip() == "-":
+            if team_widget.text().strip() == "" or pid_widget.text().strip() == "" or team_widget.text().strip() == "-" or pid_widget.text().strip() == "-":
                 print(f"{i} contains invalid")
                 continue
             else:
@@ -112,11 +117,13 @@ class MainWindow(QMainWindow):
         self.ui.TeamD_box.clear()
 
         for team in self.teams:
-            # Add team name (or format it nicely)
-            self.ui.TeamA_box.addItem(team.name,team)
-            self.ui.TeamB_box.addItem(team.name,team)
-            self.ui.TeamC_box.addItem(team.name,team)
-            self.ui.TeamD_box.addItem(team.name,team)
+            if (team.name == "" or team.name == "-") and (team.pid == "" or team.pid == "-"):
+                continue
+            else:
+                self.ui.TeamA_box.addItem(team.name,team)
+                self.ui.TeamB_box.addItem(team.name,team)
+                self.ui.TeamC_box.addItem(team.name,team)
+                self.ui.TeamD_box.addItem(team.name,team)
     #debug info probably for what teams are validly loaded
     #currently dead code
     def print_teams(self):
@@ -127,7 +134,8 @@ class MainWindow(QMainWindow):
                 self.save_teams()
         else:
             print("no valid teams")
-    #show loaded teams on the editable textbox
+
+   
     def display_loaded(self):
             # Use enumerate to get the index (i) and the object (team) at the same time
             for i, team in enumerate(self.teams):
@@ -146,27 +154,22 @@ class MainWindow(QMainWindow):
                     pid_widget.setText(str(team.pid))
 
 
+    #file picker for teams.txt, pid.txt,team_numbers.txt
     def open_file_picker(self, file_type):
         print("file picker")
-        # Define filters based on what you're looking for
         file_filter = "Text Files (*.txt);;All Files (*)"
         caption = "Select Teams File" if file_type == "teams" else "Select PID File"
-
         # Open the native dialog
         file_path, _ = QFileDialog.getOpenFileName(self, caption, "", file_filter)
 
         if file_path:
-            
             if file_type == "team_numbers":
-                # Load the teams and refresh the UI display
-                print(f"Loading teams from: {file_path}")
+                # load team numbers after selected via file
+                print(f"Team number file selected: {file_path}")
                 team_numbers = teams.load_team_number(file_path)
                 for i in range(0,len(team_numbers)):
                     self.teams[i].name = team_numbers[i]
                 print(f"Team numbers: {team_numbers}")
-                # self.teams = teams.load_teams_from_file(file_path)
-                # self.display_loaded()
-                # self.set_teams() # Update the ComboBoxes too
             
             elif file_type == "pid":
                 # If you want to handle the pid file specifically
@@ -179,12 +182,10 @@ class MainWindow(QMainWindow):
                 print(teams.load_pid(file_path))
             elif file_type == "teams":
                 self.teams = teams.create_teams()
-                print(f"loading team objects from: {file_path}")
+                print(f"team object file selected: {file_path}")
                 team = teams.load_teams_from_file(self.teams,file_path)
                 print (team)
                 self.teams = team
-                
-                # You could call teams.load(file_path) here if needed
             self.display_loaded()
 
     #message sending manual mode
@@ -192,13 +193,24 @@ class MainWindow(QMainWindow):
         #team a right
         #team b left
     #automatic may just use result from api matched against the array teams?
+    urgency = ["FFFFFF","00FFFF","FF0000"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
         TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamA_box.currentIndex()))
         TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamB_box.currentIndex()))
         TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
-        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid)
+        Intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
+        print(f"intensity value = {Intensity_val}\n")
+        match Intensity_val:
+            case 1: #high
+                urgency[2]
+            case 0: #low
+                urgency[1]
+            case _: #default
+                urgency[0]
+           # print(f"intensity match {urgency}\n")
+        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,urgency)
 
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
     def start_polling_timer(self):
@@ -231,9 +243,7 @@ class MainWindow(QMainWindow):
                 print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_in_match}")
             teams_in_match_pid = [team.pid for team in self.teams if team.name in teams_in_match]
             print("teams_in_match_pid:", teams_in_match_pid)
-            self.radio.send_message(teams_in_match_pid[0], teams_in_match_pid[1], teams_in_match_pid[2], teams_in_match_pid[3])
-
-            
+            self.radio.send_message(teams_in_match_pid[0], teams_in_match_pid[1], teams_in_match_pid[2], teams_in_match_pid[3])   
 
     def generate_queue_signature(self, queue_details):
         # Create a simple signature based on team names and match number
