@@ -71,7 +71,7 @@ class MeshGateway:
 #if this fails we know whyyyyyyyyyyy
     def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency="ffffff" ):
         #call message task and start thread
-        worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID)
+        worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency)
         self.threadpool.start(worker)
 
     def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency="ffffff"):
