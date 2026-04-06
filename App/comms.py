@@ -1,6 +1,7 @@
 import time
 import meshtastic
 import meshtastic.serial_interface
+import serial.tools.list_ports
 from pubsub import pub
 from worker import Worker
 from PySide6.QtCore import (
@@ -159,19 +160,3 @@ def get_pid():
                 temp_interface.close()
             except:
                 pass
-
-# def set_settings():
-#     temp_interface = None
-#     try:
-#         temp_interface = meshtastic.serial_interfaace.SerialInterface()
-#         if temp_interface.devPath:
-#         else
-#     except Exception as e:
-#         print(f"error: {e}")
-#         return None
-#     finally
-#         if temp_interface:
-#             try:
-#                 temp_interface.close()
-#             except:
-#                 pass

@@ -19,8 +19,10 @@ import time
 import numpy as np
 from ui_PCUI import Ui_MainWindow
 import teams
+import subprocess
 import meshtastic
 import meshtastic.serial_interface
+import ftclive_queueteams
 from pubsub import pub
 import os
 
@@ -60,6 +62,9 @@ class MainWindow(QMainWindow):
         #connect to send message butotn
         self.ui.MessageTeam.clicked.connect(self.send_message_manual)
         self.ui.pushButton_3.clicked.connect(self.close)
+
+        #start the automatic mode polling function
+        self.ui.pushButton.clicked.connect(self.start_polling_timer)
     
     def init_intensity(self):
         self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
@@ -209,6 +214,58 @@ class MainWindow(QMainWindow):
                 urgency[0]
            # print(f"intensity match {urgency}\n")
         self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,urgency)
+
+    #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
+    def start_polling_timer(self):
+        self.poll_interval_ms = 30000  # 30 seconds
+        self.last_queue_signature = None
+        self.api_cooldown_until = 0
+        self.poll_timer = QTimer(self)
+        self.poll_timer.timeout.connect(self.poll_for_queue_changes)
+        self.poll_timer.start(self.poll_interval_ms)
+        self.poll_for_queue_changes()  # Initial call to populate immediately
+
+    def poll_for_queue_changes(self):
+        now = time.time()
+        if now < self.api_cooldown_until:
+            print("In cooldown, skipping API call")
+            return
+        queue_details = ftclive_queueteams.get_queue_match_details()
+        if queue_details is None:
+            self.api_cooldown_until = now + 60  # Back off for 60 seconds
+            return
+        queue_signature = self.generate_queue_signature(queue_details)
+        if queue_signature != self.last_queue_signature:
+            print("Queue changed, sending messages")
+            self.last_queue_signature = queue_signature
+            teams_in_match = self.extract_teams_from_queue(queue_details)
+            #DEBUG
+            print ("Teams in match:", teams_in_match)
+            print ("teams_in_match types:", [type(x) for x in teams_in_match])
+            for team in self.teams:
+                print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_in_match}")
+            teams_in_match_pid = [team.pid for team in self.teams if team.name in teams_in_match]
+            print("teams_in_match_pid:", teams_in_match_pid)
+            self.radio.send_message(teams_in_match_pid[0], teams_in_match_pid[1], teams_in_match_pid[2], teams_in_match_pid[3])
+
+            
+
+    def generate_queue_signature(self, queue_details):
+        # Create a simple signature based on team names and match number
+        match_number = queue_details["matchBrief"]["matchNumber"]
+        red_team1 = queue_details["matchBrief"]["red"]["team1"]
+        red_team2 = queue_details["matchBrief"]["red"]["team2"]
+        blue_team1 = queue_details["matchBrief"]["blue"]["team1"]
+        blue_team2 = queue_details["matchBrief"]["blue"]["team2"]
+        signature = f"{match_number}:{red_team1},{red_team2}:{blue_team1},{blue_team2}"
+        return signature
+    
+    def extract_teams_from_queue(self, queue_details):
+        red_team1 = str(queue_details["matchBrief"]["red"]["team1"])
+        red_team2 = str(queue_details["matchBrief"]["red"]["team2"])
+        blue_team1 = str(queue_details["matchBrief"]["blue"]["team1"])
+        blue_team2 = str(queue_details["matchBrief"]["blue"]["team2"])
+        return [red_team1, red_team2, blue_team1, blue_team2]
         
 # Run application
 if __name__ == "__main__":
