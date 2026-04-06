@@ -104,9 +104,9 @@ def check_valid(team_name,pid, current_teams):
     if any(t.name == new_team.name for t in current_teams):
         print(f"skipping duplicate team '{new_team.name}'")
         return None
-    if any(t.pid == new_team.pid for t in current_teams):
-        print(f"skipping duplicate team 'new_team.pid'")
-        return None
+    # if any(t.pid == new_team.pid for t in current_teams):
+    #     print(f"skipping duplicate team 'new_team.pid'")
+    #     return None
 
     # Create and add Team object
     return new_team
