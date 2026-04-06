@@ -35,15 +35,15 @@ class MainWindow(QMainWindow):
         #always load to inputting pagers
         self.ui.stackedWidget.setCurrentIndex(0)
         #load teams
-        #
+        self.status_bar = self.statusBar()
+        self.status_bar.showMessage("temp status bar",timeout=0)
+        
         self.teams = teams.create_teams()
         self.teams = teams.load_teams_from_file(self.teams,"teams.txt")
         self.display_loaded()
         self.set_teams()
         self.init_intensity()
-
-
-        
+       
         # Init Radio Communication
         self.radio = MeshGateway()
         self.radio.connect()
@@ -193,7 +193,7 @@ class MainWindow(QMainWindow):
         #team a right
         #team b left
     #automatic may just use result from api matched against the array teams?
-    urgency = ["FFFFFF","00FFFF","FF0000"] #i hope this helps rather than defining it inside send_message_manual
+    urgency = ["FFFFFF","00FFFF","0000FF"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
         TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamA_box.currentIndex()))
@@ -204,13 +204,13 @@ class MainWindow(QMainWindow):
         print(f"intensity value = {Intensity_val}\n")
         match Intensity_val:
             case 1: #high
-                urgency[2]
+                intensity = self.urgency[2]
             case 0: #low
-                urgency[1]
+                intensity = self.urgency[1]
             case _: #default
-                urgency[0]
+                intensity = self.urgency[0]
            # print(f"intensity match {urgency}\n")
-        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,urgency)
+        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,intensity)
 
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
     def start_polling_timer(self):
