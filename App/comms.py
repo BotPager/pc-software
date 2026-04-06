@@ -78,18 +78,16 @@ class MeshGateway:
         #send the message to the teams should be reusable with automatic and manual modes
         
         print("sending\n")
-        
-        message = "|ffffff|go to pit\n"
-        combined = TeamAPID + message + TeamBPID + message + TeamCPID + message + TeamDPID + message                  
-        templated =  f"{TeamAPID}||go to pit\n{TeamBPID}||"
+        message = "go to pit\n"               
+        formatted =  f"{TeamAPID}|{urgency}|{message}{TeamBPID}|{urgency}|{message}{TeamCPID}|{urgency}|{message}{TeamDPID}|{urgency}|{message}"
         sent = False
         while not sent:
             while self.interface is None or self.is_connecting:
                 print("sending sent waiting for connection to device")
                 time.sleep(2)
             try:
-                self.interface.sendText(combined)
-                print(f"sending mesages \n {combined}")
+                self.interface.sendText(formatted)
+                print(f"sending mesages \n {formatted}")
                 sent = True
             except Exception as e:
                 print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
