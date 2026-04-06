@@ -140,7 +140,7 @@
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="SetTeams">
             <widget class="QLabel" name="label_2">
@@ -504,20 +504,52 @@
                     </spacer>
                    </item>
                    <item>
-                    <widget class="QLabel" name="Title">
-                     <property name="text">
-                      <string>            MANUAL QUEUE</string>
+                    <widget class="QFrame" name="horizontalFrame">
+                     <property name="minimumSize">
+                      <size>
+                       <width>0</width>
+                       <height>20</height>
+                      </size>
                      </property>
+                     <layout class="QHBoxLayout" name="horizontalLayout_9">
+                      <item>
+                       <spacer name="horizontalSpacer_7">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="Title">
+                        <property name="text">
+                         <string>MANUAL QUEUE</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_8">
+                        <property name="orientation">
+                         <enum>Qt::Orientation::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
                     </widget>
                    </item>
                    <item>
                     <layout class="QGridLayout" name="gridLayout">
-                     <item row="1" column="0">
-                      <widget class="QComboBox" name="TeamA_box"/>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="QComboBox" name="TeamB_box"/>
-                     </item>
                      <item row="0" column="1">
                       <widget class="QLabel" name="TeamB">
                        <property name="minimumSize">
@@ -531,6 +563,9 @@
                        </property>
                       </widget>
                      </item>
+                     <item row="1" column="1">
+                      <widget class="QComboBox" name="TeamB_box"/>
+                     </item>
                      <item row="0" column="0">
                       <widget class="QLabel" name="TeamA">
                        <property name="minimumSize">
@@ -543,6 +578,9 @@
                         <string>Select Team A</string>
                        </property>
                       </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QComboBox" name="TeamA_box"/>
                      </item>
                     </layout>
                    </item>
@@ -583,6 +621,13 @@
                         </widget>
                        </item>
                       </layout>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_11">
+                     <item>
+                      <widget class="QComboBox" name="Intensity"/>
                      </item>
                      <item>
                       <widget class="QPushButton" name="MessageTeam">
