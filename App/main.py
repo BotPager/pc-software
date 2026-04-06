@@ -111,6 +111,7 @@ class MainWindow(QMainWindow):
    
     # After loading all valid teams
     def set_teams(self):
+        self.status_bar.showMessage("setting teams",timeout=3000)
         self.ui.TeamA_box.clear()
         self.ui.TeamB_box.clear()
         self.ui.TeamC_box.clear()
@@ -161,7 +162,7 @@ class MainWindow(QMainWindow):
         caption = "Select Teams File" if file_type == "teams" else "Select PID File"
         # Open the native dialog
         file_path, _ = QFileDialog.getOpenFileName(self, caption, "", file_filter)
-
+        self.status_bar.showMessage(f"opening file picker {file_type}",timeout=3000)
         if file_path:
             if file_type == "team_numbers":
                 # load team numbers after selected via file
