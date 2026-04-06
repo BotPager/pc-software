@@ -117,11 +117,13 @@ class MainWindow(QMainWindow):
         self.ui.TeamD_box.clear()
 
         for team in self.teams:
-            # Add team name (or format it nicely)
-            self.ui.TeamA_box.addItem(team.name,team)
-            self.ui.TeamB_box.addItem(team.name,team)
-            self.ui.TeamC_box.addItem(team.name,team)
-            self.ui.TeamD_box.addItem(team.name,team)
+            if (team.name == "" or team.name == "-") and (team.pid == "" or team.pid == "-"):
+                continue
+            else:
+                self.ui.TeamA_box.addItem(team.name,team)
+                self.ui.TeamB_box.addItem(team.name,team)
+                self.ui.TeamC_box.addItem(team.name,team)
+                self.ui.TeamD_box.addItem(team.name,team)
     #debug info probably for what teams are validly loaded
     #currently dead code
     def print_teams(self):
