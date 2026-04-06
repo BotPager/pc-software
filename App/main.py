@@ -37,6 +37,7 @@ class MainWindow(QMainWindow):
         self.teams = teams.create_teams()
         self.teams = teams.load_teams_from_file(self.teams,"teams.txt")
         self.display_loaded()
+        self.init_intensity()
 
 
         
@@ -59,8 +60,11 @@ class MainWindow(QMainWindow):
         #connect to send message butotn
         self.ui.MessageTeam.clicked.connect(self.send_message_manual)
         self.ui.pushButton_3.clicked.connect(self.close)
-          
-
+    
+    def init_intensity(self):
+        self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
+        self.ui.Intensity.setPlaceholderText("Intensity")
+        self.ui.Intensity.setCurrentIndex(-1)
     #shutdown logic
     def closeEvent(self, event):
         #occurs based on window closure
@@ -187,13 +191,24 @@ class MainWindow(QMainWindow):
         #team a right
         #team b left
     #automatic may just use result from api matched against the array teams?
+    urgency = ["FFFFFF","00FFFF","FF0000"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
         TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamA_box.currentIndex()))
         TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamB_box.currentIndex()))
         TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
-        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid)
+        Intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
+        print(f"intensity value = {Intensity_val}\n")
+        match Intensity_val:
+            case 1: #high
+                urgency[2]
+            case 0: #low
+                urgency[1]
+            case _: #default
+                urgency[0]
+           # print(f"intensity match {urgency}\n")
+        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,urgency)
         
 # Run application
 if __name__ == "__main__":
