@@ -214,7 +214,7 @@ class MainWindow(QMainWindow):
 
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
     def start_polling_timer(self):
-        self.poll_interval_ms = 30000  # 30 seconds
+        self.poll_interval_ms = 15000  # 15 seconds
         self.last_queue_signature = None
         self.api_cooldown_until = 0
         self.poll_timer = QTimer(self)
@@ -235,15 +235,21 @@ class MainWindow(QMainWindow):
         if queue_signature != self.last_queue_signature:
             print("Queue changed, sending messages")
             self.last_queue_signature = queue_signature
-            teams_in_match = self.extract_teams_from_queue(queue_details)
+            teams_to_queue = self.extract_teams_from_queue(queue_details)
+            match_state = self.extract_match_state_from_queue(queue_details)
+            print(f"Match state: {match_state}")
             #DEBUG
-            print ("Teams in match:", teams_in_match)
-            print ("teams_in_match types:", [type(x) for x in teams_in_match])
+            print ("Teams to queue:", teams_to_queue)
+            print ("teams_to_queue types:", [type(x) for x in teams_to_queue])
             for team in self.teams:
-                print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_in_match}")
-            teams_in_match_pid = [team.pid for team in self.teams if team.name in teams_in_match]
-            print("teams_in_match_pid:", teams_in_match_pid)
-            self.radio.send_message(teams_in_match_pid[0], teams_in_match_pid[1], teams_in_match_pid[2], teams_in_match_pid[3])   
+                print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_to_queue}")
+            teams_to_queue_pid = [team.pid for team in self.teams if team.name in teams_to_queue]
+            print("teams_to_queue_pid:", teams_to_queue_pid)
+            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], "21FF00") 
+
+        #If Match State turns to "REVIEW" send a red message to teams:
+        if (match_state == "REVIEW"):
+            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], "FF0000")  
 
     def generate_queue_signature(self, queue_details):
         # Create a simple signature based on team names and match number
@@ -261,6 +267,9 @@ class MainWindow(QMainWindow):
         blue_team1 = str(queue_details["matchBrief"]["blue"]["team1"])
         blue_team2 = str(queue_details["matchBrief"]["blue"]["team2"])
         return [red_team1, red_team2, blue_team1, blue_team2]
+
+    def extract_match_state_from_queue(self, queue_details):
+        return queue_details["matchBrief"]["matchState"]
         
 # Run application
 if __name__ == "__main__":

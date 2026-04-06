@@ -38,7 +38,7 @@ def get_next_match_number():
         return
 
     match_number = match_number + 1
-    if match_number > number_of_teams:
+    if match_number > 20:
         print("No more matches to queue.")
     return match_number
 
