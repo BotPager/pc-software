@@ -214,7 +214,7 @@ class MainWindow(QMainWindow):
 
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
     def start_polling_timer(self):
-        self.poll_interval_ms = 15000  # 15 seconds (change to 30 for actual match time)
+        self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)
         self.last_queue_signature = None
         self.api_cooldown_until = 0
         self.poll_timer = QTimer(self)

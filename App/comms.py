@@ -78,7 +78,7 @@ class MeshGateway:
         #send the message to the teams should be reusable with automatic and manual modes
         
         print("sending\n")
-        message = "go to pit\n"               
+        message = "go to queue\n"               
         formatted =  f"{TeamAPID}|{urgency}|{message}{TeamBPID}|{urgency}|{message}{TeamCPID}|{urgency}|{message}{TeamDPID}|{urgency}|{message}"
         sent = False
         while not sent:
