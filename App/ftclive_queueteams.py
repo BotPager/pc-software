@@ -12,7 +12,7 @@ def get_local_ip():
     return ip
 
 BASE_URL = get_local_ip()
-EVENT_CODE = 4828               #EDIT FOR OFFICIAL EVENT RUNS: 4828 is testing
+EVENT_CODE = 4290               #EDIT FOR OFFICIAL EVENT RUNS: 4290 is testing
 number_of_teams = 16            #EDIT FOR OFFICIAL EVENT RUNS: 16 is max teams at an event
 
 active_match_url = f"http://{BASE_URL}/api/v1/events/{EVENT_CODE}/matches/active/"
