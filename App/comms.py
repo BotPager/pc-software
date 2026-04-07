@@ -4,6 +4,8 @@ import meshtastic.serial_interface
 import serial.tools.list_ports
 from pubsub import pub
 from worker import Worker
+from meshtastic import channel_pb2
+import base64
 from PySide6.QtCore import (
         QRunnable,
         QThreadPool,
@@ -139,20 +141,57 @@ class MeshGateway(QObject):
             time.sleep(2)
         try:
             pid = self.interface.getShortName()
-            node = self.interface.getNode('local')
-            node.setChannel(
-                name = channel_name,
-                key = channel_key,
-                index = 0
+            node = self.interface.localNode
+
+            primary = self.make_channel(
+                index=0,
+                name="robotics",
+                key_b64="aqYv",
+                role=1
             )
-            node.writeConfig()
+            secondary = self.make_channel(
+                index=1,
+                name="normal",
+                key_b64="AQ==",
+                role=2
+            )
+            print( node.showChannels())
+
+            node.setChannels([primary,secondary])
+            print(node.showChannels())
+            node.writeChannel(0)
+            node.writeChannel(1)
+            time.sleep(2)
+            # node.writeConfig("channels")
+
+            lora = node.localConfig.lora
+            lora.region = "US"
+            lora.modem_preset = "LONG_MODERATE"
+            node.writeConfig("lora")
+            
             return pid
+        except Exception as e:
+            print(f"Failed to configure active radio: {e}")
+            return None
+
+    def make_channel(self, index, name, key_b64, role):
+        ch = channel_pb2.Channel()
+        ch.index = index
+        ch.role = role  # PRIMARY = 0, SECONDARY = 1, etc.
+        ch.settings.name = name
+        raw = base64.b64decode(key_b64)
+        if len(raw) < 16:
+            raw = raw.ljust(16, b'\0')  # pad to 16 bytes
+        ch.settings.psk = raw
+        ch.settings.channel_num = index
+
+        return ch
             
     def exit(self):
         #close connection between the device and also shutdown the threadpool
         self.is_connecting = False
         pub.unsubscribe(self.onDisconnect, "meshtastic.connection.lost")
-        pub.unsubscribe(self.onConnect, "mestastic.connection.established")
+        pub.unsubscribe(self.onConnection, "meshtastic.connection.established")
         if self.interface:
             try:
                  self.interface.close()
@@ -161,24 +200,3 @@ class MeshGateway(QObject):
             
         print(f"Gateway connection terminated ready to shutdown")
         self.threadpool.clear()
-      
-def get_pid():
-    temp_interface = None
-    try:
-        temp_interface = meshtastic.serial_interface.SerialInterface()
-        if temp_interface.devPath:
-            pid = temp_interface.getShortName()
-            print(pid)
-            return(print("{pid}"))
-        else:
-            print ("no pid")
-            return None
-    except Exception as e:
-        print(f"pid check failed: {e}")
-        return None
-    finally:
-        if temp_interface:
-            try:
-                temp_interface.close()
-            except:
-                pass
