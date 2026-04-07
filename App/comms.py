@@ -8,10 +8,14 @@ from PySide6.QtCore import (
         QRunnable,
         QThreadPool,
         QTimer,
-        Slot
+        Slot,
+        QObject,
+        Signal,
     )
-class MeshGateway:
+class MeshGateway(QObject):
+    connection_changed = Signal(bool)
     def __init__(self):
+        super().__init__()
         self.interface = None
         self.is_connecting = False
         self.threadpool = QThreadPool()  # Radio handles its own threads
@@ -51,20 +55,38 @@ class MeshGateway:
                 print(f"trying again in 3 seconds {e}")
                 time.sleep(2)
 
-    #pub sub connection event
-    def onConnection(self, interface, topic=pub.AUTO_TOPIC):
-        print("good")
+  # comms.py
+
+    def onConnection(self, interface=None, **kwargs):
+        print("Logic: Connected")
         self.is_connecting = False
-    #pubsub discconnect event 
-    def onDisconnect(self, interface, topic=pub.AUTO_TOPIC):
-        print("disconnection occurred please recconnect")
-        self.is_connecting = False        
-        if self.interface:
-            try:
-                self.interface.close()
-            except:
-                pass
-            self.interface = None
+        # Retrieve the interface safely from kwargs if needed
+        self.interface = kwargs.get('interface')
+        # EMIT THE SIGNAL TO MAIN.PY
+        self.connection_changed.emit(True)
+
+    def onDisconnect(self, interface=None, **kwargs):
+        print("Logic: Disconnected")
+        self.is_connecting = False
+        self.interface = None
+        # EMIT THE SIGNAL TO MAIN.PY
+        self.connection_changed.emit(False)
+        # Restart connection attempt
+        self.connect() 
+    # #pub sub connection event
+    # def onConnection(self, interface, topic=pub.AUTO_TOPIC):
+    #     print("good")
+    #     self.is_connecting = False
+    # #pubsub discconnect event 
+    # def onDisconnect(self, interface, topic=pub.AUTO_TOPIC):
+    #     print("disconnection occurred please recconnect")
+    #     self.is_connecting = False        
+    #     if self.interface:
+    #         try:
+    #             self.interface.close()
+    #         except:
+    #             pass
+    #         self.interface = None
         
         # Trigger reconnection thread
         self.connect()
@@ -78,8 +100,9 @@ class MeshGateway:
         #send the message to the teams should be reusable with automatic and manual modes
         
         print("sending\n")
-        message = "go to pit\n"               
-        formatted =  f"{TeamAPID}|{urgency}|{message}{TeamBPID}|{urgency}|{message}{TeamCPID}|{urgency}|{message}{TeamDPID}|{urgency}|{message}"
+        messager = "red team head to arena\n"
+        messageb = "blue team head to arena\n"        
+        formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
         sent = False
         while not sent:
             while self.interface is None or self.is_connecting:
@@ -93,7 +116,27 @@ class MeshGateway:
                 print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
                 sent = False
                 time.sleep(2)
- 
+    def send_message_single(self, TeamFPID,urgency="ffffff"):
+        worker = Worker(self.send_message_single_task,TeamFPID,urgency)
+        self.threadpool.start(worker)
+    def send_message_single_task(self, TeamFPID,Urgency):
+        message = "head to arena now\n"
+        formatted = f"{TeamFPID}|{Urgency}|{message}"
+        sent = False
+        while not sent:
+            while self.interface is None or self.is_connecting:
+                print("sending sent waiting for connection to device")
+                time.sleep(2)
+            try:
+                self.interface.sendText(formatted)
+                print(f"sending mesages \n {formatted}")
+                sent = True
+            except Exception as e:
+                print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
+                sent = False
+                time.sleep(2)
+        
+    
     def exit(self):
         #close connection between the device and also shutdown the threadpool
         self.is_connecting = False
