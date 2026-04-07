@@ -134,7 +134,20 @@ class MeshGateway(QObject):
                 sent = False
                 time.sleep(2)
         
-    
+    def provision(self, channel_name = "robotics", channel_key="aqYv"):
+        while self.interface is None or self.is_connecting:
+            time.sleep(2)
+        try:
+            pid = self.interface.getShortName()
+            node = self.interface.getNode('local')
+            node.setChannel(
+                name = channel_name,
+                key = channel_key,
+                index = 0
+            )
+            node.writeConfig()
+            return pid
+            
     def exit(self):
         #close connection between the device and also shutdown the threadpool
         self.is_connecting = False
