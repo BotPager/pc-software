@@ -12,7 +12,10 @@ from PySide6.QtCore import (
          QThreadPool,
          QTimer,
          Slot,
-)
+        )
+from PySide6.QtGui import QPixmap
+from PySide6 import QtGui
+from  rc_resources import *
 from worker import Worker
 from comms import *
 import time
@@ -25,28 +28,44 @@ import meshtastic.serial_interface
 import ftclive_queueteams
 from pubsub import pub
 import os
-
+ICON_RED_LED = ":/icons/led-red-on.png"
+ICON_GREEN_LED = ":/icons/green-led-on.png"
 class MainWindow(QMainWindow):
+    current_team_index=0
     def __init__(self):
         super().__init__()
         # Load UI
+        state = False
+        state2 = False
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         #always load to inputting pagers
         self.ui.stackedWidget.setCurrentIndex(0)
+
         #load teams
-        self.status_bar = self.statusBar()
-        self.status_bar.showMessage("temp status bar",timeout=0)
-        
         self.teams = teams.create_teams()
         self.teams = teams.load_teams_from_file(self.teams,"teams.txt")
         self.display_loaded()
         self.set_teams()
         self.init_intensity()
+
+        #setup indicators
+        self.ui.Pager_conn_indicator.setFixedSize(20, 20)
+        self.ui.Pager_conn_indicator.setScaledContents(True)
+        self.ui.Teams_set_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+        self.ui.Teams_set_indicator.setFixedSize(20, 20)
+        self.ui.Teams_set_indicator.setScaledContents(True)
+        self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+        self.ui.Automatic_indicator.setFixedSize(20, 20)
+        self.ui.Automatic_indicator.setScaledContents(True)
+        self.ui.Errorbox.setReadOnly(True)
+        self.ui.Pairbutton.setReadOnly(True)
+
        
         # Init Radio Communication
         self.radio = MeshGateway()
         self.radio.connect()
+        self.radio.connection_changed.connect(self.update_connection)
        
         self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("team_numbers"))
         self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
@@ -56,21 +75,49 @@ class MainWindow(QMainWindow):
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
         self.ui.SwitchPager.clicked.connect(self.show_set_pagers_page)
         self.ui.SwitchAuto.clicked.connect(self.show_automatic_page)
+        self.ui.SwitchPair.clicked.connect(self.show_pair_page)
+        self.ui.Provision_button.clicked.connect(self.provision)
 
         # connect to team loading button
+        self.ui.pushButton_2.clicked.connect(self.update_teams_ind)
         self.ui.pushButton_2.clicked.connect(self.collect_team_data)
 
         #connect to send message butotn
         self.ui.MessageTeam.clicked.connect(self.send_message_manual)
         self.ui.pushButton_3.clicked.connect(self.close)
+        self.ui.Message_single.clicked.connect(self.send_message_single)
 
         #start the automatic mode polling function
+        self.ui.pushButton.clicked.connect(self.update_automatic)
         self.ui.pushButton.clicked.connect(self.start_polling_timer)
     
     def init_intensity(self):
         self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
         self.ui.Intensity.setPlaceholderText("Intensity")
         self.ui.Intensity.setCurrentIndex(-1)
+
+
+    #code for managing the indicators
+    def update_connection(self,connection):
+        if connection:
+            self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
+        else:
+            self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+    def update_automatic(self,state):
+        state = not state
+        if state:
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
+        else:
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+    def update_teams_ind(self,state2):
+        state2 = not state2
+        if state2:
+            self.ui.Teams_set_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
+            QTimer.singleShot(3000, lambda: self.ui.Teams_set_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED)))
+        else:
+            self.ui.Teams_set_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+              
+
     #shutdown logic
     def closeEvent(self, event):
         #occurs based on window closure
@@ -78,8 +125,9 @@ class MainWindow(QMainWindow):
         if hasattr(self, 'radio'):
             self.radio.exit()
         event.accept()
-    # Page switching functions
 
+
+    # Page switching functions
     def show_manual_page(self):
         self.ui.stackedWidget.setCurrentIndex(1)
 
@@ -88,16 +136,45 @@ class MainWindow(QMainWindow):
 
     def show_automatic_page(self):
         self.ui.stackedWidget.setCurrentIndex(2)
+    def show_pair_page(self):
+        self.ui.stackedWidget.setCurrentIndex(3)
+
+    def provision(self):
+        self.ui.Pairbutton.clear()
+        new_pid = self.radio.provision()
+        self.ui.Pairbutton.insertPlainText("Setting Channel and radio preset\n")
+        # self.readio.provision()
+        self.ui.Pairbutton.insertPlainText(f"Pager pid ={new_pid}\n")
+        if new_pid:
+            target_index = -1
+            for i, team in enumerate(self.teams):
+                if not team.pid or team.pid == "Empty" or team.pid == "":
+                    target_index = i
+                    break
+            if target_index == -1:
+                target_index = self.current_team_index
+                # Move the pointer for the NEXT time we wrap around
+                self.current_team_index = (self.current_team_index + 1) % 15
+            else:
+                # If we found an empty slot, update the pointer to the slot AFTER it
+                self.current_team_index = (target_index + 1) % 15
+            self.teams[i].pid = new_pid
+            self.display_loaded()
+
+        else:
+            self.ui.Pairbutton.insertPlainText("error occured, no pid returned\n")
+        
+        
 
     # Team data collection
-
     def collect_team_data(self):
+        self.ui.Errorbox.clear()
         #remove teams to makesure they dont duplicate
         for i in range(0, 16):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
             pid_widget = getattr(self.ui, f"PID{i}", None)
             if team_widget.text().strip() == "" or pid_widget.text().strip() == "" or team_widget.text().strip() == "-" or pid_widget.text().strip() == "-":
-                print(f"{i} contains invalid")
+                self.ui.Errorbox.insertPlainText(f"{i} contains invalid")
                 continue
             else:
                 team_name = team_widget.text().strip()
@@ -106,8 +183,10 @@ class MainWindow(QMainWindow):
                 self.teams[i].pid = pid
                 
         teams.save_teams_to_file(self.teams)
-        print(self.teams)
+        self.ui.Errorbox.insertPlainText(f"{self.teams}\n")
+        # print(self.teams)
         self.set_teams()
+        # self.display_loaded()
    
     # After loading all valid teams
     def set_teams(self):
@@ -115,6 +194,7 @@ class MainWindow(QMainWindow):
         self.ui.TeamB_box.clear()
         self.ui.TeamC_box.clear()
         self.ui.TeamD_box.clear()
+        self.ui.TeamF_box.clear()
 
         for team in self.teams:
             if (team.name == "" or team.name == "-") and (team.pid == "" or team.pid == "-"):
@@ -124,6 +204,7 @@ class MainWindow(QMainWindow):
                 self.ui.TeamB_box.addItem(team.name,team)
                 self.ui.TeamC_box.addItem(team.name,team)
                 self.ui.TeamD_box.addItem(team.name,team)
+                self.ui.TeamF_box.addItem(team.name,team)
     #debug info probably for what teams are validly loaded
     #currently dead code
     def print_teams(self):
@@ -161,7 +242,8 @@ class MainWindow(QMainWindow):
         caption = "Select Teams File" if file_type == "teams" else "Select PID File"
         # Open the native dialog
         file_path, _ = QFileDialog.getOpenFileName(self, caption, "", file_filter)
-
+        self.ui.Errorbox.insertPlainText(f"opening file picker {file_type}\n")   
+        QTimer.singleShot(3000, lambda: self.ui.Errorbox.clear())
         if file_path:
             if file_type == "team_numbers":
                 # load team numbers after selected via file
@@ -196,8 +278,8 @@ class MainWindow(QMainWindow):
     urgency = ["FFFFFF","00FFFF","0000FF"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
-        TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamA_box.currentIndex()))
-        TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamB_box.currentIndex()))
+        TeamAObject=(self.ui.TeamA_box.itemData(self.ui.TeamA_box.currentIndex()))
+        TeamBObject=(self.ui.TeamB_box.itemData(self.ui.TeamB_box.currentIndex()))
         TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
         Intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
@@ -210,8 +292,26 @@ class MainWindow(QMainWindow):
             case _: #default
                 intensity = self.urgency[0]
            # print(f"intensity match {urgency}\n")
-        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,intensity)
+        messager = "red team head to arena\n"
+        messageb = "blue team head to arena\n"        
+        formatted =  f"{TeamAObject.pid}|{intensity}|{messager}{TeamBObject.pid}|{intensity}|{messager}{TeamCObject.pid}|{intensity}|{messageb}{TeamDObject.pid}|{intensity}|{messageb}"
+        self.ui.Errorbox.clear()
+        self.ui.Errorbox.insertPlainText(formatted)
 
+        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,intensity)
+      
+    #single message
+    def send_message_single(self):
+        TeamFObject=(self.ui.TeamF_box.itemData(self.ui.TeamF_box.currentIndex()))
+        message = "head to arena now\n"
+        formatted = f"{TeamFObject.pid}|{self.urgency[0]}|{message}"
+        self.ui.Errorbox.clear()
+        self.ui.Errorbox.insertPlainText(formatted)
+
+        self.radio.send_message_single(TeamFObject.pid,self.urgency[0])
+
+
+    #functions for automatic mode
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
     def start_polling_timer(self):
         self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)

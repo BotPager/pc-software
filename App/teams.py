@@ -3,7 +3,6 @@ import numpy as np
 import random
 import comms
 import ftclive_queueteams
-
 class Team:
     def __init__(self, name = "", pid = ""):
         self.name = name            # team number (string or int)

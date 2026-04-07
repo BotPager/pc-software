@@ -22,7 +22,7 @@
      <rect>
       <x>9</x>
       <y>89</y>
-      <width>781</width>
+      <width>800</width>
       <height>461</height>
      </rect>
     </property>
@@ -95,6 +95,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="SwitchPair">
+           <property name="text">
+            <string>Pairing</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -140,22 +147,9 @@
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="SetTeams">
-            <widget class="QLabel" name="label_2">
-             <property name="geometry">
-              <rect>
-               <x>90</x>
-               <y>360</y>
-               <width>49</width>
-               <height>16</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
             <widget class="QFrame" name="verticalFrame">
              <property name="geometry">
               <rect>
@@ -559,7 +553,7 @@
                         </size>
                        </property>
                        <property name="text">
-                        <string>Select Team B</string>
+                        <string>Red 2</string>
                        </property>
                       </widget>
                      </item>
@@ -575,7 +569,7 @@
                         </size>
                        </property>
                        <property name="text">
-                        <string>Select Team A</string>
+                        <string>Red 1</string>
                        </property>
                       </widget>
                      </item>
@@ -603,7 +597,7 @@
                           </size>
                          </property>
                          <property name="text">
-                          <string>Select Team D</string>
+                          <string>Blue 2</string>
                          </property>
                         </widget>
                        </item>
@@ -616,7 +610,7 @@
                           </size>
                          </property>
                          <property name="text">
-                          <string>Select Team C</string>
+                          <string>Blue 1</string>
                          </property>
                         </widget>
                        </item>
@@ -631,6 +625,33 @@
                      </item>
                      <item>
                       <widget class="QPushButton" name="MessageTeam">
+                       <property name="text">
+                        <string>Message Team</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout_4"/>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_2">
+                     <property name="text">
+                      <string>Single Team</string>
+                     </property>
+                     <property name="alignment">
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_8">
+                     <item>
+                      <widget class="QComboBox" name="TeamF_box"/>
+                     </item>
+                     <item>
+                      <widget class="QPushButton" name="Message_single">
                        <property name="text">
                         <string>Message Team</string>
                        </property>
@@ -700,6 +721,88 @@
              </layout>
             </widget>
            </widget>
+           <widget class="QWidget" name="Provision">
+            <widget class="QFrame" name="horizontalFrame">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>635</width>
+               <height>429</height>
+              </rect>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <spacer name="horizontalSpacer_10">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QFrame" name="verticalFrame_3">
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <spacer name="verticalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="Provision_button">
+                   <property name="text">
+                    <string>Provision Pager</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTextBrowser" name="Pairbutton"/>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </widget>
           </widget>
          </item>
         </layout>
@@ -743,8 +846,14 @@ border-radius: 0px;
      <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
        <widget class="QLabel" name="label">
+        <property name="frameShape">
+         <enum>QFrame::Shape::WinPanel</enum>
+        </property>
         <property name="text">
-         <string>Pager Software</string>
+         <string>TextLabel</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -763,6 +872,69 @@ border-radius: 0px;
       <string>Exit</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QFrame" name="verticalFrame">
+    <property name="geometry">
+     <rect>
+      <x>770</x>
+      <y>113</y>
+      <width>235</width>
+      <height>386</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QFrame" name="gridFrame_2">
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="2" column="1">
+         <widget class="QLabel" name="Teams_set_indicator">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="Automatic_indicator">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="Pager_conn_indicator">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="Automatic_txt">
+          <property name="text">
+           <string>Automatic on:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="Connection_txt">
+          <property name="text">
+           <string>Pager Connection:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="Teams_txt">
+          <property name="text">
+           <string>Teams Set:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="Errorbox"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
