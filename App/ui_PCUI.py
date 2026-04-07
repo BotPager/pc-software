@@ -18,7 +18,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
     QGridLayout, QHBoxLayout, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QStackedWidget, QStatusBar, QVBoxLayout, QWidget)
+    QStackedWidget, QStatusBar, QTextBrowser, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -30,7 +31,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
         self.Content = QFrame(self.centralwidget)
         self.Content.setObjectName(u"Content")
-        self.Content.setGeometry(QRect(9, 89, 781, 461))
+        self.Content.setGeometry(QRect(9, 89, 800, 461))
         self.Content.setMaximumSize(QSize(1920, 16777215))
         self.Content.setFrameShape(QFrame.Shape.StyledPanel)
         self.Content.setFrameShadow(QFrame.Shadow.Raised)
@@ -91,9 +92,6 @@ class Ui_MainWindow(object):
         self.stackedWidget.setAutoFillBackground(True)
         self.SetTeams = QWidget()
         self.SetTeams.setObjectName(u"SetTeams")
-        self.label_2 = QLabel(self.SetTeams)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QRect(90, 360, 49, 16))
         self.verticalFrame = QFrame(self.SetTeams)
         self.verticalFrame.setObjectName(u"verticalFrame")
         self.verticalFrame.setGeometry(QRect(0, 0, 616, 376))
@@ -509,6 +507,32 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addLayout(self.horizontalLayout_11)
 
+        self.gridLayout_4 = QGridLayout()
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+
+        self.verticalLayout_6.addLayout(self.gridLayout_4)
+
+        self.label_2 = QLabel(self.ManualIcons)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout_6.addWidget(self.label_2)
+
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.TeamF_box = QComboBox(self.ManualIcons)
+        self.TeamF_box.setObjectName(u"TeamF_box")
+
+        self.horizontalLayout_8.addWidget(self.TeamF_box)
+
+        self.Message_single = QPushButton(self.ManualIcons)
+        self.Message_single.setObjectName(u"Message_single")
+
+        self.horizontalLayout_8.addWidget(self.Message_single)
+
+
+        self.verticalLayout_6.addLayout(self.horizontalLayout_8)
+
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
         self.verticalLayout_6.addItem(self.verticalSpacer_2)
@@ -568,12 +592,66 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.label = QLabel(self.horizontalFrame_21)
         self.label.setObjectName(u"label")
+        self.label.setFrameShape(QFrame.Shape.WinPanel)
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.horizontalLayout_4.addWidget(self.label)
 
         self.pushButton_3 = QPushButton(self.frame)
         self.pushButton_3.setObjectName(u"pushButton_3")
         self.pushButton_3.setGeometry(QRect(630, 25, 102, 30))
+        self.horizontalFrame1 = QFrame(self.centralwidget)
+        self.horizontalFrame1.setObjectName(u"horizontalFrame1")
+        self.horizontalFrame1.setGeometry(QRect(0, 100, 160, 80))
+        self.horizontalLayout_7 = QHBoxLayout(self.horizontalFrame1)
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.verticalFrame1 = QFrame(self.centralwidget)
+        self.verticalFrame1.setObjectName(u"verticalFrame1")
+        self.verticalFrame1.setGeometry(QRect(770, 113, 235, 386))
+        self.verticalLayout_3 = QVBoxLayout(self.verticalFrame1)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.gridFrame_2 = QFrame(self.verticalFrame1)
+        self.gridFrame_2.setObjectName(u"gridFrame_2")
+        self.gridLayout_5 = QGridLayout(self.gridFrame_2)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.Teams_txt = QLabel(self.gridFrame_2)
+        self.Teams_txt.setObjectName(u"Teams_txt")
+
+        self.gridLayout_5.addWidget(self.Teams_txt, 2, 0, 1, 1)
+
+        self.Teams_set_indicator = QLabel(self.gridFrame_2)
+        self.Teams_set_indicator.setObjectName(u"Teams_set_indicator")
+
+        self.gridLayout_5.addWidget(self.Teams_set_indicator, 2, 1, 1, 1)
+
+        self.Automatic_indicator = QLabel(self.gridFrame_2)
+        self.Automatic_indicator.setObjectName(u"Automatic_indicator")
+
+        self.gridLayout_5.addWidget(self.Automatic_indicator, 1, 1, 1, 1)
+
+        self.Pager_conn_indicator = QLabel(self.gridFrame_2)
+        self.Pager_conn_indicator.setObjectName(u"Pager_conn_indicator")
+
+        self.gridLayout_5.addWidget(self.Pager_conn_indicator, 0, 1, 1, 1)
+
+        self.Automatic_txt = QLabel(self.gridFrame_2)
+        self.Automatic_txt.setObjectName(u"Automatic_txt")
+
+        self.gridLayout_5.addWidget(self.Automatic_txt, 1, 0, 1, 1)
+
+        self.Connection_txt = QLabel(self.gridFrame_2)
+        self.Connection_txt.setObjectName(u"Connection_txt")
+
+        self.gridLayout_5.addWidget(self.Connection_txt, 0, 0, 1, 1)
+
+
+        self.verticalLayout_3.addWidget(self.gridFrame_2)
+
+        self.ErrorBox = QTextBrowser(self.verticalFrame1)
+        self.ErrorBox.setObjectName(u"ErrorBox")
+
+        self.verticalLayout_3.addWidget(self.ErrorBox)
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
@@ -592,7 +670,6 @@ class Ui_MainWindow(object):
         self.SwitchPager.setText(QCoreApplication.translate("MainWindow", u"Set Pagers", None))
         self.SwitchManual.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.SwitchAuto.setText(QCoreApplication.translate("MainWindow", u"Automatic", None))
-        self.label_2.setText("")
         self.TeamTitleLable.setText(QCoreApplication.translate("MainWindow", u"Enter Team Info", None))
         self.PagerID1.setText(QCoreApplication.translate("MainWindow", u"Team Number", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
@@ -603,14 +680,22 @@ class Ui_MainWindow(object):
         self.select_teams_file.setText(QCoreApplication.translate("MainWindow", u"Select file", None))
         self.load_pid.setText(QCoreApplication.translate("MainWindow", u"load Pid", None))
         self.Title.setText(QCoreApplication.translate("MainWindow", u"MANUAL QUEUE", None))
-        self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Select Team B", None))
-        self.TeamA.setText(QCoreApplication.translate("MainWindow", u"Select Team A", None))
-        self.TeamD.setText(QCoreApplication.translate("MainWindow", u"Select Team D", None))
-        self.TeamC.setText(QCoreApplication.translate("MainWindow", u"Select Team C", None))
+        self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Red 2", None))
+        self.TeamA.setText(QCoreApplication.translate("MainWindow", u"Red 1", None))
+        self.TeamD.setText(QCoreApplication.translate("MainWindow", u"Blue 2", None))
+        self.TeamC.setText(QCoreApplication.translate("MainWindow", u"Blue 1", None))
         self.MessageTeam.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Single Team", None))
+        self.Message_single.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Start/Stop Automatic Mode", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Status of Automatic mode", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"Pager Software", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
+        self.Teams_txt.setText(QCoreApplication.translate("MainWindow", u"Teams Set:", None))
+        self.Teams_set_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.Automatic_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.Pager_conn_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.Automatic_txt.setText(QCoreApplication.translate("MainWindow", u"Automatic on:", None))
+        self.Connection_txt.setText(QCoreApplication.translate("MainWindow", u"Pager Connection:", None))
     # retranslateUi
 
