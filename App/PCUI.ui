@@ -95,6 +95,13 @@
            </property>
           </widget>
          </item>
+         <item>
+          <widget class="QPushButton" name="SwitchPair">
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
         </layout>
        </widget>
       </item>
@@ -140,7 +147,7 @@
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="SetTeams">
             <widget class="QFrame" name="verticalFrame">
@@ -714,6 +721,88 @@
              </layout>
             </widget>
            </widget>
+           <widget class="QWidget" name="Provision">
+            <widget class="QFrame" name="horizontalFrame">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>635</width>
+               <height>429</height>
+              </rect>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_10">
+              <item>
+               <spacer name="horizontalSpacer_10">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item>
+               <widget class="QFrame" name="verticalFrame_3">
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <item>
+                  <spacer name="verticalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_4">
+                   <property name="text">
+                    <string>Provision Pager</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QTextBrowser" name="Pairbutton"/>
+                 </item>
+                 <item>
+                  <spacer name="verticalSpacer_4">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Vertical</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>20</width>
+                     <height>40</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Orientation::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </widget>
           </widget>
          </item>
         </layout>
@@ -783,17 +872,6 @@ border-radius: 0px;
       <string>Exit</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QFrame" name="horizontalFrame">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>100</y>
-      <width>160</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_7"/>
    </widget>
    <widget class="QFrame" name="verticalFrame">
     <property name="geometry">
