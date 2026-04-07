@@ -12,7 +12,10 @@ from PySide6.QtCore import (
          QThreadPool,
          QTimer,
          Slot,
-)
+        )
+from PySide6.QtGui import QPixmap
+from PySide6 import QtGui
+from  rc_resources import *
 from worker import Worker
 from comms import *
 import time
@@ -25,7 +28,8 @@ import meshtastic.serial_interface
 import ftclive_queueteams
 from pubsub import pub
 import os
-
+ICON_RED_LED = ":/icons/led-red-on.png"
+ICON_GREEN_LED = ":/icons/green-led-on.png"
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -35,9 +39,16 @@ class MainWindow(QMainWindow):
         #always load to inputting pagers
         self.ui.stackedWidget.setCurrentIndex(0)
         #load teams
-        self.status_bar = self.statusBar()
-        self.status_bar.showMessage("temp status bar",timeout=0)
-        
+        self.ui.Pager_conn_indicator.setFixedSize(20, 20)
+        self.ui.Pager_conn_indicator.setScaledContents(True)
+        self.ui.Teams_set_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+        self.ui.Teams_set_indicator.setFixedSize(20, 20)
+        self.ui.Teams_set_indicator.setScaledContents(True)
+        self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+        self.ui.Automatic_indicator.setFixedSize(20, 20)
+        self.ui.Automatic_indicator.setScaledContents(True)
+         
+                
         self.teams = teams.create_teams()
         self.teams = teams.load_teams_from_file(self.teams,"teams.txt")
         self.display_loaded()
@@ -47,6 +58,7 @@ class MainWindow(QMainWindow):
         # Init Radio Communication
         self.radio = MeshGateway()
         self.radio.connect()
+        self.radio.connection_changed.connect(self.update_connection)
        
         self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("team_numbers"))
         self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
@@ -63,6 +75,7 @@ class MainWindow(QMainWindow):
         #connect to send message butotn
         self.ui.MessageTeam.clicked.connect(self.send_message_manual)
         self.ui.pushButton_3.clicked.connect(self.close)
+        self.ui.Message_single.clicked.connect(self.send_message_single)
 
         #start the automatic mode polling function
         self.ui.pushButton.clicked.connect(self.start_polling_timer)
@@ -71,6 +84,17 @@ class MainWindow(QMainWindow):
         self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
         self.ui.Intensity.setPlaceholderText("Intensity")
         self.ui.Intensity.setCurrentIndex(-1)
+
+
+
+    #code for managing the indicators
+    def update_connection(self,connection):
+        if connection:
+            self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
+        else:
+            self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
+
+    
     #shutdown logic
     def closeEvent(self, event):
         #occurs based on window closure
@@ -78,8 +102,9 @@ class MainWindow(QMainWindow):
         if hasattr(self, 'radio'):
             self.radio.exit()
         event.accept()
-    # Page switching functions
 
+
+    # Page switching functions
     def show_manual_page(self):
         self.ui.stackedWidget.setCurrentIndex(1)
 
@@ -111,11 +136,11 @@ class MainWindow(QMainWindow):
    
     # After loading all valid teams
     def set_teams(self):
-        self.status_bar.showMessage("setting teams",timeout=3000)
         self.ui.TeamA_box.clear()
         self.ui.TeamB_box.clear()
         self.ui.TeamC_box.clear()
         self.ui.TeamD_box.clear()
+        self.ui.TeamF_box.clear()
 
         for team in self.teams:
             if (team.name == "" or team.name == "-") and (team.pid == "" or team.pid == "-"):
@@ -125,6 +150,7 @@ class MainWindow(QMainWindow):
                 self.ui.TeamB_box.addItem(team.name,team)
                 self.ui.TeamC_box.addItem(team.name,team)
                 self.ui.TeamD_box.addItem(team.name,team)
+                self.ui.TeamF_box.addItem(team.name,team)
     #debug info probably for what teams are validly loaded
     #currently dead code
     def print_teams(self):
@@ -197,8 +223,8 @@ class MainWindow(QMainWindow):
     urgency = ["FFFFFF","00FFFF","0000FF"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
-        TeamAObject=(self.ui.TeamB_box.itemData(self.ui.TeamA_box.currentIndex()))
-        TeamBObject=(self.ui.TeamA_box.itemData(self.ui.TeamB_box.currentIndex()))
+        TeamAObject=(self.ui.TeamA_box.itemData(self.ui.TeamA_box.currentIndex()))
+        TeamBObject=(self.ui.TeamB_box.itemData(self.ui.TeamB_box.currentIndex()))
         TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
         Intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
@@ -213,6 +239,13 @@ class MainWindow(QMainWindow):
            # print(f"intensity match {urgency}\n")
         self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,intensity)
 
+    #single message
+    def send_message_single(self):
+        TeamFObject=(self.ui.TeamF_box.itemData(self.ui.TeamF_box.currentIndex()))
+        self.radio.send_message_single(TeamFObject.pid,self.urgency[0])
+
+
+    #functions for automatic mode
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
     def start_polling_timer(self):
         self.poll_interval_ms = 30000  # 30 seconds
