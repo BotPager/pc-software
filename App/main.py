@@ -154,12 +154,13 @@ class MainWindow(QMainWindow):
             if target_index == -1:
                 target_index = self.current_team_index
                 # Move the pointer for the NEXT time we wrap around
-                self.current_team_index = (self.current_team_index + 1) % 16
+                self.current_team_index = (self.current_team_index + 1) % 15
             else:
                 # If we found an empty slot, update the pointer to the slot AFTER it
-                self.current_team_index = (target_index + 1) % 16
+                self.current_team_index = (target_index + 1) % 15
             self.teams[i].pid = new_pid
             self.display_loaded()
+
         else:
             self.ui.Pairbutton.insertPlainText("error occured, no pid returned\n")
         
@@ -167,7 +168,7 @@ class MainWindow(QMainWindow):
 
     # Team data collection
     def collect_team_data(self):
-        # self.ui.Errorbox.clear()
+        self.ui.Errorbox.clear()
         #remove teams to makesure they dont duplicate
         for i in range(0, 16):
             team_widget = getattr(self.ui, f"TeamN{i}", None)
@@ -185,6 +186,7 @@ class MainWindow(QMainWindow):
         self.ui.Errorbox.insertPlainText(f"{self.teams}\n")
         # print(self.teams)
         self.set_teams()
+        # self.display_loaded()
    
     # After loading all valid teams
     def set_teams(self):
