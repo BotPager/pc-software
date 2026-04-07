@@ -140,7 +140,7 @@
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="SetTeams">
             <widget class="QFrame" name="verticalFrame">
@@ -808,13 +808,6 @@ border-radius: 0px;
      <item>
       <widget class="QFrame" name="gridFrame_2">
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="2" column="0">
-         <widget class="QLabel" name="Teams_txt">
-          <property name="text">
-           <string>Teams Set:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="1">
          <widget class="QLabel" name="Teams_set_indicator">
           <property name="text">
@@ -850,11 +843,18 @@ border-radius: 0px;
           </property>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="Teams_txt">
+          <property name="text">
+           <string>Teams Set:</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
      <item>
-      <widget class="QTextBrowser" name="ErrorBox"/>
+      <widget class="QTextEdit" name="Errorbox"/>
      </item>
     </layout>
    </widget>
