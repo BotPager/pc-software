@@ -31,6 +31,7 @@ import os
 ICON_RED_LED = ":/icons/led-red-on.png"
 ICON_GREEN_LED = ":/icons/green-led-on.png"
 class MainWindow(QMainWindow):
+    current_team_index=0
     def __init__(self):
         super().__init__()
         # Load UI
@@ -58,6 +59,7 @@ class MainWindow(QMainWindow):
         self.ui.Automatic_indicator.setFixedSize(20, 20)
         self.ui.Automatic_indicator.setScaledContents(True)
         self.ui.Errorbox.setReadOnly(True)
+        self.ui.Pairbutton.setReadOnly(True)
 
        
         # Init Radio Communication
@@ -138,9 +140,11 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(3)
 
     def provision(self):
+        self.ui.Pairbutton.clear()
         new_pid = self.radio.provision()
+        self.ui.Pairbutton.insertPlainText("Setting Channel and radio preset\n")
         # self.readio.provision()
-        print(new_pid)
+        self.ui.Pairbutton.insertPlainText(f"Pager pid ={new_pid}\n")
         if new_pid:
             target_index = -1
             for i, team in enumerate(self.teams):
@@ -157,7 +161,7 @@ class MainWindow(QMainWindow):
             self.teams[i].pid = new_pid
             self.display_loaded()
         else:
-            print("heck")
+            self.ui.Pairbutton.insertPlainText("error occured, no pid returned\n")
         
         
 
@@ -236,7 +240,8 @@ class MainWindow(QMainWindow):
         caption = "Select Teams File" if file_type == "teams" else "Select PID File"
         # Open the native dialog
         file_path, _ = QFileDialog.getOpenFileName(self, caption, "", file_filter)
-        self.status_bar.showMessage(f"opening file picker {file_type}",timeout=3000)
+        self.ui.Errorbox.insertPlainText(f"opening file picker {file_type}\n")   
+        QTimer.singleShot(3000, lambda: self.ui.Errorbox.clear())
         if file_path:
             if file_type == "team_numbers":
                 # load team numbers after selected via file
