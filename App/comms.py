@@ -138,6 +138,8 @@ class MeshGateway(QObject):
     def exit(self):
         #close connection between the device and also shutdown the threadpool
         self.is_connecting = False
+        pub.unsubscribe(self.onDisconnect, "meshtastic.connection.lost")
+        pub.unsubscribe(self.onConnect, "mestastic.connection.established")
         if self.interface:
             try:
                  self.interface.close()
