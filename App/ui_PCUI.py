@@ -594,10 +594,10 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addItem(self.verticalSpacer_3)
 
-        self.pushButton_4 = QPushButton(self.verticalFrame_3)
-        self.pushButton_4.setObjectName(u"pushButton_4")
+        self.Provision_button = QPushButton(self.verticalFrame_3)
+        self.Provision_button.setObjectName(u"Provision_button")
 
-        self.verticalLayout_7.addWidget(self.pushButton_4)
+        self.verticalLayout_7.addWidget(self.Provision_button)
 
         self.Pairbutton = QTextBrowser(self.verticalFrame_3)
         self.Pairbutton.setObjectName(u"Pairbutton")
@@ -711,7 +711,7 @@ class Ui_MainWindow(object):
         self.SwitchPager.setText(QCoreApplication.translate("MainWindow", u"Set Pagers", None))
         self.SwitchManual.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.SwitchAuto.setText(QCoreApplication.translate("MainWindow", u"Automatic", None))
-        self.SwitchPair.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.SwitchPair.setText(QCoreApplication.translate("MainWindow", u"Pairing", None))
         self.TeamTitleLable.setText(QCoreApplication.translate("MainWindow", u"Enter Team Info", None))
         self.PagerID1.setText(QCoreApplication.translate("MainWindow", u"Team Number", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
@@ -731,7 +731,7 @@ class Ui_MainWindow(object):
         self.Message_single.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Start/Stop Automatic Mode", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Status of Automatic mode", None))
-        self.pushButton_4.setText(QCoreApplication.translate("MainWindow", u"Provision Pager", None))
+        self.Provision_button.setText(QCoreApplication.translate("MainWindow", u"Provision Pager", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.Teams_set_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
