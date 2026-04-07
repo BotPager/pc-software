@@ -34,6 +34,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # Load UI
+        state = False
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         #always load to inputting pagers
@@ -79,6 +80,7 @@ class MainWindow(QMainWindow):
 
         #start the automatic mode polling function
         self.ui.pushButton.clicked.connect(self.start_polling_timer)
+        self.ui.pushButton.clicked.connect(self.update_automatic)
     
     def init_intensity(self):
         self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
@@ -93,7 +95,12 @@ class MainWindow(QMainWindow):
             self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
         else:
             self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
-
+    def update_automatic(self,state):
+        state = not state
+        if state:
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
+        else:
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
     
     #shutdown logic
     def closeEvent(self, event):
