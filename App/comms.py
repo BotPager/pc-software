@@ -37,7 +37,6 @@ class MeshGateway(QObject):
         # This is why we thread
         while self.is_connecting:
             try:
-                print("connecting")
                 if not self.is_connecting:
                     break
                 
@@ -49,16 +48,15 @@ class MeshGateway(QObject):
                     self.interface.close()
                     self.interface = None
             except Exception as e:
-                print("Error device not connected\n")
+                # print("Error device not connected\n")
                 if not self.is_connecting:
                     break
-                print(f"trying again in 3 seconds {e}")
+                # print(f"trying again in 3 seconds {e}")
                 time.sleep(2)
 
   # comms.py
 
     def onConnection(self, interface=None, **kwargs):
-        print("Logic: Connected")
         self.is_connecting = False
         # Retrieve the interface safely from kwargs if needed
         self.interface = kwargs.get('interface')
@@ -73,20 +71,6 @@ class MeshGateway(QObject):
         self.connection_changed.emit(False)
         # Restart connection attempt
         self.connect() 
-    # #pub sub connection event
-    # def onConnection(self, interface, topic=pub.AUTO_TOPIC):
-    #     print("good")
-    #     self.is_connecting = False
-    # #pubsub discconnect event 
-    # def onDisconnect(self, interface, topic=pub.AUTO_TOPIC):
-    #     print("disconnection occurred please recconnect")
-    #     self.is_connecting = False        
-    #     if self.interface:
-    #         try:
-    #             self.interface.close()
-    #         except:
-    #             pass
-    #         self.interface = None
         
         # Trigger reconnection thread
         self.connect()
@@ -97,7 +81,7 @@ class MeshGateway(QObject):
         self.threadpool.start(worker)
 
     def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency="ffffff"):
-        #send the message to the teams should be reusable with automatic and manual modes
+        #send the message to the teams should be reusable with u and manual modes
         
         print("sending\n")
         messager = "red team head to arena\n"
