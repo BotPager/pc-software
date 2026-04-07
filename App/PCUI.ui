@@ -98,7 +98,7 @@
          <item>
           <widget class="QPushButton" name="SwitchPair">
            <property name="text">
-            <string>PushButton</string>
+            <string>Pairing</string>
            </property>
           </widget>
          </item>
@@ -762,7 +762,7 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="QPushButton" name="pushButton_4">
+                  <widget class="QPushButton" name="Provision_button">
                    <property name="text">
                     <string>Provision Pager</string>
                    </property>
