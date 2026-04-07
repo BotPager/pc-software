@@ -73,6 +73,8 @@ class MainWindow(QMainWindow):
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
         self.ui.SwitchPager.clicked.connect(self.show_set_pagers_page)
         self.ui.SwitchAuto.clicked.connect(self.show_automatic_page)
+        self.ui.SwitchPair.clicked.connect(self.show_pair_page)
+        self.ui.Provision_button.clicked.connect(self.provision)
 
         # connect to team loading button
         self.ui.pushButton_2.clicked.connect(self.update_teams_ind)
@@ -132,9 +134,34 @@ class MainWindow(QMainWindow):
 
     def show_automatic_page(self):
         self.ui.stackedWidget.setCurrentIndex(2)
+    def show_pair_page(self):
+        self.ui.stackedWidget.setCurrentIndex(3)
+
+    def provision(self):
+        new_pid = self.radio.provision()
+        # self.readio.provision()
+        print(new_pid)
+        if new_pid:
+            target_index = -1
+            for i, team in enumerate(self.teams):
+                if not team.pid or team.pid == "Empty" or team.pid == "":
+                    target_index = i
+                    break
+            if target_index == -1:
+                target_index = self.current_team_index
+                # Move the pointer for the NEXT time we wrap around
+                self.current_team_index = (self.current_team_index + 1) % 16
+            else:
+                # If we found an empty slot, update the pointer to the slot AFTER it
+                self.current_team_index = (target_index + 1) % 16
+            self.teams[i].pid = new_pid
+            self.display_loaded()
+        else:
+            print("heck")
+        
+        
 
     # Team data collection
-
     def collect_team_data(self):
         # self.ui.Errorbox.clear()
         #remove teams to makesure they dont duplicate
