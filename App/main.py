@@ -350,7 +350,7 @@ class MainWindow(QMainWindow):
         if queue_signature != self.last_queue_signature:
             print("Queue changed, sending messages")
             self.last_queue_signature = queue_signature
-            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "21FF00") 
+            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "FFFF00") 
         else:
             #If Match State turns to "REVIEW" send a red message to teams:
             match_state = self.extract_match_state_from_queue(active_match_details)
