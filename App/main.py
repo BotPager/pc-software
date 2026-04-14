@@ -381,7 +381,7 @@ class MainWindow(QMainWindow):
         return active_match_details["matches"][0].get("matchState")
     
     def extract_field_from_queue(self, queue_details):
-        return queue_details["matches"][0].get("field")
+        return queue_details["matchBrief"].get("field")
         
 # Run application
 if __name__ == "__main__":

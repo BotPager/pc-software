@@ -117,7 +117,7 @@ class MeshGateway(QObject):
                 sent = False
                 time.sleep(2)
     def send_message_single(self, TeamFPID, field, urgency="ffffff"):
-        worker = Worker(self.send_message_single_task,TeamFPID,field, urgency)
+        worker = Worker(self.send_message_single_task,TeamFPID, field, urgency)
         self.threadpool.start(worker)
     def send_message_single_task(self, TeamFPID, field, Urgency):
         message = f"head to arena {field} now\n"
