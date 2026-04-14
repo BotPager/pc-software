@@ -88,17 +88,17 @@ class MeshGateway(QObject):
                     self.connect()
         
         #if this fails we know whyyyyyyyyyyy
-    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency="ffffff" ):
+    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff"):
         #call message task and start thread
-        worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency)
+        worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency)
         self.threadpool.start(worker)
 
-    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,urgency="ffffff"):
+    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff"):
         #send the message to the teams should be reusable with u and manual modes
         
         print("sending\n")
-        messager = "red team head to arena\n"
-        messageb = "blue team head to arena\n"        
+        messager = f"red team head to arena {field}\n"
+        messageb = f"blue team head to arena {field}\n"        
         formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
         sent = False
         while not sent:
@@ -116,11 +116,11 @@ class MeshGateway(QObject):
                 # print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
                 sent = False
                 time.sleep(2)
-    def send_message_single(self, TeamFPID,urgency="ffffff"):
-        worker = Worker(self.send_message_single_task,TeamFPID,urgency)
+    def send_message_single(self, TeamFPID, field, urgency="ffffff"):
+        worker = Worker(self.send_message_single_task,TeamFPID,field, urgency)
         self.threadpool.start(worker)
-    def send_message_single_task(self, TeamFPID,Urgency):
-        message = "head to arena now\n"
+    def send_message_single_task(self, TeamFPID, field, Urgency):
+        message = f"head to arena {field} now\n"
         formatted = f"{TeamFPID}|{Urgency}|{message}"
         sent = False
         while not sent:
