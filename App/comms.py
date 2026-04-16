@@ -102,7 +102,6 @@ class MeshGateway(QObject):
         formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
         sent = False
         while not sent:
-   # c         while self.interface is None or self.is_connecting:
             while self.is_connecting or self.interface is None:
                 # print(f"interface == {self.interface}\n")
                 # print(f"is connecting == {self.is_connecting}\n")
