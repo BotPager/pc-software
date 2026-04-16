@@ -89,8 +89,14 @@ class MainWindow(QMainWindow):
         self.ui.Message_single.clicked.connect(self.send_message_single)
 
         #start the automatic mode polling function
-        self.ui.pushButton.clicked.connect(self.update_automatic)
-        self.ui.pushButton.clicked.connect(self.start_polling_timer)
+        self.ui.pushButton.setCheckable(True)
+        self.ui.pushButton.clicked.connect(self.toggle_automatic_mode)
+
+        self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)
+        self.last_queue_signature = None
+        self.api_cooldown_until = 0
+        self.poll_timer = QTimer(self)
+        self.poll_timer.timeout.connect(self.poll_for_queue_changes)
     
     def init_intensity(self):
         self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
@@ -313,14 +319,18 @@ class MainWindow(QMainWindow):
 
     #functions for automatic mode
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
-    def start_polling_timer(self):
-        self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)
-        self.last_queue_signature = None
-        self.api_cooldown_until = 0
-        self.poll_timer = QTimer(self)
-        self.poll_timer.timeout.connect(self.poll_for_queue_changes)
-        self.poll_timer.start(self.poll_interval_ms)
-        self.poll_for_queue_changes()  # Initial call to populate immediately
+    def toggle_automatic_mode(self, checked):
+        if checked:
+            self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)
+            self.last_queue_signature = None
+            self.api_cooldown_until = 0
+            self.poll_timer.start(self.poll_interval_ms)
+            self.poll_for_queue_changes()  # Initial call to populate immediately
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
+        else:
+            self.poll_timer.stop()
+            print("Automatic mode stopped, timer halted")
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
 
     def poll_for_queue_changes(self):
         #Setting Initial Timer
