@@ -105,7 +105,7 @@ class MainWindow(QMainWindow):
         else:
             self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
     def update_automatic(self,state):
-        if state == true:
+        if state == True:
             self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
         else:
             self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
@@ -332,7 +332,7 @@ class MainWindow(QMainWindow):
         #API Calls to get active match and queue details
         active_match_details = ftclive_queueteams.get_active_match_details()
         queue_details = ftclive_queueteams.get_queue_match_details()
-        if queue_details is None:
+        if not active_match_details or not queue_details:
             self.api_cooldown_until = now + 60  # Back off for 60 seconds
             return
 
