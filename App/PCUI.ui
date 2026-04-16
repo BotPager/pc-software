@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1038</width>
-    <height>841</height>
+    <width>950</width>
+    <height>461</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>900</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -20,9 +32,9 @@
    <widget class="QFrame" name="Content">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>89</y>
-      <width>800</width>
+      <x>0</x>
+      <y>0</y>
+      <width>950</width>
       <height>461</height>
      </rect>
     </property>
@@ -43,15 +55,21 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>781</width>
+       <width>950</width>
        <height>461</height>
       </rect>
      </property>
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>950</width>
+       <height>0</height>
+      </size>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -67,56 +85,39 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QFrame" name="verticalFrame_2">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>200</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
           <height>100</height>
          </size>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_5">
-         <item>
-          <widget class="QPushButton" name="SwitchPager">
-           <property name="text">
-            <string>Set Pagers</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="SwitchManual">
-           <property name="text">
-            <string>Manual</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="SwitchAuto">
-           <property name="text">
-            <string>Automatic</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="SwitchPair">
-           <property name="text">
-            <string>Pairing</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <layout class="QVBoxLayout" name="verticalLayout_5"/>
        </widget>
       </item>
       <item>
        <widget class="QFrame" name="Main_Menus">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimumSize">
+         <size>
+          <width>620</width>
+          <height>400</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>661</width>
-          <height>453</height>
+          <width>640</width>
+          <height>500</height>
          </size>
         </property>
         <property name="frameShape">
@@ -142,7 +143,94 @@
           <number>11</number>
          </property>
          <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_7">
+           <item>
+            <widget class="QPushButton" name="SwitchPager">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Set Pagers</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="SwitchPair">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Pairing</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="SwitchManual">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>20</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Manual</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="SwitchAuto">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Automatic</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Exit</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
           <widget class="QStackedWidget" name="stackedWidget">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>600</width>
+             <height>260</height>
+            </size>
+           </property>
            <property name="autoFillBackground">
             <bool>true</bool>
            </property>
@@ -150,6 +238,12 @@
             <number>3</number>
            </property>
            <widget class="QWidget" name="SetTeams">
+            <property name="minimumSize">
+             <size>
+              <width>616</width>
+              <height>383</height>
+             </size>
+            </property>
             <widget class="QFrame" name="verticalFrame">
              <property name="geometry">
               <rect>
@@ -456,14 +550,26 @@
             </widget>
            </widget>
            <widget class="QWidget" name="Manual">
+            <property name="minimumSize">
+             <size>
+              <width>616</width>
+              <height>383</height>
+             </size>
+            </property>
             <widget class="QFrame" name="gridFrame">
              <property name="geometry">
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>637</width>
-               <height>429</height>
+               <width>605</width>
+               <height>385</height>
               </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>605</width>
+               <height>385</height>
+              </size>
              </property>
              <layout class="QGridLayout" name="gridLayout_3">
               <item row="0" column="0">
@@ -722,13 +828,19 @@
             </widget>
            </widget>
            <widget class="QWidget" name="Provision">
+            <property name="minimumSize">
+             <size>
+              <width>616</width>
+              <height>383</height>
+             </size>
+            </property>
             <widget class="QFrame" name="horizontalFrame">
              <property name="geometry">
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>635</width>
-               <height>429</height>
+               <width>616</width>
+               <height>383</height>
               </rect>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -808,136 +920,74 @@
         </layout>
        </widget>
       </item>
-     </layout>
-    </widget>
-   </widget>
-   <widget class="QFrame" name="frame">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>10</y>
-      <width>781</width>
-      <height>72</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">#frame{
-border-radius: 0px;
-}</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Shape::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Shadow::Plain</enum>
-    </property>
-    <widget class="QFrame" name="horizontalFrame_2">
-     <property name="geometry">
-      <rect>
-       <x>300</x>
-       <y>0</y>
-       <width>231</width>
-       <height>80</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <widget class="QLabel" name="label">
-        <property name="frameShape">
-         <enum>QFrame::Shape::WinPanel</enum>
-        </property>
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignmentFlag::AlignCenter</set>
-        </property>
+       <widget class="QFrame" name="verticalFrame">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QFrame" name="gridFrame_2">
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="2" column="1">
+             <widget class="QLabel" name="Teams_set_indicator">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="Automatic_indicator">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="Pager_conn_indicator">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="Automatic_txt">
+              <property name="text">
+               <string>Automatic on:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="Connection_txt">
+              <property name="text">
+               <string>Pager Connection:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="Teams_txt">
+              <property name="text">
+               <string>Teams Set:</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="Errorbox">
+           <property name="maximumSize">
+            <size>
+             <width>225</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="geometry">
-      <rect>
-       <x>630</x>
-       <y>25</y>
-       <width>102</width>
-       <height>30</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Exit</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QFrame" name="verticalFrame">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>113</y>
-      <width>235</width>
-      <height>386</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_3">
-     <item>
-      <widget class="QFrame" name="gridFrame_2">
-       <layout class="QGridLayout" name="gridLayout_5">
-        <item row="2" column="1">
-         <widget class="QLabel" name="Teams_set_indicator">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="Automatic_indicator">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="Pager_conn_indicator">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="Automatic_txt">
-          <property name="text">
-           <string>Automatic on:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="Connection_txt">
-          <property name="text">
-           <string>Pager Connection:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="Teams_txt">
-          <property name="text">
-           <string>Teams Set:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QTextEdit" name="Errorbox"/>
-     </item>
-    </layout>
    </widget>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

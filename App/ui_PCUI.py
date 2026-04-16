@@ -18,31 +18,38 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
     QGridLayout, QHBoxLayout, QLabel, QLineEdit,
     QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QStackedWidget, QStatusBar, QTextBrowser, QTextEdit,
-    QVBoxLayout, QWidget)
+    QStackedWidget, QTextBrowser, QTextEdit, QVBoxLayout,
+    QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1038, 841)
+        MainWindow.resize(950, 461)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        MainWindow.setSizePolicy(sizePolicy)
+        MainWindow.setMinimumSize(QSize(900, 0))
         MainWindow.setAutoFillBackground(True)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.Content = QFrame(self.centralwidget)
         self.Content.setObjectName(u"Content")
-        self.Content.setGeometry(QRect(9, 89, 800, 461))
+        self.Content.setGeometry(QRect(0, 0, 950, 461))
         self.Content.setMaximumSize(QSize(1920, 16777215))
         self.Content.setFrameShape(QFrame.Shape.StyledPanel)
         self.Content.setFrameShadow(QFrame.Shadow.Raised)
         self.horizontalFrame_2 = QFrame(self.Content)
         self.horizontalFrame_2.setObjectName(u"horizontalFrame_2")
-        self.horizontalFrame_2.setGeometry(QRect(0, 0, 781, 461))
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.horizontalFrame_2.sizePolicy().hasHeightForWidth())
-        self.horizontalFrame_2.setSizePolicy(sizePolicy)
+        self.horizontalFrame_2.setGeometry(QRect(0, 0, 950, 461))
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.horizontalFrame_2.sizePolicy().hasHeightForWidth())
+        self.horizontalFrame_2.setSizePolicy(sizePolicy1)
+        self.horizontalFrame_2.setMinimumSize(QSize(950, 0))
         self.horizontalFrame_2.setAutoFillBackground(False)
         self.horizontalFrame_2.setStyleSheet(u"#horizontalFrame_2{\n"
 "	border-radius: 0px;\n"
@@ -52,51 +59,77 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setObjectName(u"horizontalLayout")
         self.verticalFrame_2 = QFrame(self.horizontalFrame_2)
         self.verticalFrame_2.setObjectName(u"verticalFrame_2")
+        self.verticalFrame_2.setMinimumSize(QSize(0, 200))
         self.verticalFrame_2.setMaximumSize(QSize(16777215, 100))
         self.verticalLayout_5 = QVBoxLayout(self.verticalFrame_2)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
-        self.SwitchPager = QPushButton(self.verticalFrame_2)
-        self.SwitchPager.setObjectName(u"SwitchPager")
-
-        self.verticalLayout_5.addWidget(self.SwitchPager)
-
-        self.SwitchManual = QPushButton(self.verticalFrame_2)
-        self.SwitchManual.setObjectName(u"SwitchManual")
-
-        self.verticalLayout_5.addWidget(self.SwitchManual)
-
-        self.SwitchAuto = QPushButton(self.verticalFrame_2)
-        self.SwitchAuto.setObjectName(u"SwitchAuto")
-
-        self.verticalLayout_5.addWidget(self.SwitchAuto)
-
-        self.SwitchPair = QPushButton(self.verticalFrame_2)
-        self.SwitchPair.setObjectName(u"SwitchPair")
-
-        self.verticalLayout_5.addWidget(self.SwitchPair)
-
 
         self.horizontalLayout.addWidget(self.verticalFrame_2)
 
         self.Main_Menus = QFrame(self.horizontalFrame_2)
         self.Main_Menus.setObjectName(u"Main_Menus")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.MinimumExpanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.Main_Menus.sizePolicy().hasHeightForWidth())
-        self.Main_Menus.setSizePolicy(sizePolicy1)
-        self.Main_Menus.setMaximumSize(QSize(661, 453))
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.Main_Menus.sizePolicy().hasHeightForWidth())
+        self.Main_Menus.setSizePolicy(sizePolicy2)
+        self.Main_Menus.setMinimumSize(QSize(620, 400))
+        self.Main_Menus.setMaximumSize(QSize(640, 500))
         self.Main_Menus.setFrameShape(QFrame.Shape.StyledPanel)
         self.Main_Menus.setLineWidth(0)
         self.verticalLayout = QVBoxLayout(self.Main_Menus)
         self.verticalLayout.setSpacing(7)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(11, 11, 11, 11)
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.SwitchPager = QPushButton(self.Main_Menus)
+        self.SwitchPager.setObjectName(u"SwitchPager")
+        self.SwitchPager.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_7.addWidget(self.SwitchPager)
+
+        self.SwitchPair = QPushButton(self.Main_Menus)
+        self.SwitchPair.setObjectName(u"SwitchPair")
+        self.SwitchPair.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_7.addWidget(self.SwitchPair)
+
+        self.SwitchManual = QPushButton(self.Main_Menus)
+        self.SwitchManual.setObjectName(u"SwitchManual")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(20)
+        sizePolicy3.setHeightForWidth(self.SwitchManual.sizePolicy().hasHeightForWidth())
+        self.SwitchManual.setSizePolicy(sizePolicy3)
+        self.SwitchManual.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_7.addWidget(self.SwitchManual)
+
+        self.SwitchAuto = QPushButton(self.Main_Menus)
+        self.SwitchAuto.setObjectName(u"SwitchAuto")
+        self.SwitchAuto.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_7.addWidget(self.SwitchAuto)
+
+        self.pushButton_3 = QPushButton(self.Main_Menus)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_3.setMinimumSize(QSize(0, 20))
+
+        self.horizontalLayout_7.addWidget(self.pushButton_3)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_7)
+
         self.stackedWidget = QStackedWidget(self.Main_Menus)
         self.stackedWidget.setObjectName(u"stackedWidget")
+        sizePolicy2.setHeightForWidth(self.stackedWidget.sizePolicy().hasHeightForWidth())
+        self.stackedWidget.setSizePolicy(sizePolicy2)
+        self.stackedWidget.setMinimumSize(QSize(600, 260))
         self.stackedWidget.setAutoFillBackground(True)
         self.SetTeams = QWidget()
         self.SetTeams.setObjectName(u"SetTeams")
+        self.SetTeams.setMinimumSize(QSize(616, 383))
         self.verticalFrame = QFrame(self.SetTeams)
         self.verticalFrame.setObjectName(u"verticalFrame")
         self.verticalFrame.setGeometry(QRect(0, 0, 616, 376))
@@ -398,9 +431,11 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.SetTeams)
         self.Manual = QWidget()
         self.Manual.setObjectName(u"Manual")
+        self.Manual.setMinimumSize(QSize(616, 383))
         self.gridFrame = QFrame(self.Manual)
         self.gridFrame.setObjectName(u"gridFrame")
-        self.gridFrame.setGeometry(QRect(0, 0, 637, 429))
+        self.gridFrame.setGeometry(QRect(0, 0, 605, 385))
+        self.gridFrame.setMinimumSize(QSize(605, 385))
         self.gridLayout_3 = QGridLayout(self.gridFrame)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.horizontalLayout_2 = QHBoxLayout()
@@ -577,9 +612,10 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.Automatic)
         self.Provision = QWidget()
         self.Provision.setObjectName(u"Provision")
+        self.Provision.setMinimumSize(QSize(616, 383))
         self.horizontalFrame1 = QFrame(self.Provision)
         self.horizontalFrame1.setObjectName(u"horizontalFrame1")
-        self.horizontalFrame1.setGeometry(QRect(0, 0, 635, 429))
+        self.horizontalFrame1.setGeometry(QRect(0, 0, 616, 383))
         self.horizontalLayout_10 = QHBoxLayout(self.horizontalFrame1)
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
         self.horizontalSpacer_10 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
@@ -622,33 +658,8 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.Main_Menus)
 
-        self.frame = QFrame(self.centralwidget)
-        self.frame.setObjectName(u"frame")
-        self.frame.setGeometry(QRect(0, 10, 781, 72))
-        self.frame.setAutoFillBackground(False)
-        self.frame.setStyleSheet(u"#frame{\n"
-"border-radius: 0px;\n"
-"}")
-        self.frame.setFrameShape(QFrame.Shape.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Shadow.Plain)
-        self.horizontalFrame_21 = QFrame(self.frame)
-        self.horizontalFrame_21.setObjectName(u"horizontalFrame_21")
-        self.horizontalFrame_21.setGeometry(QRect(300, 0, 231, 80))
-        self.horizontalLayout_4 = QHBoxLayout(self.horizontalFrame_21)
-        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
-        self.label = QLabel(self.horizontalFrame_21)
-        self.label.setObjectName(u"label")
-        self.label.setFrameShape(QFrame.Shape.WinPanel)
-        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.horizontalLayout_4.addWidget(self.label)
-
-        self.pushButton_3 = QPushButton(self.frame)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        self.pushButton_3.setGeometry(QRect(630, 25, 102, 30))
-        self.verticalFrame1 = QFrame(self.centralwidget)
+        self.verticalFrame1 = QFrame(self.horizontalFrame_2)
         self.verticalFrame1.setObjectName(u"verticalFrame1")
-        self.verticalFrame1.setGeometry(QRect(770, 113, 235, 386))
         self.verticalLayout_3 = QVBoxLayout(self.verticalFrame1)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.gridFrame_2 = QFrame(self.verticalFrame1)
@@ -690,13 +701,14 @@ class Ui_MainWindow(object):
 
         self.Errorbox = QTextEdit(self.verticalFrame1)
         self.Errorbox.setObjectName(u"Errorbox")
+        self.Errorbox.setMaximumSize(QSize(225, 16777215))
 
         self.verticalLayout_3.addWidget(self.Errorbox)
 
+
+        self.horizontalLayout.addWidget(self.verticalFrame1)
+
         MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName(u"statusbar")
-        MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
 
@@ -709,9 +721,10 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.SwitchPager.setText(QCoreApplication.translate("MainWindow", u"Set Pagers", None))
+        self.SwitchPair.setText(QCoreApplication.translate("MainWindow", u"Pairing", None))
         self.SwitchManual.setText(QCoreApplication.translate("MainWindow", u"Manual", None))
         self.SwitchAuto.setText(QCoreApplication.translate("MainWindow", u"Automatic", None))
-        self.SwitchPair.setText(QCoreApplication.translate("MainWindow", u"Pairing", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.TeamTitleLable.setText(QCoreApplication.translate("MainWindow", u"Enter Team Info", None))
         self.PagerID1.setText(QCoreApplication.translate("MainWindow", u"Team Number", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
@@ -732,8 +745,6 @@ class Ui_MainWindow(object):
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Start/Stop Automatic Mode", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Status of Automatic mode", None))
         self.Provision_button.setText(QCoreApplication.translate("MainWindow", u"Provision Pager", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Exit", None))
         self.Teams_set_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.Automatic_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.Pager_conn_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
