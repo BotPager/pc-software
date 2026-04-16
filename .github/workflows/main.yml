@@ -22,7 +22,7 @@ jobs:
           python_ver: '3.13'
           spec: 'App/build.spec'
           requirements: 'requirements.txt'
-          upload_exe_with_name: Pager-software${{ matrix.os }}
+          upload_exe_with_name: Pager-software-${{ matrix.os }}-${{github.ref}}
 
 
 
