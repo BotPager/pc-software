@@ -15,8 +15,7 @@ class Team:
 def load_pid(filename="pid.txt"):
                 loaded_pagers = []
                 if not os.path.exists(filename):
-                        print(f"Warning: {filename} not found ")
-                        return loaded_pagers
+                                return loaded_pagers
             # get data from file
             # read line by line
                 with open(filename) as f:
@@ -36,7 +35,7 @@ def load_team_number(filename="team_numbers.txt"):
     #does the same as pid but for team numbers instead
     loaded_teams = []
     if not os.path.exists(filename):
-        print(f"Warning: {filename} not found")
+#        print(f"Warning: {filename} not found")
         return loaded_teams
     with open(filename) as f:
         for line in f:
@@ -124,7 +123,7 @@ def save_teams_to_file(teams_list):
 def load_teams_from_file(teams_list,filename="teams.txt"):
     loaded_teams = []
     if not os.path.exists(filename):
-        print(f"Warning: {filename} not found ")
+       # print(f"Warning: {filename} not found ")
         return teams_list
     # get data from file
     # read line by line
