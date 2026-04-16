@@ -52,6 +52,7 @@ class MainWindow(QMainWindow):
         #setup indicators
         self.ui.Pager_conn_indicator.setFixedSize(20, 20)
         self.ui.Pager_conn_indicator.setScaledContents(True)
+        self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
         self.ui.Teams_set_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
         self.ui.Teams_set_indicator.setFixedSize(20, 20)
         self.ui.Teams_set_indicator.setScaledContents(True)
@@ -104,8 +105,7 @@ class MainWindow(QMainWindow):
         else:
             self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
     def update_automatic(self,state):
-        state = not state
-        if state:
+        if state == true:
             self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
         else:
             self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
