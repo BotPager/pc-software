@@ -757,7 +757,7 @@
                      <item row="1" column="0">
                       <widget class="QComboBox" name="Intensity">
                        <property name="currentIndex">
-                        <number>3</number>
+                        <number>0</number>
                        </property>
                        <property name="minimumContentsLength">
                         <number>0</number>

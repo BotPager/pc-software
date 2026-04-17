@@ -299,29 +299,33 @@ class MainWindow(QMainWindow):
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
         Intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
         print(f"intensity value = {Intensity_val}\n")
+        formatted = None
         match Intensity_val:
-            case 2: #parts
+            case 3: #parts
                 urgency = self.urgency[3]
-                type = "parts"
-            case 1: #high
+                type = "Parts"
+                print(type)
+            case 2: #high
                 urgency = self.urgency[2]
-                type = "high"
-            case 0: #low
+                type = "High"
+            case 1: #low
                 urgency = self.urgency[1]
-                type = "default"
-            case _: #default
+                type = "Default"
+            case 0: #default
                 urgency = self.urgency[0]
-                type = "default"
+                type = "Default"
+
+        print(f"type {type} \n")
         match type:
-            case "default":
+            case "Default":
                 messager = f"red team head to arena {field_num}\n"
                 messageb = f"blue team head to arena {field_num}\n"        
                 formatted =  f"{TeamAObject.pid}|{urgency}|{messager}{TeamBObject.pid}|{urgency}|{messager}{TeamCObject.pid}|{urgency}|{messageb}{TeamDObject.pid}|{urgency}|{messageb}"
-            case "high":
+            case "High":
                 messager = f"red team head to arena {field_num} now\n"
                 messageb = f"blue team head to arena {field_num} now\n"        
                 formatted =  f"{TeamAObject.pid}|{urgency}|{messager}{TeamBObject.pid}|{urgency}|{messager}{TeamCObject.pid}|{urgency}|{messageb}{TeamDObject.pid}|{urgency}|{messageb}"
-            case "parts":
+            case "Parts":
                 message = f"parts request approved\n"
                 formatted = f"{TeamAObject.pid}|{urgency}|{message}{TeamBObject.pid}|{urgency}|{message}{TeamCObject.pid}|{urgency}|{message}{TeamDObject.pid}|{urgency}|{message}"
                 
@@ -339,30 +343,38 @@ class MainWindow(QMainWindow):
         print(str(field_num))
         intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
         print(f"intensity value = {intensity_val}\n")
-
+        formatted = None
         match intensity_val:
-            case 2: #parts
+            case 3: #parts
                 intensity = self.urgency[3]
-                type = "parts"
-            case 1: #high
+                type = "Parts"
+            case 2: #high
                 intensity = self.urgency[2]
-                type = "high"
-            case 0: #low
+
+                message = f"head to arena {field} now\n"
+                type = "High"
+            case 1: #low
+
+                message = f"head to arena {field} now\n"
                 intensity = self.urgency[1]
-                type = "default"
-            case _: #default
+                type = "Default"
+            case 0: #default
+
+                message = f"parts request approved\n"
                 intensity = self.urgency[0]
+                
                 type = "default"
         match type:
-            case "default":
+            case "Default":
                 message = f"head to arena {field_num} now\n"
                 formatted = f"{TeamFObject.pid}|{intensity}|{message}"
-            case "high":
+            case "High":
                 message = f"head to arena {field_num} now\n"
                 formatted = f"{TeamFObject.pid}|{intensity}|{message}"
             case "Parts":
                 message = f"parts request approved\n"
                 formatted = f"{TeamFObject.pid}|{intensity}|{message}"
+            
         self.ui.Errorbox.clear()
         self.ui.Errorbox.insertPlainText(formatted)
         self.radio.send_message_single(TeamFObject.pid,field_num,intensity,type)

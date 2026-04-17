@@ -793,7 +793,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.stackedWidget.setCurrentIndex(1)
-        self.Intensity.setCurrentIndex(3)
+        self.Intensity.setCurrentIndex(0)
         self.Arena_select.setCurrentIndex(0)
 
 

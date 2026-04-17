@@ -130,15 +130,15 @@ class MeshGateway(QObject):
         
         print("sending\n")
         match message_type:
-            case "default":
+            case "Default":
                 messager = f"red team head to arena {field}\n"
                 messageb = f"blue team head to arena {field}\n"        
                 formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
-            case "high":
+            case "High":
                 messager = f"red team head to arena {field} now\n"
                 messageb = f"blue team head to arena {field} now\n"        
                 formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
-            case "parts":
+            case "Parts":
                 message = f"parts request approved\n"
                 formatted = f"{TeamAPID}|{urgency}|{message}{TeamBPID}|{urgency}|{message}{TeamCPID}|{urgency}|{message}{TeamDPID}|{urgency}|{message}"
         sent = False
@@ -164,13 +164,13 @@ class MeshGateway(QObject):
     def send_message_single_task(self, TeamFPID, field, Urgency, message_type="default"):
         
         match message_type:
-            case "default":
+            case "Default":
                 message = f"head to arena {field} now\n"
                 formatted = f"{TeamFPID}|{Urgency}|{message}"
-            case "high":
+            case "High":
                 message = f"head to arena {field} now\n"
                 formatted = f"{TeamFPID}|{Urgency}|{message}"
-            case "parts":
+            case "Parts":
                 message = f"parts request approved\n"
                 formatted = f"{TeamFPID}|{Urgency}|{message}"
         sent = False
@@ -219,7 +219,7 @@ class MeshGateway(QObject):
             
             lora = node.localConfig.lora
             lora.region = 1
-            lora.modem_preset = 7
+            lora.modem_preset = 3
             node.writeConfig("lora")
 
             bluetooth = node.localConfig.bluetooth
