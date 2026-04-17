@@ -360,7 +360,7 @@ class MainWindow(QMainWindow):
             case "high":
                 message = f"head to arena {field_num} now\n"
                 formatted = f"{TeamFObject.pid}|{intensity}|{message}"
-            case "parts":
+            case "Parts":
                 message = f"parts request approved\n"
                 formatted = f"{TeamFObject.pid}|{intensity}|{message}"
         self.ui.Errorbox.clear()
