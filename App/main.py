@@ -287,7 +287,7 @@ class MainWindow(QMainWindow):
         #team a right
         #team b left
     #automatic may just use result from api matched against the array teams?
-    urgency = ["FFFFFF","00FFFF","0000FF","FFFF00"] #i hope this helps rather than defining it inside send_message_manual
+    urgency = ["FFFFFF","0000FF","FF0000","00FF00"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
 
