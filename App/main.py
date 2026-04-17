@@ -299,7 +299,6 @@ class MainWindow(QMainWindow):
         TeamDObject=(self.ui.TeamD_box.itemData(self.ui.TeamD_box.currentIndex()))
         Intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
         print(f"intensity value = {Intensity_val}\n")
-        formatted = None
         match Intensity_val:
             case 3: #parts
                 urgency = self.urgency[3]
