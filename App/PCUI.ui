@@ -235,7 +235,7 @@
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="SetTeams">
             <property name="minimumSize">
@@ -491,13 +491,6 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
-                 <widget class="QPushButton" name="load_teams">
-                  <property name="text">
-                   <string>load teams</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <widget class="QPushButton" name="clear_all">
                   <property name="text">
                    <string>Clear all</string>
@@ -525,13 +518,6 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="select_teams_file">
-                  <property name="text">
-                   <string>Select file</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
                  <spacer name="horizontalSpacer_5">
                   <property name="orientation">
                    <enum>Qt::Orientation::Horizontal</enum>
@@ -545,9 +531,9 @@
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="load_pid">
+                 <widget class="QPushButton" name="select_teams_file">
                   <property name="text">
-                   <string>load Pid</string>
+                   <string>Select file</string>
                   </property>
                  </widget>
                 </item>
