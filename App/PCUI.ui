@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>950</width>
-    <height>1000</height>
+    <height>461</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -235,7 +235,7 @@
             <bool>true</bool>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="SetTeams">
             <property name="minimumSize">
@@ -591,41 +591,7 @@
                        <height>20</height>
                       </size>
                      </property>
-                     <layout class="QHBoxLayout" name="horizontalLayout_9">
-                      <item>
-                       <spacer name="horizontalSpacer_7">
-                        <property name="orientation">
-                         <enum>Qt::Orientation::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item>
-                       <widget class="QLabel" name="Title">
-                        <property name="text">
-                         <string>MANUAL QUEUE</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item>
-                       <spacer name="horizontalSpacer_8">
-                        <property name="orientation">
-                         <enum>Qt::Orientation::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                     </layout>
+                     <layout class="QHBoxLayout" name="horizontalLayout_9"/>
                     </widget>
                    </item>
                    <item>
@@ -732,23 +698,6 @@
                     </widget>
                    </item>
                    <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_11">
-                     <item>
-                      <widget class="QPushButton" name="Message_single">
-                       <property name="maximumSize">
-                        <size>
-                         <width>140</width>
-                         <height>16777215</height>
-                        </size>
-                       </property>
-                       <property name="text">
-                        <string>Message Team</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
                     <layout class="QVBoxLayout" name="verticalLayout_9">
                      <item>
                       <layout class="QHBoxLayout" name="horizontalLayout_12">
@@ -763,6 +712,23 @@
                         </widget>
                        </item>
                       </layout>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_11">
+                     <item>
+                      <widget class="QPushButton" name="Message_single">
+                       <property name="maximumSize">
+                        <size>
+                         <width>140</width>
+                         <height>16777215</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string>Message Team</string>
+                       </property>
+                      </widget>
                      </item>
                     </layout>
                    </item>
@@ -789,7 +755,28 @@
                       </widget>
                      </item>
                      <item row="1" column="0">
-                      <widget class="QComboBox" name="Intensity"/>
+                      <widget class="QComboBox" name="Intensity">
+                       <item>
+                        <property name="text">
+                         <string>Default</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Page low</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Page high</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>Parts Request</string>
+                        </property>
+                       </item>
+                      </widget>
                      </item>
                      <item row="0" column="0">
                       <widget class="QLabel" name="label">
@@ -821,6 +808,26 @@
                        <item>
                         <property name="text">
                          <string>4</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>5</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>6</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>7</string>
+                        </property>
+                       </item>
+                       <item>
+                        <property name="text">
+                         <string>8</string>
                         </property>
                        </item>
                       </widget>

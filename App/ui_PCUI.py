@@ -447,19 +447,6 @@ class Ui_MainWindow(object):
         self.horizontalFrame.setMinimumSize(QSize(0, 20))
         self.horizontalLayout_9 = QHBoxLayout(self.horizontalFrame)
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_9.addItem(self.horizontalSpacer_7)
-
-        self.Title = QLabel(self.horizontalFrame)
-        self.Title.setObjectName(u"Title")
-
-        self.horizontalLayout_9.addWidget(self.Title)
-
-        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_9.addItem(self.horizontalSpacer_8)
-
 
         self.verticalLayout_6.addWidget(self.horizontalFrame)
 
@@ -825,7 +812,6 @@ class Ui_MainWindow(object):
         self.clear_all.setText(QCoreApplication.translate("MainWindow", u"Clear all", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Set teams", None))
         self.select_teams_file.setText(QCoreApplication.translate("MainWindow", u"Select file", None))
-        self.Title.setText(QCoreApplication.translate("MainWindow", u"MANUAL QUEUE", None))
         self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Red 2", None))
         self.TeamA.setText(QCoreApplication.translate("MainWindow", u"Red 1", None))
         self.TeamC.setText(QCoreApplication.translate("MainWindow", u"Blue 1", None))
