@@ -349,8 +349,14 @@ class MainWindow(QMainWindow):
         queue_signature = self.generate_queue_signature(queue_details)
         teams_to_queue = self.extract_teams_from_queue(queue_details)
         field_num = self.extract_field_from_queue(queue_details)
-        #DEBUG
+
+        #Show Teams to Queue in UI Text Boxes
         print ("Teams to queue:", teams_to_queue)
+        red1, red2, blue1, blue2 = map(str, teams_to_queue)  # Ensure all team names are strings
+        self.ui.redTeam1Text.insertPlainText(red1)
+        self.ui.redTeam2Text.insertPlainText(red2)
+        self.ui.blueTeam1Text.insertPlainText(blue1)
+        self.ui.blueTeam2Text.insertPlainText(blue2)
         # for team in self.teams:
         #     print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_to_queue}")
         teams_to_queue_pid = [team.pid for team in self.teams if team.name in teams_to_queue]
