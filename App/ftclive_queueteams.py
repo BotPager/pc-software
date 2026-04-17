@@ -18,7 +18,11 @@ number_of_teams = 16            #EDIT FOR OFFICIAL EVENT RUNS: 16 is max teams a
 active_match_url = f"http://{BASE_URL}/api/v1/events/{EVENT_CODE}/matches/active/"
 
 def get_active_match_details():
-    response = requests.get(active_match_url, timeout=5)
+    try:
+        response = requests.get(active_match_url, timeout=5)
+    except:
+        print("Error connecting to FTC Live. Check connection or restart the system")
+        return None
 
     if response.status_code == 200:
         return response.json()
@@ -31,15 +35,25 @@ def get_active_match_details():
     
 def get_next_match_number():
     active_match_details = get_active_match_details()
-    if active_match_details.get("matches"):
-        match_number = active_match_details["matches"][0].get("matchNumber")
-    else:
+    if not active_match_details:
+        print("No active match details available.")
+        return None
+
+    matches = active_match_details.get("matches")
+    if not matches:
         print("No active matches found.")
-        return
+        return None
+
+    match_number = matches[0].get("matchNumber")
+    if match_number is None:
+        print("Active match has no matchNumber.")
+        return None
 
     match_number = match_number + 1
-    if match_number > 20:
+    if match_number > 80:
         print("No more matches to queue.")
+        return None
+
     return match_number
 
 def get_queue_match_details():
@@ -48,7 +62,11 @@ def get_queue_match_details():
         return None
 
     queue_match_url = f"http://{BASE_URL}/api/v1/events/{EVENT_CODE}/matches/{next_match_number}"
-    response = requests.get(queue_match_url, timeout=5)
+    try:
+        response = requests.get(queue_match_url, timeout=5)
+    except:
+        print("Error connecting to FTC Live. Check connection or restart the system")
+        return None
 
     if response.status_code == 200:
         return response.json()

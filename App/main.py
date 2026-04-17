@@ -89,8 +89,14 @@ class MainWindow(QMainWindow):
         self.ui.Message_single.clicked.connect(self.send_message_single)
 
         #start the automatic mode polling function
-        self.ui.pushButton.clicked.connect(self.update_automatic)
-        self.ui.pushButton.clicked.connect(self.start_polling_timer)
+        self.ui.pushButton.setCheckable(True)
+        self.ui.pushButton.clicked.connect(self.toggle_automatic_mode)
+
+        self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)
+        self.last_queue_signature = None
+        self.api_cooldown_until = 0
+        self.poll_timer = QTimer(self)
+        self.poll_timer.timeout.connect(self.poll_for_queue_changes)
     
     def init_intensity(self):
         self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
@@ -105,7 +111,7 @@ class MainWindow(QMainWindow):
         else:
             self.ui.Pager_conn_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
     def update_automatic(self,state):
-        if state == true:
+        if state == True:
             self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
         else:
             self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
@@ -319,14 +325,18 @@ class MainWindow(QMainWindow):
 
     #functions for automatic mode
     #Automatic Mode - Polling Functions to stay within rate limits and check for queue changes
-    def start_polling_timer(self):
-        self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)
-        self.last_queue_signature = None
-        self.api_cooldown_until = 0
-        self.poll_timer = QTimer(self)
-        self.poll_timer.timeout.connect(self.poll_for_queue_changes)
-        self.poll_timer.start(self.poll_interval_ms)
-        self.poll_for_queue_changes()  # Initial call to populate immediately
+    def toggle_automatic_mode(self, checked):
+        if checked:
+            self.poll_interval_ms = 30000  # 15 seconds (change to 30 for actual match time)
+            self.last_queue_signature = None
+            self.api_cooldown_until = 0
+            self.poll_timer.start(self.poll_interval_ms)
+            self.poll_for_queue_changes()  # Initial call to populate immediately
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_GREEN_LED))
+        else:
+            self.poll_timer.stop()
+            print("Automatic mode stopped, timer halted")
+            self.ui.Automatic_indicator.setPixmap(QtGui.QPixmap(ICON_RED_LED))
 
     def poll_for_queue_changes(self):
         #Setting Initial Timer
@@ -338,15 +348,34 @@ class MainWindow(QMainWindow):
         #API Calls to get active match and queue details
         active_match_details = ftclive_queueteams.get_active_match_details()
         queue_details = ftclive_queueteams.get_queue_match_details()
-        if queue_details is None:
+        if not active_match_details or not queue_details:
             self.api_cooldown_until = now + 60  # Back off for 60 seconds
             return
 
         queue_signature = self.generate_queue_signature(queue_details)
         teams_to_queue = self.extract_teams_from_queue(queue_details)
         field_num = self.extract_field_from_queue(queue_details)
-        #DEBUG
+        match_number = queue_details["matchBrief"]["matchNumber"]
+
+        #Show Qualification Number in UI
+        self.ui.qualNumText.clear()
+        self.ui.qualNumText.insertPlainText(str(match_number))
+
+        #Show Teams to Queue in UI Text Boxes
         print ("Teams to queue:", teams_to_queue)
+        red1, red2, blue1, blue2 = map(str, teams_to_queue)  # Ensure all team names are strings
+        self.ui.redTeam1Text.clear()
+        self.ui.redTeam2Text.clear()
+        self.ui.blueTeam1Text.clear()
+        self.ui.blueTeam2Text.clear()
+        self.ui.redTeam1Text.insertPlainText(red1)
+        self.ui.redTeam2Text.insertPlainText(red2)
+        self.ui.blueTeam1Text.insertPlainText(blue1)
+        self.ui.blueTeam2Text.insertPlainText(blue2)
+
+        #Show Field # in UI
+        self.ui.fieldNumText.clear()
+        self.ui.fieldNumText.insertPlainText(str(field_num))
         # for team in self.teams:
         #     print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_to_queue}")
         teams_to_queue_pid = [team.pid for team in self.teams if team.name in teams_to_queue]
@@ -356,14 +385,28 @@ class MainWindow(QMainWindow):
         if queue_signature != self.last_queue_signature:
             print("Queue changed, sending messages")
             self.last_queue_signature = queue_signature
-            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "FFFF00") 
+            intensity = "FFFF00"
+            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "FFFF00")
+            messager = f"red team head to arena {field_num}\n"
+            messageb = f"blue team head to arena {field_num}\n"        
+            formatted =  f"{teams_to_queue_pid[0]}|{intensity}|{messager}{teams_to_queue_pid[1]}|{intensity}|{messager}{teams_to_queue_pid[2]}|{intensity}|{messageb}{teams_to_queue_pid[3]}|{intensity}|{messageb}"
+            self.ui.Errorbox.clear()
+            self.ui.Errorbox.insertPlainText(formatted)
         else:
             #If Match State turns to "REVIEW" send a red message to teams:
             match_state = self.extract_match_state_from_queue(active_match_details)
+            self.ui.matchStateText.clear()
+            self.ui.matchStateText.insertPlainText(match_state)
             print(f"Match state: {match_state}")
             if (match_state == "REVIEW"):
+                intensity = "FF0000"
                 self.api_cooldown_until = now + 60  # Back off for 60 seconds to avoid spamming during review 
                 self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "FF0000")
+                messager = f"red team head to arena {field_num}\n"
+                messageb = f"blue team head to arena {field_num}\n"        
+                formatted =  f"{teams_to_queue_pid[0]}|{intensity}|{messager}{teams_to_queue_pid[1]}|{intensity}|{messager}{teams_to_queue_pid[2]}|{intensity}|{messageb}{teams_to_queue_pid[3]}|{intensity}|{messageb}"
+                self.ui.Errorbox.clear()
+                self.ui.Errorbox.insertPlainText(formatted)
                  
 
     def generate_queue_signature(self, queue_details):
