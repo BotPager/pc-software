@@ -120,21 +120,30 @@ class MeshGateway(QObject):
                     self.connect()
         
         #if this fails we know whyyyyyyyyyyy
-    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff"):
+    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff",message_type="default"):
         #call message task and start thread
         worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency)
         self.threadpool.start(worker)
 
-    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff"):
+    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff",message_type="default"):
         #send the message to the teams should be reusable with u and manual modes
         
         print("sending\n")
-        messager = f"red team head to arena {field}\n"
-        messageb = f"blue team head to arena {field}\n"        
-        formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
+        match message_type:
+            case "default":
+                messager = f"red team head to arena {field}\n"
+                messageb = f"blue team head to arena {field}\n"        
+                formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
+            case "high":
+                messager = f"red team head to arena {field} now\n"
+                messageb = f"blue team head to arena {field} now\n"        
+                formatted =  f"{TeamAPID}|{urgency}|{messager}{TeamBPID}|{urgency}|{messager}{TeamCPID}|{urgency}|{messageb}{TeamDPID}|{urgency}|{messageb}"
+            case "parts":
+                message = f"parts request approved\n"
+                formatted = f"{TeamAPID}|{urgency}|{message}{TeamBPID}|{urgency}|{message}{TeamCPID}|{urgency}|{message}{TeamDPID}|{urgency}|{message}"
         sent = False
         while not sent:
-            while self.is_connecting or self.interface is None:
+            while self.is_connecting and self.interface is None:
                 # print(f"interface == {self.interface}\n")
                 # print(f"is connecting == {self.is_connecting}\n")
                 # print("sending sent waiting for connection to device")
@@ -147,16 +156,26 @@ class MeshGateway(QObject):
                 # print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
                 sent = False
                 time.sleep(2)
-    def send_message_single(self, TeamFPID, field, urgency="ffffff"):
+                
+    def send_message_single(self, TeamFPID, field, urgency="ffffff",message_type="default"):
         worker = Worker(self.send_message_single_task,TeamFPID, field, urgency)
         self.threadpool.start(worker)
 
-    def send_message_single_task(self, TeamFPID, field, Urgency):
-        message = f"head to arena {field} now\n"
-        formatted = f"{TeamFPID}|{Urgency}|{message}"
+    def send_message_single_task(self, TeamFPID, field, Urgency, message_type="default"):
+        
+        match message_type:
+            case "default":
+                message = f"head to arena {field} now\n"
+                formatted = f"{TeamFPID}|{Urgency}|{message}"
+            case "high":
+                message = f"head to arena {field} now\n"
+                formatted = f"{TeamFPID}|{Urgency}|{message}"
+            case "parts":
+                message = f"parts request approved\n"
+                formatted = f"{TeamFPID}|{Urgency}|{message}"
         sent = False
         while not sent:
-            while self.interface is None or self.is_connecting:
+            while self.interface is None and self.is_connecting:
                 print("sending sent waiting for connection to device")
                 time.sleep(2)
             try:
