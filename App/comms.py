@@ -28,31 +28,63 @@ class MeshGateway(QObject):
     def connect(self):
        #start connection with our gateway 
         if self.is_connecting:
+            print("already connecting\n")
             return
         self.is_connecting = True
-             #threads
+        print("starting connections")
         worker = Worker(self.connection_task)
         self.threadpool.start(worker)
-
     def connection_task(self):
-        #trying to connect to the gateway device and handles if it fails
-        # This is why we thread
+        print("Scanning for Meshtastic devices...")
+        # Common Vendor IDs for Meshtastic boards (Heltec, T-Beam, Seeed)
+        # 0x10C4 = CP210x, 0x1A86 = CH340, 0x239A = Adafruit/Generic ESP32
+        TARGET_VIDS = [0x10C4, 0x1A86, 0x239A, 0x303A] 
         while self.is_connecting:
             try:
-                # Try to initialize the serial interface
-                new_interface = meshtastic.serial_interface.SerialInterface()
-                
-                if new_interface.devPath:
-                    self.interface = new_interface
-                    self.is_connecting = False  # UNLOCKS SENDING LOGIC
-                    self.connection_changed.emit(True)
-                    print(f"Connected to {self.interface.devPath}")
-                    break 
-                else:
-                    new_interface.close()
-                    time.sleep(2)
+                ports = list(serial.tools.list_ports.comports())
+                best_port = None
+
+                for port in ports:
+                    # Check if the hardware ID matches known radio chips
+                    if port.vid in TARGET_VIDS:
+                        print(f"Found potential radio: {port.device} ({port.description})")
+                        best_port = port.device
+                        break 
+
+                if best_port:
+                    print("connecting to port\n")
+                    # Direct connection to the filtered port skips the broad scan
+                    self.interface = meshtastic.serial_interface.SerialInterface(devPath=best_port)                
+                    if self.interface.devPath:
+                        print("interface exists")
+                        self.connect()
+                        self.is_connecting = False
+                        self.connection_changed.emit(True)
+                        return 
+
+                time.sleep(2) # Wait and see loop
             except Exception as e:
-                time.sleep(2)
+                print(f"Connection attempt failed: {e}")
+                time.sleep(2) 
+    # def connection_task(self):
+    #     #trying to connect to the gateway device and handles if it fails
+    #     # This is why we thread
+    #     while self.is_connecting:
+    #         try:
+    #             # Try to initialize the serial interface
+    #             new_interface = meshtastic.serial_interface.SerialInterface()
+                
+    #             if new_interface.devPath:
+    #                 self.interface = new_interface
+    #                 self.is_connecting = False  # UNLOCKS SENDING LOGIC
+    #                 self.connection_changed.emit(True)
+    #                 print(f"Connected to {self.interface.devPath}")
+    #             else:
+    #                 new_interface.close()
+    #                 time.sleep(1)
+    #         except Exception as e:
+    #             print("error connections")
+    #             time.sleep(1)ci
         # while self.is_connecting:
         #     try:
         #         if not self.is_connecting:
@@ -118,6 +150,7 @@ class MeshGateway(QObject):
     def send_message_single(self, TeamFPID, field, urgency="ffffff"):
         worker = Worker(self.send_message_single_task,TeamFPID, field, urgency)
         self.threadpool.start(worker)
+
     def send_message_single_task(self, TeamFPID, field, Urgency):
         message = f"head to arena {field} now\n"
         formatted = f"{TeamFPID}|{Urgency}|{message}"
@@ -160,18 +193,23 @@ class MeshGateway(QObject):
             print(node.showChannels())
             node.writeChannel(0)
             node.writeChannel(1)
-            time.sleep(2)
+            time.sleep(4)
             # node.writeConfig("channels")
 
+            
+            
             lora = node.localConfig.lora
-            lora.region = "US"
-            lora.modem_preset = "LONG_MODERATE"
+            lora.region = 1
+            lora.modem_preset = 3
             node.writeConfig("lora")
+
+            bluetooth = node.localConfig.bluetooth
+            bluetooth.enabled = 0
+            node.writeConfig("bluetooth")
             
             return pid
         except Exception as e:
             print(f"Failed to configure active radio: {e}")
-            return None
 
     def make_channel(self, index, name, key_b64, role):
         ch = channel_pb2.Channel()

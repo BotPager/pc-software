@@ -141,29 +141,35 @@ class MainWindow(QMainWindow):
 
     def provision(self):
         self.ui.Pairbutton.clear()
-        new_pid = self.radio.provision()
-        self.ui.Pairbutton.insertPlainText("Setting Channel and radio preset\n")
-        # self.readio.provision()
-        self.ui.Pairbutton.insertPlainText(f"Pager pid ={new_pid}\n")
+        new_pid = self.radio.interface.getShortName()
         if new_pid:
-            target_index = -1
-            for i, team in enumerate(self.teams):
-                if not team.pid or team.pid == "Empty" or team.pid == "":
-                    target_index = i
-                    break
-            if target_index == -1:
-                target_index = self.current_team_index
-                # Move the pointer for the NEXT time we wrap around
-                self.current_team_index = (self.current_team_index + 1) % 15
-            else:
-                # If we found an empty slot, update the pointer to the slot AFTER it
-                self.current_team_index = (target_index + 1) % 15
-            self.teams[i].pid = new_pid
-            self.display_loaded()
-
-        else:
-            self.ui.Pairbutton.insertPlainText("error occured, no pid returned\n")
+            
+            self.ui.Pairbutton.insertPlainText(f"Pager pid ={new_pid}\n")
+            self.radio.provision()
         
+            self.ui.Pairbutton.insertPlainText("Setting Channel and radio preset\n")
+            # self.readio.provision()
+            if new_pid:
+                target_index = -1
+                for i, team in enumerate(self.teams):
+                    if not team.pid or team.pid == "Empty" or team.pid == "":
+                        target_index = i
+                        break
+                if target_index == -1:
+                    target_index = self.current_team_index
+                    self.teams[i].pid = new_pid
+                    # Move the pointer for the NEXT time we wrap around
+                    self.current_team_index = (self.current_team_index + 1) % 15
+                else:
+                    self.teams[i].pid = new_pid
+                    # If we found an empty slot, update the pointer to the slot AFTER it
+                    self.current_team_index = (target_index + 1) % 15
+                self.display_loaded()
+
+            else:
+                self.ui.Pairbutton.insertPlainText("error occured, no pid returned\n")
+        else:
+            self.ui.Pairbutton.insertPlainText("error device not connected")
         
 
     # Team data collection
