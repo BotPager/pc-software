@@ -349,6 +349,11 @@ class MainWindow(QMainWindow):
         queue_signature = self.generate_queue_signature(queue_details)
         teams_to_queue = self.extract_teams_from_queue(queue_details)
         field_num = self.extract_field_from_queue(queue_details)
+        match_number = queue_details["matchBrief"]["matchNumber"]
+
+        #Show Qualification Number in UI
+        self.ui.qualNumText.clear()
+        self.ui.qualNumText.insertPlainText(str(match_number))
 
         #Show Teams to Queue in UI Text Boxes
         print ("Teams to queue:", teams_to_queue)
