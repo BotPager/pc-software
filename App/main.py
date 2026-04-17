@@ -353,10 +353,18 @@ class MainWindow(QMainWindow):
         #Show Teams to Queue in UI Text Boxes
         print ("Teams to queue:", teams_to_queue)
         red1, red2, blue1, blue2 = map(str, teams_to_queue)  # Ensure all team names are strings
+        self.ui.redTeam1Text.clear()
+        self.ui.redTeam2Text.clear()
+        self.ui.blueTeam1Text.clear()
+        self.ui.blueTeam2Text.clear()
         self.ui.redTeam1Text.insertPlainText(red1)
         self.ui.redTeam2Text.insertPlainText(red2)
         self.ui.blueTeam1Text.insertPlainText(blue1)
         self.ui.blueTeam2Text.insertPlainText(blue2)
+
+        #Show Field # in UI
+        self.ui.fieldNumText.clear()
+        self.ui.fieldNumText.insertPlainText(str(field_num))
         # for team in self.teams:
         #     print(f"  team.name={team.name!r}, type={type(team.name)}, pid={team.pid!r}, match={team.name in teams_to_queue}")
         teams_to_queue_pid = [team.pid for team in self.teams if team.name in teams_to_queue]
@@ -366,14 +374,28 @@ class MainWindow(QMainWindow):
         if queue_signature != self.last_queue_signature:
             print("Queue changed, sending messages")
             self.last_queue_signature = queue_signature
-            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "FFFF00") 
+            intensity = "FFFF00"
+            self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "FFFF00")
+            messager = f"red team head to arena {field_num}\n"
+            messageb = f"blue team head to arena {field_num}\n"        
+            formatted =  f"{teams_to_queue_pid[0]}|{intensity}|{messager}{teams_to_queue_pid[1]}|{intensity}|{messager}{teams_to_queue_pid[2]}|{intensity}|{messageb}{teams_to_queue_pid[3]}|{intensity}|{messageb}"
+            self.ui.Errorbox.clear()
+            self.ui.Errorbox.insertPlainText(formatted)
         else:
             #If Match State turns to "REVIEW" send a red message to teams:
             match_state = self.extract_match_state_from_queue(active_match_details)
+            self.ui.matchStateText.clear()
+            self.ui.matchStateText.insertPlainText(match_state)
             print(f"Match state: {match_state}")
             if (match_state == "REVIEW"):
+                intensity = "FF0000"
                 self.api_cooldown_until = now + 60  # Back off for 60 seconds to avoid spamming during review 
                 self.radio.send_message(teams_to_queue_pid[0], teams_to_queue_pid[1], teams_to_queue_pid[2], teams_to_queue_pid[3], field_num, "FF0000")
+                messager = f"red team head to arena {field_num}\n"
+                messageb = f"blue team head to arena {field_num}\n"        
+                formatted =  f"{teams_to_queue_pid[0]}|{intensity}|{messager}{teams_to_queue_pid[1]}|{intensity}|{messager}{teams_to_queue_pid[2]}|{intensity}|{messageb}{teams_to_queue_pid[3]}|{intensity}|{messageb}"
+                self.ui.Errorbox.clear()
+                self.ui.Errorbox.insertPlainText(formatted)
                  
 
     def generate_queue_signature(self, queue_details):

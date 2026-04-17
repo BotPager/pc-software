@@ -800,41 +800,12 @@
             </widget>
            </widget>
            <widget class="QWidget" name="Automatic">
-            <widget class="QWidget" name="formLayoutWidget">
-             <property name="geometry">
-              <rect>
-               <x>188</x>
-               <y>160</y>
-               <width>231</width>
-               <height>80</height>
-              </rect>
-             </property>
-             <layout class="QFormLayout" name="formLayout">
-              <item row="1" column="1">
-               <widget class="QLabel" name="label_3">
-                <property name="text">
-                 <string>Status of Automatic mode</string>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignmentFlag::AlignCenter</set>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string>Start/Stop</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
             <widget class="QTextEdit" name="matchStateText">
              <property name="geometry">
               <rect>
-               <x>260</x>
-               <y>280</y>
-               <width>104</width>
+               <x>450</x>
+               <y>100</y>
+               <width>111</width>
                <height>70</height>
               </rect>
              </property>
@@ -846,7 +817,10 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Match State&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="overwriteMode">
+              <bool>true</bool>
              </property>
             </widget>
             <widget class="QLabel" name="Title_2">
@@ -865,10 +839,10 @@ li.checked::marker { content: &quot;\2612&quot;; }
             <widget class="QTextEdit" name="blueTeam2Text">
              <property name="geometry">
               <rect>
-               <x>450</x>
-               <y>190</y>
+               <x>60</x>
+               <y>280</y>
                <width>104</width>
-               <height>51</height>
+               <height>31</height>
               </rect>
              </property>
              <property name="html">
@@ -879,7 +853,10 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;: Blue Team 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="overwriteMode">
+              <bool>true</bool>
              </property>
             </widget>
             <widget class="QTextEdit" name="redTeam1Text">
@@ -888,7 +865,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
                <x>60</x>
                <y>100</y>
                <width>104</width>
-               <height>51</height>
+               <height>31</height>
               </rect>
              </property>
              <property name="html">
@@ -899,16 +876,19 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; :Red Team 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="overwriteMode">
+              <bool>true</bool>
              </property>
             </widget>
             <widget class="QTextEdit" name="redTeam2Text">
              <property name="geometry">
               <rect>
                <x>60</x>
-               <y>190</y>
+               <y>160</y>
                <width>104</width>
-               <height>51</height>
+               <height>31</height>
               </rect>
              </property>
              <property name="html">
@@ -919,16 +899,19 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; : Red Team 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="overwriteMode">
+              <bool>true</bool>
              </property>
             </widget>
             <widget class="QTextEdit" name="blueTeam1Text">
              <property name="geometry">
               <rect>
-               <x>450</x>
-               <y>100</y>
+               <x>60</x>
+               <y>220</y>
                <width>104</width>
-               <height>51</height>
+               <height>31</height>
               </rect>
              </property>
              <property name="html">
@@ -939,7 +922,146 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; :Blue Team 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="overwriteMode">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="Title_3">
+             <property name="geometry">
+              <rect>
+               <x>60</x>
+               <y>80</y>
+               <width>111</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Red Team 1:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="Title_4">
+             <property name="geometry">
+              <rect>
+               <x>60</x>
+               <y>140</y>
+               <width>111</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Red Team 2:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="Title_5">
+             <property name="geometry">
+              <rect>
+               <x>60</x>
+               <y>200</y>
+               <width>111</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Blue Team 1:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="Title_6">
+             <property name="geometry">
+              <rect>
+               <x>60</x>
+               <y>260</y>
+               <width>111</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Blue Team 2:</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="Title_7">
+             <property name="geometry">
+              <rect>
+               <x>450</x>
+               <y>80</y>
+               <width>111</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Match State</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+            <widget class="QPushButton" name="pushButton">
+             <property name="geometry">
+              <rect>
+               <x>190</x>
+               <y>160</y>
+               <width>223</width>
+               <height>91</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Start/Stop</string>
+             </property>
+            </widget>
+            <widget class="QLabel" name="label_3">
+             <property name="geometry">
+              <rect>
+               <x>190</x>
+               <y>133</y>
+               <width>223</width>
+               <height>21</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Automatic Mode Toggle</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
+             </property>
+            </widget>
+            <widget class="QTextEdit" name="fieldNumText">
+             <property name="geometry">
+              <rect>
+               <x>450</x>
+               <y>210</y>
+               <width>110</width>
+               <height>31</height>
+              </rect>
+             </property>
+             <property name="html">
+              <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="overwriteMode">
+              <bool>true</bool>
+             </property>
+            </widget>
+            <widget class="QLabel" name="Title_8">
+             <property name="geometry">
+              <rect>
+               <x>450</x>
+               <y>190</y>
+               <width>111</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>Field Number</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignmentFlag::AlignCenter</set>
              </property>
             </widget>
            </widget>

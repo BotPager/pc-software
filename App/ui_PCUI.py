@@ -15,11 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFormLayout, QFrame,
-    QGridLayout, QHBoxLayout, QLabel, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QSpacerItem,
-    QStackedWidget, QTextBrowser, QTextEdit, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QGridLayout,
+    QHBoxLayout, QLabel, QLineEdit, QMainWindow,
+    QPushButton, QSizePolicy, QSpacerItem, QStackedWidget,
+    QTextBrowser, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -593,41 +592,60 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.Manual)
         self.Automatic = QWidget()
         self.Automatic.setObjectName(u"Automatic")
-        self.formLayoutWidget = QWidget(self.Automatic)
-        self.formLayoutWidget.setObjectName(u"formLayoutWidget")
-        self.formLayoutWidget.setGeometry(QRect(188, 160, 231, 80))
-        self.formLayout = QFormLayout(self.formLayoutWidget)
-        self.formLayout.setObjectName(u"formLayout")
-        self.formLayout.setContentsMargins(0, 0, 0, 0)
-        self.label_3 = QLabel(self.formLayoutWidget)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.formLayout.setWidget(1, QFormLayout.ItemRole.FieldRole, self.label_3)
-
-        self.pushButton = QPushButton(self.formLayoutWidget)
-        self.pushButton.setObjectName(u"pushButton")
-
-        self.formLayout.setWidget(2, QFormLayout.ItemRole.FieldRole, self.pushButton)
-
         self.matchStateText = QTextEdit(self.Automatic)
         self.matchStateText.setObjectName(u"matchStateText")
-        self.matchStateText.setGeometry(QRect(260, 280, 104, 70))
+        self.matchStateText.setGeometry(QRect(450, 100, 111, 70))
+        self.matchStateText.setOverwriteMode(True)
         self.Title_2 = QLabel(self.Automatic)
         self.Title_2.setObjectName(u"Title_2")
         self.Title_2.setGeometry(QRect(250, 50, 111, 20))
         self.blueTeam2Text = QTextEdit(self.Automatic)
         self.blueTeam2Text.setObjectName(u"blueTeam2Text")
-        self.blueTeam2Text.setGeometry(QRect(450, 190, 104, 51))
+        self.blueTeam2Text.setGeometry(QRect(60, 280, 104, 31))
+        self.blueTeam2Text.setOverwriteMode(True)
         self.redTeam1Text = QTextEdit(self.Automatic)
         self.redTeam1Text.setObjectName(u"redTeam1Text")
-        self.redTeam1Text.setGeometry(QRect(60, 100, 104, 51))
+        self.redTeam1Text.setGeometry(QRect(60, 100, 104, 31))
+        self.redTeam1Text.setOverwriteMode(True)
         self.redTeam2Text = QTextEdit(self.Automatic)
         self.redTeam2Text.setObjectName(u"redTeam2Text")
-        self.redTeam2Text.setGeometry(QRect(60, 190, 104, 51))
+        self.redTeam2Text.setGeometry(QRect(60, 160, 104, 31))
+        self.redTeam2Text.setOverwriteMode(True)
         self.blueTeam1Text = QTextEdit(self.Automatic)
         self.blueTeam1Text.setObjectName(u"blueTeam1Text")
-        self.blueTeam1Text.setGeometry(QRect(450, 100, 104, 51))
+        self.blueTeam1Text.setGeometry(QRect(60, 220, 104, 31))
+        self.blueTeam1Text.setOverwriteMode(True)
+        self.Title_3 = QLabel(self.Automatic)
+        self.Title_3.setObjectName(u"Title_3")
+        self.Title_3.setGeometry(QRect(60, 80, 111, 20))
+        self.Title_4 = QLabel(self.Automatic)
+        self.Title_4.setObjectName(u"Title_4")
+        self.Title_4.setGeometry(QRect(60, 140, 111, 20))
+        self.Title_5 = QLabel(self.Automatic)
+        self.Title_5.setObjectName(u"Title_5")
+        self.Title_5.setGeometry(QRect(60, 200, 111, 20))
+        self.Title_6 = QLabel(self.Automatic)
+        self.Title_6.setObjectName(u"Title_6")
+        self.Title_6.setGeometry(QRect(60, 260, 111, 20))
+        self.Title_7 = QLabel(self.Automatic)
+        self.Title_7.setObjectName(u"Title_7")
+        self.Title_7.setGeometry(QRect(450, 80, 111, 20))
+        self.Title_7.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.pushButton = QPushButton(self.Automatic)
+        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton.setGeometry(QRect(190, 160, 223, 91))
+        self.label_3 = QLabel(self.Automatic)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setGeometry(QRect(190, 133, 223, 21))
+        self.label_3.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.fieldNumText = QTextEdit(self.Automatic)
+        self.fieldNumText.setObjectName(u"fieldNumText")
+        self.fieldNumText.setGeometry(QRect(450, 210, 110, 31))
+        self.fieldNumText.setOverwriteMode(True)
+        self.Title_8 = QLabel(self.Automatic)
+        self.Title_8.setObjectName(u"Title_8")
+        self.Title_8.setGeometry(QRect(450, 190, 111, 20))
+        self.Title_8.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget.addWidget(self.Automatic)
         self.Provision = QWidget()
         self.Provision.setObjectName(u"Provision")
@@ -761,8 +779,6 @@ class Ui_MainWindow(object):
         self.MessageTeam.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Single Team", None))
         self.Message_single.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Status of Automatic mode", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Start/Stop", None))
         self.matchStateText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -770,7 +786,7 @@ class Ui_MainWindow(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Match State</p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.Title_2.setText(QCoreApplication.translate("MainWindow", u"AUTOMATIC QUEUE", None))
         self.blueTeam2Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
@@ -779,7 +795,7 @@ class Ui_MainWindow(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">: Blue Team 2</p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.redTeam1Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -787,7 +803,7 @@ class Ui_MainWindow(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"> :Red Team 1</p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.redTeam2Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -795,7 +811,7 @@ class Ui_MainWindow(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"> : Red Team 2</p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
         self.blueTeam1Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -803,7 +819,23 @@ class Ui_MainWindow(object):
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
 "</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"> :Blue Team 1</p></body></html>", None))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+        self.Title_3.setText(QCoreApplication.translate("MainWindow", u"Red Team 1:", None))
+        self.Title_4.setText(QCoreApplication.translate("MainWindow", u"Red Team 2:", None))
+        self.Title_5.setText(QCoreApplication.translate("MainWindow", u"Blue Team 1:", None))
+        self.Title_6.setText(QCoreApplication.translate("MainWindow", u"Blue Team 2:", None))
+        self.Title_7.setText(QCoreApplication.translate("MainWindow", u"Match State", None))
+        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Start/Stop", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Automatic Mode Toggle", None))
+        self.fieldNumText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+        self.Title_8.setText(QCoreApplication.translate("MainWindow", u"Field Number", None))
         self.Provision_button.setText(QCoreApplication.translate("MainWindow", u"Provision Pager", None))
         self.Teams_set_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.Automatic_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
