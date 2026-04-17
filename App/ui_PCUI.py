@@ -573,6 +573,7 @@ class Ui_MainWindow(object):
         self.Intensity.addItem("")
         self.Intensity.addItem("")
         self.Intensity.setObjectName(u"Intensity")
+        self.Intensity.setMinimumContentsLength(0)
 
         self.gridLayout_6.addWidget(self.Intensity, 1, 0, 1, 1)
 
@@ -792,6 +793,8 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.stackedWidget.setCurrentIndex(1)
+        self.Intensity.setCurrentIndex(3)
+        self.Arena_select.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -824,7 +827,7 @@ class Ui_MainWindow(object):
         self.Intensity.setItemText(0, QCoreApplication.translate("MainWindow", u"Default", None))
         self.Intensity.setItemText(1, QCoreApplication.translate("MainWindow", u"Page low", None))
         self.Intensity.setItemText(2, QCoreApplication.translate("MainWindow", u"Page high", None))
-        self.Intensity.setItemText(3, QCoreApplication.translate("MainWindow", u"Parts Request", None))
+        self.Intensity.setItemText(3, QCoreApplication.translate("MainWindow", u"Parts", None))
 
         self.label.setText(QCoreApplication.translate("MainWindow", u"Message Type", None))
         self.Arena_select.setItemText(0, QCoreApplication.translate("MainWindow", u"1", None))

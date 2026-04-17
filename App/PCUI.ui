@@ -756,6 +756,12 @@
                      </item>
                      <item row="1" column="0">
                       <widget class="QComboBox" name="Intensity">
+                       <property name="currentIndex">
+                        <number>3</number>
+                       </property>
+                       <property name="minimumContentsLength">
+                        <number>0</number>
+                       </property>
                        <item>
                         <property name="text">
                          <string>Default</string>
@@ -773,7 +779,7 @@
                        </item>
                        <item>
                         <property name="text">
-                         <string>Parts Request</string>
+                         <string>Parts</string>
                         </property>
                        </item>
                       </widget>
@@ -790,6 +796,9 @@
                      </item>
                      <item row="1" column="1">
                       <widget class="QComboBox" name="Arena_select">
+                       <property name="currentIndex">
+                        <number>0</number>
+                       </property>
                        <item>
                         <property name="text">
                          <string>1</string>
