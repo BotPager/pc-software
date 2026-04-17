@@ -219,7 +219,7 @@ class MeshGateway(QObject):
             
             lora = node.localConfig.lora
             lora.region = 1
-            lora.modem_preset = 3
+            lora.modem_preset = 7
             node.writeConfig("lora")
 
             bluetooth = node.localConfig.bluetooth
