@@ -144,7 +144,7 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(2)
     def show_pair_page(self):
         self.ui.stackedWidget.setCurrentIndex(3)
-
+    #code that displays pager provisioning
     def provision(self):
         self.ui.Pairbutton.clear()
         new_pid = self.radio.interface.getShortName()
@@ -201,6 +201,7 @@ class MainWindow(QMainWindow):
         # self.display_loaded()
    
     # After loading all valid teams
+    # sets teams for use in manual mode (adds to the combo boxes)
     def set_teams(self):
         self.ui.TeamA_box.clear()
         self.ui.TeamB_box.clear()
@@ -228,7 +229,7 @@ class MainWindow(QMainWindow):
         else:
             print("no valid teams")
 
-   
+    #updates the input teams window   
     def display_loaded(self):
             # Use enumerate to get the index (i) and the object (team) at the same time
             for i, team in enumerate(self.teams):
@@ -290,6 +291,10 @@ class MainWindow(QMainWindow):
     urgency = ["FFFFFF","0000FF","FF0000","00FF00"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
+        #single message function
+        # gets intensity value (selected message type )
+        # chooses message and then prints that to the ui errorbox
+        # as well as sending it to the send message function
 
         field_num = (self.ui.Arena_select.currentText())
         print(str(field_num))
@@ -310,7 +315,7 @@ class MainWindow(QMainWindow):
             case 1: #low
                 urgency = self.urgency[1]
                 type = "Default"
-            case 0: #default
+            case _: #default
                 urgency = self.urgency[0]
                 type = "Default"
 
@@ -333,7 +338,10 @@ class MainWindow(QMainWindow):
 
         self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,urgency,type)
       
-    #single message
+    #single message function
+    # gets intensity value (selected message type )
+    # chooses message and then prints that to the ui errorbox
+    # as well as sending it to the send message function
     def send_message_single(self):
 
         TeamFObject=(self.ui.TeamF_box.itemData(self.ui.TeamF_box.currentIndex()))
@@ -350,19 +358,18 @@ class MainWindow(QMainWindow):
             case 2: #high
                 intensity = self.urgency[2]
 
-                message = f"head to arena {field} now\n"
+                message = f"head to arena {field_num} now\n"
                 type = "High"
             case 1: #low
 
-                message = f"head to arena {field} now\n"
+                message = f"head to arena {field_num} now\n"
                 intensity = self.urgency[1]
                 type = "Default"
-            case 0: #default
+            case _: #default
 
                 message = f"parts request approved\n"
                 intensity = self.urgency[0]
-                
-                type = "default"
+                type = "Default"
         match type:
             case "Default":
                 message = f"head to arena {field_num} now\n"
