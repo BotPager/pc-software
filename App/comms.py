@@ -14,8 +14,10 @@ from PySide6.QtCore import (
         QObject,
         Signal,
     )
+#class for our gateway
 class MeshGateway(QObject):
     connection_changed = Signal(bool)
+    stop = False
     def __init__(self):
         super().__init__()
         self.interface = None
@@ -34,100 +36,52 @@ class MeshGateway(QObject):
         print("starting connections")
         worker = Worker(self.connection_task)
         self.threadpool.start(worker)
+    #actual connection logic    
     def connection_task(self):
-        print("Scanning for Meshtastic devices...")
-        # Common Vendor IDs for Meshtastic boards (Heltec, T-Beam, Seeed)
-        # 0x10C4 = CP210x, 0x1A86 = CH340, 0x239A = Adafruit/Generic ESP32
-        TARGET_VIDS = [0x10C4, 0x1A86, 0x239A, 0x303A] 
+        #trying to connect to the gateway device and handles if it fails
+        # This is why we thread
         while self.is_connecting:
             try:
-                ports = list(serial.tools.list_ports.comports())
-                best_port = None
-
-                for port in ports:
-                    # Check if the hardware ID matches known radio chips
-                    if port.vid in TARGET_VIDS:
-                        print(f"Found potential radio: {port.device} ({port.description})")
-                        best_port = port.device
-                        break 
-
-                if best_port:
-                    print("connecting to port\n")
-                    # Direct connection to the filtered port skips the broad scan
-                    self.interface = meshtastic.serial_interface.SerialInterface(devPath=best_port)                
-                    if self.interface.devPath:
-                        print("interface exists")
-                        self.connect()
-                        self.is_connecting = False
-                        self.connection_changed.emit(True)
-                        return 
-
-                time.sleep(2) # Wait and see loop
+                # Try to initialize the serial interface
+                new_interface = meshtastic.serial_interface.SerialInterface()
+        
+                if new_interface.devPath:
+                    self.interface = new_interface
+                    self.is_connecting = False  # UNLOCKS SENDING LOGIC
+                    self.connection_changed.emit(True)
+                    print(f"Connected to {self.interface.devPath}")
+                else:
+                    new_interface.close()
+                    time.sleep(1)
             except Exception as e:
-                print(f"Connection attempt failed: {e}")
-                time.sleep(2) 
-    # def connection_task(self):
-    #     #trying to connect to the gateway device and handles if it fails
-    #     # This is why we thread
-    #     while self.is_connecting:
-    #         try:
-    #             # Try to initialize the serial interface
-    #             new_interface = meshtastic.serial_interface.SerialInterface()
-                
-    #             if new_interface.devPath:
-    #                 self.interface = new_interface
-    #                 self.is_connecting = False  # UNLOCKS SENDING LOGIC
-    #                 self.connection_changed.emit(True)
-    #                 print(f"Connected to {self.interface.devPath}")
-    #             else:
-    #                 new_interface.close()
-    #                 time.sleep(1)
-    #         except Exception as e:
-    #             print("error connections")
-    #             time.sleep(1)ci
-        # while self.is_connecting:
-        #     try:
-        #         if not self.is_connecting:
-        #             break
-                
-        #         self.interface = meshtastic.serial_interface.SerialInterface()
-        #         print(self.interface)
-        #         if self.interface.devPath:
-        #             break
-        #         else:
-        #             self.interface.close()
-        #             self.interface = None
-        #     except Exception as e:
-        #         # print("Error device not connected\n")
-        #         if not self.is_connecting:
-        #             break
-        #         # print(f"trying again in 3 seconds {e}")
-        #         time.sleep(2)
-
-  # comms.py
+                print("error connections")
+                time.sleep(1)
 
     def onConnection(self, interface=None, **kwargs):
+        #subscription topic for handling conenction(its like an interrupt)
         if self.interface is None and interface:
              self.interface = interface
     
         self.is_connecting = False
         self.connection_changed.emit(True)
     def onDisconnect(self, interface=None, **kwargs):
+        #subscription topic handling disconnections
+        #kicks off a reconnect
         if not self.is_connecting:
                     print("Connection lost, attempting to reconnect...")
                     self.interface = None
                     self.connection_changed.emit(False)
                     self.connect()
-        
-        #if this fails we know whyyyyyyyyyyy
-    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff",message_type="default"):
+
+    #message task calls and then starts the task function
+    def send_message(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff",message_type="Default"):
         #call message task and start thread
         worker = Worker(self.send_message_task, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency)
         self.threadpool.start(worker)
 
-    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff",message_type="default"):
+    def send_message_task(self, TeamAPID, TeamBPID,TeamCPID,TeamDPID,field,urgency="ffffff",message_type="Default"):
         #send the message to the teams should be reusable with u and manual modes
-        
+        #debug senidng info
         print("sending\n")
         match message_type:
             case "Default":
@@ -142,8 +96,9 @@ class MeshGateway(QObject):
                 message = f"parts request approved\n"
                 formatted = f"{TeamAPID}|{urgency}|{message}{TeamBPID}|{urgency}|{message}{TeamCPID}|{urgency}|{message}{TeamDPID}|{urgency}|{message}"
         sent = False
-        while not sent:
-            while self.is_connecting and self.interface is None:
+        #bodge here to gracefully handle disconnects ie ensure message sent. also now handles exit during this case
+        while not sent and self.stop is not True:
+            while self.is_connecting and self.interface is None and self.stop is not True:
                 # print(f"interface == {self.interface}\n")
                 # print(f"is connecting == {self.is_connecting}\n")
                 # print("sending sent waiting for connection to device")
@@ -156,13 +111,13 @@ class MeshGateway(QObject):
                 # print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
                 sent = False
                 time.sleep(2)
-                
-    def send_message_single(self, TeamFPID, field, urgency="ffffff",message_type="default"):
+    #starts thread for sending a messag
+    def send_message_single(self, TeamFPID, field, urgency="ffffff",message_type="Default"):
         worker = Worker(self.send_message_single_task,TeamFPID, field, urgency)
         self.threadpool.start(worker)
 
-    def send_message_single_task(self, TeamFPID, field, Urgency, message_type="default"):
-        
+    def send_message_single_task(self, TeamFPID, field, Urgency, message_type="Default"):
+    #actual logic for messaging    
         match message_type:
             case "Default":
                 message = f"head to arena {field} now\n"
@@ -174,9 +129,12 @@ class MeshGateway(QObject):
                 message = f"parts request approved\n"
                 formatted = f"{TeamFPID}|{Urgency}|{message}"
         sent = False
-        while not sent:
-            while self.interface is None and self.is_connecting:
+
+        #bodge here to gracefully handle disconnects ie ensure message sent. also now handles exit during this case
+        while not sent and self.stop is not True:
+            while self.interface is None and self.is_connecting and self.stop is not True:
                 print("sending sent waiting for connection to device")
+                print(self.stop)
                 time.sleep(2)
             try:
                 self.interface.sendText(formatted)
@@ -186,7 +144,10 @@ class MeshGateway(QObject):
                 print(f" sending failed due to {e}\n device disconnected \n sending paused to recconnection")
                 sent = False
                 time.sleep(2)
-        
+    #sets pager channel, preset, and turns off bluetooth
+    # uses the followng config options. 
+    # https://github.com/meshtastic/python/blob/master/meshtastic/protobuf/channel_pb2.pyi
+    # https://github.com/meshtastic/python/blob/master/meshtastic/protobuf/config_pb2.pyi   
     def provision(self, channel_name = "robotics", channel_key="aqYv"):
         while self.interface is None or self.is_connecting:
             time.sleep(2)
@@ -229,7 +190,9 @@ class MeshGateway(QObject):
             return pid
         except Exception as e:
             print(f"Failed to configure active radio: {e}")
-
+    #creates channel
+    # https://github.com/meshtastic/python/blob/master/meshtastic/protobuf/config_pb2.pyi
+    # https://github.com/meshtastic/python/blob/master/meshtastic/protobuf/channel_pb2.pyi
     def make_channel(self, index, name, key_b64, role):
         ch = channel_pb2.Channel()
         ch.index = index
@@ -242,10 +205,11 @@ class MeshGateway(QObject):
         ch.settings.channel_num = index
 
         return ch
-            
+           
     def exit(self):
         #close connection between the device and also shutdown the threadpool
         self.is_connecting = False
+        self.stop = True
         pub.unsubscribe(self.onDisconnect, "meshtastic.connection.lost")
         pub.unsubscribe(self.onConnection, "meshtastic.connection.established")
         if self.interface:
