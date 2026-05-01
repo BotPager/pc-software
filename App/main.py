@@ -46,9 +46,8 @@ class MainWindow(QMainWindow):
         self.teams = teams.create_teams()
         self.teams = teams.load_teams_from_file(self.teams,"teams.txt")
         self.display_loaded()
-        self.set_teams()
-        self.init_intensity()
-
+        self.set_teams() 
+ 
         #setup indicators
         self.ui.Pager_conn_indicator.setFixedSize(20, 20)
         self.ui.Pager_conn_indicator.setScaledContents(True)
@@ -67,11 +66,13 @@ class MainWindow(QMainWindow):
         self.radio = MeshGateway()
         self.radio.connect()
         self.radio.connection_changed.connect(self.update_connection)
-       
-        self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("team_numbers"))
-        self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
+       #file picker
+       # self.ui.load_teams.clicked.connect(lambda: self.open_file_picker("team_numbers"))
+       # self.ui.load_pid.clicked.connect(lambda: self.open_file_picker("pid"))
         self.ui.select_teams_file.clicked.connect(lambda: self.open_file_picker("teams"))
 
+        self.ui.clear_all.clicked.connect(self.delete_all)
+        
         # Connect page switches
         self.ui.SwitchManual.clicked.connect(self.show_manual_page)
         self.ui.SwitchPager.clicked.connect(self.show_set_pagers_page)
@@ -98,12 +99,11 @@ class MainWindow(QMainWindow):
         self.poll_timer = QTimer(self)
         self.poll_timer.timeout.connect(self.poll_for_queue_changes)
     
-    def init_intensity(self):
-        self.ui.Intensity.addItems(["Low","High"]) #index 0 is 1 index 1 is high 
-        self.ui.Intensity.setPlaceholderText("Intensity")
-        self.ui.Intensity.setCurrentIndex(-1)
-
-
+    def delete_all(self):
+        self.teams = teams.create_teams()
+        self.display_loaded()
+        self.set_teams() 
+        return
     #code for managing the indicators
     def update_connection(self,connection):
         if connection:
@@ -144,32 +144,38 @@ class MainWindow(QMainWindow):
         self.ui.stackedWidget.setCurrentIndex(2)
     def show_pair_page(self):
         self.ui.stackedWidget.setCurrentIndex(3)
-
+    #code that displays pager provisioning
     def provision(self):
         self.ui.Pairbutton.clear()
-        new_pid = self.radio.provision()
-        self.ui.Pairbutton.insertPlainText("Setting Channel and radio preset\n")
-        # self.readio.provision()
-        self.ui.Pairbutton.insertPlainText(f"Pager pid ={new_pid}\n")
+        new_pid = self.radio.interface.getShortName()
         if new_pid:
-            target_index = -1
-            for i, team in enumerate(self.teams):
-                if not team.pid or team.pid == "Empty" or team.pid == "":
-                    target_index = i
-                    break
-            if target_index == -1:
-                target_index = self.current_team_index
-                # Move the pointer for the NEXT time we wrap around
-                self.current_team_index = (self.current_team_index + 1) % 15
-            else:
-                # If we found an empty slot, update the pointer to the slot AFTER it
-                self.current_team_index = (target_index + 1) % 15
-            self.teams[i].pid = new_pid
-            self.display_loaded()
-
-        else:
-            self.ui.Pairbutton.insertPlainText("error occured, no pid returned\n")
+            
+            self.ui.Pairbutton.insertPlainText(f"Pager pid ={new_pid}\n")
+            self.radio.provision()
         
+            self.ui.Pairbutton.insertPlainText("Setting Channel and radio preset\n")
+            # self.readio.provision()
+            if new_pid:
+                target_index = -1
+                for i, team in enumerate(self.teams):
+                    if not team.pid or team.pid == "Empty" or team.pid == "":
+                        target_index = i
+                        break
+                if target_index == -1:
+                    target_index = self.current_team_index
+                    self.teams[i].pid = new_pid
+                    # Move the pointer for the NEXT time we wrap around
+                    self.current_team_index = (self.current_team_index + 1) % 15
+                else:
+                    self.teams[i].pid = new_pid
+                    # If we found an empty slot, update the pointer to the slot AFTER it
+                    self.current_team_index = (target_index + 1) % 15
+                self.display_loaded()
+
+            else:
+                self.ui.Pairbutton.insertPlainText("error occured, no pid returned\n")
+        else:
+            self.ui.Pairbutton.insertPlainText("error device not connected")
         
 
     # Team data collection
@@ -195,6 +201,7 @@ class MainWindow(QMainWindow):
         # self.display_loaded()
    
     # After loading all valid teams
+    # sets teams for use in manual mode (adds to the combo boxes)
     def set_teams(self):
         self.ui.TeamA_box.clear()
         self.ui.TeamB_box.clear()
@@ -222,7 +229,7 @@ class MainWindow(QMainWindow):
         else:
             print("no valid teams")
 
-   
+    #updates the input teams window   
     def display_loaded(self):
             # Use enumerate to get the index (i) and the object (team) at the same time
             for i, team in enumerate(self.teams):
@@ -281,9 +288,16 @@ class MainWindow(QMainWindow):
         #team a right
         #team b left
     #automatic may just use result from api matched against the array teams?
-    urgency = ["FFFFFF","00FFFF","0000FF"] #i hope this helps rather than defining it inside send_message_manual
+    urgency = ["FFFFFF","0000FF","FF0000","00FF00"] #i hope this helps rather than defining it inside send_message_manual
     def send_message_manual(self):
         #get data from currently selected teams
+        #single message function
+        # gets intensity value (selected message type )
+        # chooses message and then prints that to the ui errorbox
+        # as well as sending it to the send message function
+
+        field_num = (self.ui.Arena_select.currentText())
+        print(str(field_num))
         TeamAObject=(self.ui.TeamA_box.itemData(self.ui.TeamA_box.currentIndex()))
         TeamBObject=(self.ui.TeamB_box.itemData(self.ui.TeamB_box.currentIndex()))
         TeamCObject=(self.ui.TeamC_box.itemData(self.ui.TeamC_box.currentIndex()))
@@ -291,30 +305,85 @@ class MainWindow(QMainWindow):
         Intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
         print(f"intensity value = {Intensity_val}\n")
         match Intensity_val:
-            case 1: #high
-                intensity = self.urgency[2]
-            case 0: #low
-                intensity = self.urgency[1]
+            case 3: #parts
+                urgency = self.urgency[3]
+                type = "Parts"
+                print(type)
+            case 2: #high
+                urgency = self.urgency[2]
+                type = "High"
+            case 1: #low
+                urgency = self.urgency[1]
+                type = "Default"
             case _: #default
-                intensity = self.urgency[0]
-           # print(f"intensity match {urgency}\n")
-        messager = "red team head to arena\n"
-        messageb = "blue team head to arena\n"        
-        formatted =  f"{TeamAObject.pid}|{intensity}|{messager}{TeamBObject.pid}|{intensity}|{messager}{TeamCObject.pid}|{intensity}|{messageb}{TeamDObject.pid}|{intensity}|{messageb}"
+                urgency = self.urgency[0]
+                type = "Default"
+
+        print(f"type {type} \n")
+        match type:
+            case "Default":
+                messager = f"red team head to arena {field_num}\n"
+                messageb = f"blue team head to arena {field_num}\n"        
+                formatted =  f"{TeamAObject.pid}|{urgency}|{messager}{TeamBObject.pid}|{urgency}|{messager}{TeamCObject.pid}|{urgency}|{messageb}{TeamDObject.pid}|{urgency}|{messageb}"
+            case "High":
+                messager = f"red team head to arena {field_num} now\n"
+                messageb = f"blue team head to arena {field_num} now\n"        
+                formatted =  f"{TeamAObject.pid}|{urgency}|{messager}{TeamBObject.pid}|{urgency}|{messager}{TeamCObject.pid}|{urgency}|{messageb}{TeamDObject.pid}|{urgency}|{messageb}"
+            case "Parts":
+                message = f"parts request approved\n"
+                formatted = f"{TeamAObject.pid}|{urgency}|{message}{TeamBObject.pid}|{urgency}|{message}{TeamCObject.pid}|{urgency}|{message}{TeamDObject.pid}|{urgency}|{message}"
+                
         self.ui.Errorbox.clear()
         self.ui.Errorbox.insertPlainText(formatted)
 
-        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,intensity)
+        self.radio.send_message(TeamAObject.pid, TeamBObject.pid,TeamCObject.pid,TeamDObject.pid,urgency,type)
       
-    #single message
+    #single message function
+    # gets intensity value (selected message type )
+    # chooses message and then prints that to the ui errorbox
+    # as well as sending it to the send message function
     def send_message_single(self):
+
         TeamFObject=(self.ui.TeamF_box.itemData(self.ui.TeamF_box.currentIndex()))
-        message = "head to arena now\n"
-        formatted = f"{TeamFObject.pid}|{self.urgency[0]}|{message}"
+
+        field_num = (self.ui.Arena_select.currentText())
+        print(str(field_num))
+        intensity_val = self.ui.Intensity.currentIndex() #intensity value is based on the array index becuase idk how to get the text value and this works fine ish
+        print(f"intensity value = {intensity_val}\n")
+        formatted = None
+        match intensity_val:
+            case 3: #parts
+                intensity = self.urgency[3]
+                type = "Parts"
+            case 2: #high
+                intensity = self.urgency[2]
+
+                message = f"head to arena {field_num} now\n"
+                type = "High"
+            case 1: #low
+
+                message = f"head to arena {field_num} now\n"
+                intensity = self.urgency[1]
+                type = "Default"
+            case _: #default
+
+                message = f"parts request approved\n"
+                intensity = self.urgency[0]
+                type = "Default"
+        match type:
+            case "Default":
+                message = f"head to arena {field_num} now\n"
+                formatted = f"{TeamFObject.pid}|{intensity}|{message}"
+            case "High":
+                message = f"head to arena {field_num} now\n"
+                formatted = f"{TeamFObject.pid}|{intensity}|{message}"
+            case "Parts":
+                message = f"parts request approved\n"
+                formatted = f"{TeamFObject.pid}|{intensity}|{message}"
+            
         self.ui.Errorbox.clear()
         self.ui.Errorbox.insertPlainText(formatted)
-
-        self.radio.send_message_single(TeamFObject.pid,self.urgency[0])
+        self.radio.send_message_single(TeamFObject.pid,field_num,intensity,type)
 
 
     #functions for automatic mode

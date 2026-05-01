@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'PCUI.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.10.1
+## Created by: Qt User Interface Compiler version 6.11.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -30,7 +30,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setMinimumSize(QSize(900, 0))
+        MainWindow.setMinimumSize(QSize(900, 461))
         MainWindow.setAutoFillBackground(True)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -396,10 +396,10 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.load_teams = QPushButton(self.verticalFrame)
-        self.load_teams.setObjectName(u"load_teams")
+        self.clear_all = QPushButton(self.verticalFrame)
+        self.clear_all.setObjectName(u"clear_all")
 
-        self.horizontalLayout_6.addWidget(self.load_teams)
+        self.horizontalLayout_6.addWidget(self.clear_all)
 
         self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -410,19 +410,14 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_6.addWidget(self.pushButton_2)
 
-        self.select_teams_file = QPushButton(self.verticalFrame)
-        self.select_teams_file.setObjectName(u"select_teams_file")
-
-        self.horizontalLayout_6.addWidget(self.select_teams_file)
-
         self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_6.addItem(self.horizontalSpacer_5)
 
-        self.load_pid = QPushButton(self.verticalFrame)
-        self.load_pid.setObjectName(u"load_pid")
+        self.select_teams_file = QPushButton(self.verticalFrame)
+        self.select_teams_file.setObjectName(u"select_teams_file")
 
-        self.horizontalLayout_6.addWidget(self.load_pid)
+        self.horizontalLayout_6.addWidget(self.select_teams_file)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_6)
@@ -447,28 +442,11 @@ class Ui_MainWindow(object):
         self.ManualIcons.setObjectName(u"ManualIcons")
         self.verticalLayout_6 = QVBoxLayout(self.ManualIcons)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
-        self.verticalSpacer = QSpacerItem(20, 30, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.verticalLayout_6.addItem(self.verticalSpacer)
-
         self.horizontalFrame = QFrame(self.ManualIcons)
         self.horizontalFrame.setObjectName(u"horizontalFrame")
         self.horizontalFrame.setMinimumSize(QSize(0, 20))
         self.horizontalLayout_9 = QHBoxLayout(self.horizontalFrame)
         self.horizontalLayout_9.setObjectName(u"horizontalLayout_9")
-        self.horizontalSpacer_7 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_9.addItem(self.horizontalSpacer_7)
-
-        self.Title = QLabel(self.horizontalFrame)
-        self.Title.setObjectName(u"Title")
-
-        self.horizontalLayout_9.addWidget(self.Title)
-
-        self.horizontalSpacer_8 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_9.addItem(self.horizontalSpacer_8)
-
 
         self.verticalLayout_6.addWidget(self.horizontalFrame)
 
@@ -503,10 +481,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.TeamC_box = QComboBox(self.ManualIcons)
-        self.TeamC_box.setObjectName(u"TeamC_box")
+        self.TeamC = QLabel(self.ManualIcons)
+        self.TeamC.setObjectName(u"TeamC")
+        self.TeamC.setMinimumSize(QSize(125, 16))
 
-        self.gridLayout_2.addWidget(self.TeamC_box, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.TeamC, 0, 0, 1, 1)
 
         self.TeamD_box = QComboBox(self.ManualIcons)
         self.TeamD_box.setObjectName(u"TeamD_box")
@@ -519,11 +498,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.TeamD, 0, 1, 1, 1)
 
-        self.TeamC = QLabel(self.ManualIcons)
-        self.TeamC.setObjectName(u"TeamC")
-        self.TeamC.setMinimumSize(QSize(125, 16))
+        self.TeamC_box = QComboBox(self.ManualIcons)
+        self.TeamC_box.setObjectName(u"TeamC_box")
 
-        self.gridLayout_2.addWidget(self.TeamC, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.TeamC_box, 1, 0, 1, 1)
 
 
         self.verticalLayout_4.addLayout(self.gridLayout_2)
@@ -531,25 +509,16 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addLayout(self.verticalLayout_4)
 
-        self.horizontalLayout_11 = QHBoxLayout()
-        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
-        self.Intensity = QComboBox(self.ManualIcons)
-        self.Intensity.setObjectName(u"Intensity")
-
-        self.horizontalLayout_11.addWidget(self.Intensity)
-
+        self.horizontalLayout_13 = QHBoxLayout()
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
         self.MessageTeam = QPushButton(self.ManualIcons)
         self.MessageTeam.setObjectName(u"MessageTeam")
+        self.MessageTeam.setMaximumSize(QSize(140, 16777215))
 
-        self.horizontalLayout_11.addWidget(self.MessageTeam)
+        self.horizontalLayout_13.addWidget(self.MessageTeam)
 
 
-        self.verticalLayout_6.addLayout(self.horizontalLayout_11)
-
-        self.gridLayout_4 = QGridLayout()
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-
-        self.verticalLayout_6.addLayout(self.gridLayout_4)
+        self.verticalLayout_6.addLayout(self.horizontalLayout_13)
 
         self.label_2 = QLabel(self.ManualIcons)
         self.label_2.setObjectName(u"label_2")
@@ -557,24 +526,86 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_6.addWidget(self.label_2)
 
-        self.horizontalLayout_8 = QHBoxLayout()
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.verticalLayout_9 = QVBoxLayout()
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.horizontalLayout_12 = QHBoxLayout()
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.TeamF_box = QComboBox(self.ManualIcons)
         self.TeamF_box.setObjectName(u"TeamF_box")
+        self.TeamF_box.setMaximumSize(QSize(140, 16777215))
 
-        self.horizontalLayout_8.addWidget(self.TeamF_box)
+        self.horizontalLayout_12.addWidget(self.TeamF_box)
 
+
+        self.verticalLayout_9.addLayout(self.horizontalLayout_12)
+
+
+        self.verticalLayout_6.addLayout(self.verticalLayout_9)
+
+        self.horizontalLayout_11 = QHBoxLayout()
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
         self.Message_single = QPushButton(self.ManualIcons)
         self.Message_single.setObjectName(u"Message_single")
+        self.Message_single.setMaximumSize(QSize(140, 16777215))
 
-        self.horizontalLayout_8.addWidget(self.Message_single)
+        self.horizontalLayout_11.addWidget(self.Message_single)
 
 
-        self.verticalLayout_6.addLayout(self.horizontalLayout_8)
+        self.verticalLayout_6.addLayout(self.horizontalLayout_11)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.label_6 = QLabel(self.ManualIcons)
+        self.label_6.setObjectName(u"label_6")
+        self.label_6.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
-        self.verticalLayout_6.addItem(self.verticalSpacer_2)
+        self.verticalLayout_6.addWidget(self.label_6)
+
+        self.gridLayout_6 = QGridLayout()
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.Arena = QLabel(self.ManualIcons)
+        self.Arena.setObjectName(u"Arena")
+        self.Arena.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_6.addWidget(self.Arena, 0, 1, 1, 1)
+
+        self.Intensity = QComboBox(self.ManualIcons)
+        self.Intensity.addItem("")
+        self.Intensity.addItem("")
+        self.Intensity.addItem("")
+        self.Intensity.addItem("")
+        self.Intensity.setObjectName(u"Intensity")
+        self.Intensity.setMinimumContentsLength(0)
+
+        self.gridLayout_6.addWidget(self.Intensity, 1, 0, 1, 1)
+
+        self.label = QLabel(self.ManualIcons)
+        self.label.setObjectName(u"label")
+        self.label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout_6.addWidget(self.label, 0, 0, 1, 1)
+
+        self.Arena_select = QComboBox(self.ManualIcons)
+        self.Arena_select.addItem("")
+        self.Arena_select.addItem("")
+        self.Arena_select.addItem("")
+        self.Arena_select.addItem("")
+        self.Arena_select.addItem("")
+        self.Arena_select.addItem("")
+        self.Arena_select.addItem("")
+        self.Arena_select.addItem("")
+        self.Arena_select.setObjectName(u"Arena_select")
+
+        self.gridLayout_6.addWidget(self.Arena_select, 1, 1, 1, 1)
+
+
+        self.verticalLayout_6.addLayout(self.gridLayout_6)
+
+        self.verticalFrame1 = QFrame(self.ManualIcons)
+        self.verticalFrame1.setObjectName(u"verticalFrame1")
+        self.verticalFrame1.setMaximumSize(QSize(125, 16777215))
+        self.verticalLayout_8 = QVBoxLayout(self.verticalFrame1)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+
+        self.verticalLayout_6.addWidget(self.verticalFrame1)
 
 
         self.horizontalLayout_2.addWidget(self.ManualIcons)
@@ -596,7 +627,6 @@ class Ui_MainWindow(object):
         self.matchStateText.setObjectName(u"matchStateText")
         self.matchStateText.setGeometry(QRect(440, 160, 111, 91))
         self.matchStateText.setOverwriteMode(True)
-        self.matchStateText.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.Title_2 = QLabel(self.Automatic)
         self.Title_2.setObjectName(u"Title_2")
         self.Title_2.setGeometry(QRect(250, 50, 111, 20))
@@ -647,7 +677,6 @@ class Ui_MainWindow(object):
         self.fieldNumText.setObjectName(u"fieldNumText")
         self.fieldNumText.setGeometry(QRect(440, 280, 110, 31))
         self.fieldNumText.setOverwriteMode(True)
-        self.fieldNumText.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.Title_8 = QLabel(self.Automatic)
         self.Title_8.setObjectName(u"Title_8")
         self.Title_8.setGeometry(QRect(440, 260, 111, 20))
@@ -660,7 +689,6 @@ class Ui_MainWindow(object):
         self.qualNumText.setObjectName(u"qualNumText")
         self.qualNumText.setGeometry(QRect(440, 100, 110, 31))
         self.qualNumText.setOverwriteMode(True)
-        self.qualNumText.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.stackedWidget.addWidget(self.Automatic)
         self.Provision = QWidget()
         self.Provision.setObjectName(u"Provision")
@@ -710,11 +738,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout.addWidget(self.Main_Menus)
 
-        self.verticalFrame1 = QFrame(self.horizontalFrame_2)
-        self.verticalFrame1.setObjectName(u"verticalFrame1")
-        self.verticalLayout_3 = QVBoxLayout(self.verticalFrame1)
+        self.verticalFrame2 = QFrame(self.horizontalFrame_2)
+        self.verticalFrame2.setObjectName(u"verticalFrame2")
+        self.verticalLayout_3 = QVBoxLayout(self.verticalFrame2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.gridFrame_2 = QFrame(self.verticalFrame1)
+        self.gridFrame_2 = QFrame(self.verticalFrame2)
         self.gridFrame_2.setObjectName(u"gridFrame_2")
         self.gridLayout_5 = QGridLayout(self.gridFrame_2)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
@@ -751,20 +779,22 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.gridFrame_2)
 
-        self.Errorbox = QTextEdit(self.verticalFrame1)
+        self.Errorbox = QTextEdit(self.verticalFrame2)
         self.Errorbox.setObjectName(u"Errorbox")
         self.Errorbox.setMaximumSize(QSize(225, 16777215))
 
         self.verticalLayout_3.addWidget(self.Errorbox)
 
 
-        self.horizontalLayout.addWidget(self.verticalFrame1)
+        self.horizontalLayout.addWidget(self.verticalFrame2)
 
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(1)
+        self.Intensity.setCurrentIndex(0)
+        self.Arena_select.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -782,26 +812,41 @@ class Ui_MainWindow(object):
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
         self.PagerID1_2.setText(QCoreApplication.translate("MainWindow", u"Team Number", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"Pager ID", None))
-        self.load_teams.setText(QCoreApplication.translate("MainWindow", u"load teams", None))
+        self.clear_all.setText(QCoreApplication.translate("MainWindow", u"Clear all", None))
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Set teams", None))
         self.select_teams_file.setText(QCoreApplication.translate("MainWindow", u"Select file", None))
-        self.load_pid.setText(QCoreApplication.translate("MainWindow", u"load Pid", None))
-        self.Title.setText(QCoreApplication.translate("MainWindow", u"MANUAL QUEUE", None))
         self.TeamB.setText(QCoreApplication.translate("MainWindow", u"Red 2", None))
         self.TeamA.setText(QCoreApplication.translate("MainWindow", u"Red 1", None))
-        self.TeamD.setText(QCoreApplication.translate("MainWindow", u"Blue 2", None))
         self.TeamC.setText(QCoreApplication.translate("MainWindow", u"Blue 1", None))
-        self.MessageTeam.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
+        self.TeamD.setText(QCoreApplication.translate("MainWindow", u"Blue 2", None))
+        self.MessageTeam.setText(QCoreApplication.translate("MainWindow", u"Message Teams", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Single Team", None))
         self.Message_single.setText(QCoreApplication.translate("MainWindow", u"Message Team", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Parameters", None))
+        self.Arena.setText(QCoreApplication.translate("MainWindow", u"Arena", None))
+        self.Intensity.setItemText(0, QCoreApplication.translate("MainWindow", u"Default", None))
+        self.Intensity.setItemText(1, QCoreApplication.translate("MainWindow", u"Page low", None))
+        self.Intensity.setItemText(2, QCoreApplication.translate("MainWindow", u"Page high", None))
+        self.Intensity.setItemText(3, QCoreApplication.translate("MainWindow", u"Parts", None))
+
+        self.label.setText(QCoreApplication.translate("MainWindow", u"Message Type", None))
+        self.Arena_select.setItemText(0, QCoreApplication.translate("MainWindow", u"1", None))
+        self.Arena_select.setItemText(1, QCoreApplication.translate("MainWindow", u"2", None))
+        self.Arena_select.setItemText(2, QCoreApplication.translate("MainWindow", u"3", None))
+        self.Arena_select.setItemText(3, QCoreApplication.translate("MainWindow", u"4", None))
+        self.Arena_select.setItemText(4, QCoreApplication.translate("MainWindow", u"5", None))
+        self.Arena_select.setItemText(5, QCoreApplication.translate("MainWindow", u"6", None))
+        self.Arena_select.setItemText(6, QCoreApplication.translate("MainWindow", u"7", None))
+        self.Arena_select.setItemText(7, QCoreApplication.translate("MainWindow", u"8", None))
+
         self.matchStateText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         self.Title_2.setText(QCoreApplication.translate("MainWindow", u"AUTOMATIC QUEUE", None))
         self.blueTeam2Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
@@ -809,32 +854,32 @@ class Ui_MainWindow(object):
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         self.redTeam1Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         self.redTeam2Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         self.blueTeam1Text.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         self.Title_3.setText(QCoreApplication.translate("MainWindow", u"Red Team 1:", None))
         self.Title_4.setText(QCoreApplication.translate("MainWindow", u"Red Team 2:", None))
         self.Title_5.setText(QCoreApplication.translate("MainWindow", u"Blue Team 1:", None))
@@ -848,8 +893,8 @@ class Ui_MainWindow(object):
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         self.Title_8.setText(QCoreApplication.translate("MainWindow", u"Field #", None))
         self.Title_9.setText(QCoreApplication.translate("MainWindow", u"Qualification #", None))
         self.qualNumText.setHtml(QCoreApplication.translate("MainWindow", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -858,8 +903,8 @@ class Ui_MainWindow(object):
 "hr { height: 1px; border-width: 0; }\n"
 "li.unchecked::marker { content: \"\\2610\"; }\n"
 "li.checked::marker { content: \"\\2612\"; }\n"
-"</style></head><body style=\" font-family:'Segoe UI'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+"</style></head><body style=\" font-family:'DejaVu Sans'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Segoe UI'; font-size:9pt;\"><br /></p></body></html>", None))
         self.Provision_button.setText(QCoreApplication.translate("MainWindow", u"Provision Pager", None))
         self.Teams_set_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
         self.Automatic_indicator.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
