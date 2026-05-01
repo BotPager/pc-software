@@ -13,9 +13,32 @@ def get_local_ip():
 
 BASE_URL = get_local_ip()
 EVENT_CODE = 4290               #EDIT FOR OFFICIAL EVENT RUNS: 4290 is testing
-number_of_teams = 16            #EDIT FOR OFFICIAL EVENT RUNS: 16 is max teams at an event
 
 active_match_url = f"http://{BASE_URL}/api/v1/events/{EVENT_CODE}/matches/active/"
+teams_url = f"http://{BASE_URL}/api/v1/events/{EVENT_CODE}/teams/"
+
+def get_teams():
+    response = requests.get(teams_url, timeout=5)
+
+    if response.status_code == 200:
+        return response.json()
+    elif response.status_code == 429:
+        print("Rate limited! Backing off...")
+        return None
+    else:
+        print(f"Error {response.status_code}: {response.text}")
+        return None
+
+teams = get_teams()
+file_path = 'team_numbers.txt'
+number_of_teams = 16            #EDIT FOR OFFICIAL EVENT RUNS: testing default value
+
+if teams and isinstance(teams.get("teamNumbers"), list):
+    number_of_teams = len(teams["teamNumbers"]) #Update Number of Teams from API
+    with open(file_path, 'w') as f_output:
+        if teams:
+            for team in teams["teamNumbers"]:
+                print(team, file=f_output)
 
 def get_active_match_details():
     try:
