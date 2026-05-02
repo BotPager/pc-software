@@ -42,15 +42,17 @@ After adding the entry to resources.qrc generate the required rc_resources.py fi
 After editing the .ui file convert it to PCUI.py by running ```pyside6-uic PCUI.ui > ui_PCUI.py```
 
 # Operation Manual
-## Device connection
+## Device Connection
 * System will autoconnect fastest when software is started and a gateway/pager is plugged in after.
 * Plugging in gateway/pager prior to application start will work however a 10 second delay may occur.
-## Team setup
+## Team Setup
 The PC software will automatically attempt to load a teams.txt file in the location where the application was launched from.
 Each line of teams.txt is as follows #teamnumber, #pid.
 Manual entry of teams is permitted and follows the same order of teamnumber then pid for the 16 teams. Set teams will update the list of teams and write the list to teams.txt. Clicking clear teams will reset the list of teams to blank.
 ## Automatic
+This mode automatically interfaces with FTC Live through API calls to pull queue team data from the match scheduler during an event. All that's needed is to hit the start button to start reading from the API to send pager messages.
 
+Please reference the "AUTOMATIC_MODE_USER_GUIDE.md" for in depth details on the functions pertinent to the mode and how to customize specific parameters.
 ## Manual
 Manual mode allows for messaging groups of 4 teams or 1 single team.
 The 4 team option uses the first 2 selected teams as the red team and the second 2 as blue. This format is only used for normal messaging and does not include parts requests.
